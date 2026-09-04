@@ -248,14 +248,18 @@
         el.feedback.textContent = data.error || 'Something went wrong.';
         return;
       }
+      if (data.correct && data.alreadySolved) {
+        // Silent no-op: this guess is a word you already have. Don't touch
+        // the input -- it may just be a prefix of a longer word you're
+        // still typing toward (e.g. "ARE" on the way to "AREA").
+        return;
+      }
       if (data.correct) {
-        var isNew = !state.solvedAnswers.has(data.num);
         state.solvedAnswers.set(data.num, data.answer);
         markCellSolved(data.num, data.answer);
         updateStats();
         el.feedback.className = 'feedback correct';
-        el.feedback.textContent = (isNew ? 'Got it — ' : 'Already had ') +
-          '#' + data.num + ' ' + data.answer + ' ✓';
+        el.feedback.textContent = 'Got it — #' + data.num + ' ' + data.answer + ' ✓';
         el.entryInput.value = '';
         state.lastChecked = '';
 

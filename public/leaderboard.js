@@ -7,8 +7,7 @@
     body: document.getElementById('boardBody'),
     refreshBtn: document.getElementById('refreshBtn'),
     fbStatus: document.getElementById('fbBoardStatus'),
-    fbTable: document.getElementById('fbBoardTable'),
-    fbBody: document.getElementById('fbBoardBody'),
+    fbBoards: document.getElementById('fbPuzzleBoards'),
   };
 
   el.refreshBtn.addEventListener('click', function () {
@@ -37,7 +36,7 @@
   async function loadFlashback() {
     el.fbStatus.textContent = 'Loading…';
     el.fbStatus.classList.remove('hidden');
-    el.fbTable.classList.add('hidden');
+    el.fbBoards.innerHTML = '';
 
     try {
       var res = await fetch('/api/flashback-leaderboard');
@@ -46,7 +45,7 @@
         el.fbStatus.textContent = data.error || 'Could not load leaderboard.';
         return;
       }
-      renderFlashback(data.leaderboard || []);
+      renderFlashback(data.puzzles || []);
     } catch (err) {
       el.fbStatus.textContent = 'Network error — try refresh.';
     }
@@ -113,67 +112,70 @@
     el.table.classList.remove('hidden');
   }
 
-  function renderFlashback(rows) {
-    el.fbBody.innerHTML = '';
+  // One simple table per puzzle: Player, Mistakes. No aggregate columns,
+  // no expandable breakdown -- just each puzzle's own board.
+  function renderFlashback(puzzles) {
+    el.fbBoards.innerHTML = '';
 
-    if (rows.length === 0) {
-      el.fbStatus.textContent = 'No Flashback attempts yet — be the first!';
+    if (puzzles.length === 0) {
+      el.fbStatus.textContent = 'No puzzles yet.';
       return;
     }
 
-    rows.forEach(function (row, i) {
-      var tr = document.createElement('tr');
+    puzzles.forEach(function (p, i) {
+      var section = document.createElement('div');
+      section.className = 'fb-puzzle-board';
 
-      var tdRank = document.createElement('td');
-      tdRank.textContent = String(i + 1);
+      var heading = document.createElement('h3');
+      heading.textContent = 'Puzzle ' + (i + 1);
+      section.appendChild(heading);
 
-      var tdName = document.createElement('td');
-      tdName.textContent = row.username;
-
-      var tdPlayed = document.createElement('td');
-      tdPlayed.textContent = String(row.puzzles_played);
-
-      var tdMistakes = document.createElement('td');
-      tdMistakes.textContent = String(row.total_mistakes);
-
-      var tdPerfect = document.createElement('td');
-      tdPerfect.textContent = String(row.perfect_solves);
-
-      var tdBreakdown = document.createElement('td');
-      if (row.puzzles && row.puzzles.length > 0) {
-        var toggle = document.createElement('button');
-        toggle.className = 'link-btn words-toggle';
-        toggle.textContent = 'Show breakdown';
-        var list = document.createElement('div');
-        list.className = 'word-chip-list hidden';
-        row.puzzles.forEach(function (p) {
-          var chip = document.createElement('span');
-          chip.className = 'word-chip';
-          chip.textContent = p.puzzleId + ': ' + p.mistakes;
-          list.appendChild(chip);
-        });
-        toggle.addEventListener('click', function () {
-          var showing = !list.classList.contains('hidden');
-          list.classList.toggle('hidden', showing);
-          toggle.textContent = showing ? 'Show breakdown' : 'Hide';
-        });
-        tdBreakdown.appendChild(toggle);
-        tdBreakdown.appendChild(list);
+      if (p.entries.length === 0) {
+        var empty = document.createElement('div');
+        empty.className = 'muted fb-puzzle-board-empty';
+        empty.textContent = 'No attempts yet.';
+        section.appendChild(empty);
       } else {
-        tdBreakdown.textContent = '—';
+        var table = document.createElement('table');
+        table.className = 'board-table';
+
+        var thead = document.createElement('thead');
+        var headRow = document.createElement('tr');
+        ['#', 'Player', 'Mistakes'].forEach(function (label, idx) {
+          var th = document.createElement('th');
+          th.className = idx === 0 ? 'col-rank' : (idx === 2 ? 'col-count' : 'col-name');
+          th.textContent = label;
+          headRow.appendChild(th);
+        });
+        thead.appendChild(headRow);
+        table.appendChild(thead);
+
+        var tbody = document.createElement('tbody');
+        p.entries.forEach(function (entry, j) {
+          var tr = document.createElement('tr');
+
+          var tdRank = document.createElement('td');
+          tdRank.textContent = String(j + 1);
+
+          var tdName = document.createElement('td');
+          tdName.textContent = entry.username;
+
+          var tdMistakes = document.createElement('td');
+          tdMistakes.textContent = String(entry.mistakes);
+
+          tr.appendChild(tdRank);
+          tr.appendChild(tdName);
+          tr.appendChild(tdMistakes);
+          tbody.appendChild(tr);
+        });
+        table.appendChild(tbody);
+        section.appendChild(table);
       }
 
-      tr.appendChild(tdRank);
-      tr.appendChild(tdName);
-      tr.appendChild(tdPlayed);
-      tr.appendChild(tdMistakes);
-      tr.appendChild(tdPerfect);
-      tr.appendChild(tdBreakdown);
-      el.fbBody.appendChild(tr);
+      el.fbBoards.appendChild(section);
     });
 
     el.fbStatus.classList.add('hidden');
-    el.fbTable.classList.remove('hidden');
   }
 
   load();

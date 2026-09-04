@@ -280,6 +280,15 @@ footer {
   margin: 0 0 0.8rem;
 }
 .board-main h2.fb-lb-heading { margin-top: 2rem; }
+.fb-puzzle-board { margin-bottom: 1.6rem; }
+.fb-puzzle-board h3 {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.5rem;
+}
+.fb-puzzle-board-empty { font-size: 0.8rem; }
 .board-table {
   width: 100%;
   border-collapse: collapse;

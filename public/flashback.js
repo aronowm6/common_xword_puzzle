@@ -34,6 +34,8 @@
     el.gameTheme = document.getElementById('gameTheme');
     el.mistakeCount = document.getElementById('mistakeCount');
     el.resultFlash = document.getElementById('resultFlash');
+    el.resultFlashMain = document.getElementById('resultFlashMain');
+    el.resultFlashSub = document.getElementById('resultFlashSub');
     el.placedList = document.getElementById('placedList');
     el.currentWordCard = document.getElementById('currentWordCard');
     el.currentWord = document.getElementById('currentWord');
@@ -244,13 +246,16 @@
   var SETTLE_MS = 700;           // pause after it lands before revealing the next word
 
   // Flashes the just-placed card green/red (red stays solid -- see
-  // migrateCard for when it clears), and flashes a bigger
-  // CORRECT/INCORRECT banner at the top of the game area.
-  function flashResult(placedIndex, correct) {
+  // migrateCard for when it clears), and flashes a bigger CORRECT/
+  // INCORRECT banner (with a detail subheader) at the top of the game
+  // area. `detail` carries what used to be a separate message at the
+  // bottom of the page -- now shown as part of the same banner instead.
+  function flashResult(placedIndex, correct, detail) {
     var cardEl = el.placedList.children[placedIndex * 2 + 1];
     if (cardEl) cardEl.classList.add(correct ? 'flash-correct' : 'wrong-hold');
 
-    el.resultFlash.textContent = correct ? 'Correct' : 'Incorrect';
+    el.resultFlashMain.textContent = correct ? 'Correct' : 'Incorrect';
+    el.resultFlashSub.textContent = detail || '';
     el.resultFlash.className = 'fb-result-flash show ' + (correct ? 'correct' : 'wrong');
     clearTimeout(state.flashTimer);
     state.flashTimer = setTimeout(function () {
@@ -327,9 +332,9 @@
           return;
         }
 
-        flashResult(finalPosition, true);
-        el.feedback.className = 'feedback correct';
-        el.feedback.textContent = 'Correct! ✓ Used ' + data.count + ' times.';
+        flashResult(finalPosition, true, 'Used ' + data.count + ' times.');
+        el.feedback.className = 'feedback';
+        el.feedback.textContent = '';
         setTimeout(revealNext, REVEAL_DELAY_MS);
         return;
       }
@@ -339,12 +344,12 @@
       state.placed.splice(guessedPosition, 0, { word: word, count: data.count });
       el.currentWordCard.classList.add('hidden');
       renderPlaced();
-      flashResult(guessedPosition, false);
+      flashResult(guessedPosition, false, word + ' actually goes here — used ' + data.count + ' times.');
 
       state.mistakes += 1;
       el.mistakeCount.textContent = String(state.mistakes);
-      el.feedback.className = 'feedback wrong';
-      el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
+      el.feedback.className = 'feedback';
+      el.feedback.textContent = '';
 
       setTimeout(function () {
         migrateCard(guessedPosition, data.correctIndex);

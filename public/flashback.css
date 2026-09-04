@@ -61,24 +61,34 @@
 .fb-order-label-top { margin-bottom: 0.4rem; }
 .fb-order-label-bottom { margin-top: 0.4rem; margin-bottom: 1.3rem; }
 
-/* Flashes CORRECT / INCORRECT at the top of the game area after each
-   guess, then fades back out. */
+/* Flashes CORRECT / INCORRECT (plus a detail subheader) at the top of the
+   game area after each guess, then fades back out. */
 .fb-result-flash {
   text-align: center;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.3rem;
-  font-weight: bold;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.6rem;
+  padding: 0.7rem 0.6rem;
   margin-bottom: 1rem;
   border: 3px solid transparent;
   opacity: 0;
   transition: opacity 0.15s ease;
 }
 .fb-result-flash.show { opacity: 1; }
-.fb-result-flash.correct { color: var(--correct); border-color: var(--correct); }
-.fb-result-flash.wrong { color: var(--wrong); border-color: var(--wrong); }
+.fb-result-flash.correct { border-color: var(--correct); }
+.fb-result-flash.correct .fb-result-flash-main { color: var(--correct); }
+.fb-result-flash.wrong { border-color: var(--wrong); }
+.fb-result-flash.wrong .fb-result-flash-main { color: var(--wrong); }
+.fb-result-flash-main {
+  font-size: 1.3rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+.fb-result-flash-sub {
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+  font-weight: normal;
+  color: var(--muted);
+}
 
 .fb-placed-list {
   display: flex;

@@ -1,8 +1,10 @@
 const { getPool, ensureSchema } = require('./_lib/db');
+const { listPuzzles } = require('./_lib/flashback');
 
-// GET -> every player who has completed at least one Flashback puzzle,
-// their best (lowest-mistake) score per puzzle, and a summary. Puzzle
-// content itself (words/order) is never included here.
+// GET -> one entry list per puzzle: { puzzles: [{ puzzleId, entries: [{
+// username, mistakes }] }] }, best (lowest-mistake) attempt per player per
+// puzzle, sorted best-first. Always includes all known puzzles, even ones
+// nobody's attempted yet (empty entries array).
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -18,26 +20,25 @@ module.exports = async (req, res) => {
         FROM flashback_attempts
         GROUP BY user_id, puzzle_id
       )
-      SELECT
-        u.username,
-        COUNT(b.puzzle_id)::int AS puzzles_played,
-        COALESCE(SUM(b.mistakes), 0)::int AS total_mistakes,
-        COALESCE(SUM(CASE WHEN b.mistakes = 0 THEN 1 ELSE 0 END), 0)::int AS perfect_solves,
-        COALESCE(
-          json_agg(
-            json_build_object('puzzleId', b.puzzle_id, 'mistakes', b.mistakes)
-            ORDER BY b.puzzle_id
-          ) FILTER (WHERE b.puzzle_id IS NOT NULL),
-          '[]'
-        ) AS puzzles
-      FROM users u
-      JOIN best b ON b.user_id = u.id
-      GROUP BY u.username
-      ORDER BY puzzles_played DESC, total_mistakes ASC, u.username ASC
+      SELECT b.puzzle_id, u.username, b.mistakes
+      FROM best b
+      JOIN users u ON u.id = b.user_id
+      ORDER BY b.puzzle_id ASC, b.mistakes ASC, u.username ASC
     `);
 
+    const entriesByPuzzle = new Map();
+    for (const row of rows) {
+      if (!entriesByPuzzle.has(row.puzzle_id)) entriesByPuzzle.set(row.puzzle_id, []);
+      entriesByPuzzle.get(row.puzzle_id).push({ username: row.username, mistakes: row.mistakes });
+    }
+
+    const puzzles = listPuzzles().map(({ id }) => ({
+      puzzleId: id,
+      entries: entriesByPuzzle.get(id) || [],
+    }));
+
     res.setHeader('Cache-Control', 'no-store');
-    res.status(200).json({ leaderboard: rows });
+    res.status(200).json({ puzzles });
   } catch (err) {
     console.error('flashback-leaderboard error', err);
     res.status(500).json({ error: 'Server error, please try again.' });

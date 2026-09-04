@@ -74,9 +74,23 @@
     });
   }
 
+  // Keeps --header-height in sync with the actual rendered topbar height,
+  // so the sticky entry panel sits flush below it instead of overlapping
+  // or leaving a gap -- needed since the topbar's height isn't fixed (it
+  // wraps to multiple lines on narrow screens, grows when "Playing as..."
+  // appears, etc).
+  function syncHeaderHeight() {
+    var topbar = document.querySelector('.topbar');
+    if (!topbar) return;
+    document.documentElement.style.setProperty('--header-height', topbar.offsetHeight + 'px');
+  }
+
   async function init() {
     cacheEls();
     bindEvents();
+
+    syncHeaderHeight();
+    window.addEventListener('resize', syncHeaderHeight);
 
     authUI = CXPAuthUI.init({
       onLoggedIn: function (username, solved, claimedLegacy) {
@@ -114,6 +128,7 @@
     el.app.classList.remove('hidden');
     el.whoami.classList.add('hidden');
     el.guestBanner.classList.remove('hidden');
+    syncHeaderHeight();
 
     renderAllCells();
     updateStats();
@@ -134,6 +149,7 @@
     el.guestBanner.classList.add('hidden');
     el.app.classList.remove('hidden');
     if (authUI) authUI.hide(); // no-op if already hidden -- needed for the silent-resume path, which bypasses the form-submit flow that normally hides it
+    syncHeaderHeight();
 
     renderAllCells();
     updateStats();

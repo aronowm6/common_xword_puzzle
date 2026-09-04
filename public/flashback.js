@@ -106,7 +106,7 @@
   }
 
   async function loadPuzzleList() {
-    var res = await fetch('/api/flashback-list');
+    var res = await fetch('/api/flashback?action=list');
     var data = await res.json();
     state.puzzles = data.puzzles || [];
   }
@@ -115,10 +115,10 @@
     var token = CXPAuth.getToken();
     if (!token) return;
     try {
-      var res = await fetch('/api/flashback-progress', {
+      var res = await fetch('/api/flashback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token }),
+        body: JSON.stringify({ action: 'progress', token: token }),
       });
       var data = await res.json();
       if (res.ok) state.progress = data.progress || {};
@@ -180,7 +180,7 @@
     el.feedback.className = 'feedback';
     el.feedback.textContent = 'Loading puzzle…';
 
-    var res = await fetch('/api/flashback-puzzle?id=' + encodeURIComponent(id));
+    var res = await fetch('/api/flashback?action=puzzle&id=' + encodeURIComponent(id));
     if (!res.ok) return;
     var data = await res.json();
 
@@ -330,10 +330,11 @@
     if (!isFirst) state.currentWord = null; // lock out further clicks immediately
 
     try {
-      var res = await fetch('/api/flashback-check', {
+      var res = await fetch('/api/flashback', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
+          action: 'check',
           puzzleId: state.puzzleId,
           placed: state.placed.map(function (p) { return p.word; }),
           newWord: word,
@@ -399,10 +400,10 @@
     var best = null;
     if (!state.isGuest) {
       try {
-        var res = await fetch('/api/flashback-complete', {
+        var res = await fetch('/api/flashback', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ token: token, puzzleId: state.puzzleId, score: state.score }),
+          body: JSON.stringify({ action: 'complete', token: token, puzzleId: state.puzzleId, score: state.score }),
         });
         var data = await res.json();
         if (res.ok) {

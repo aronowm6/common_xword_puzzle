@@ -39,7 +39,7 @@
     el.fbBoards.innerHTML = '';
 
     try {
-      var res = await fetch('/api/flashback-leaderboard');
+      var res = await fetch('/api/flashback?action=leaderboard');
       var data = await res.json();
       if (!res.ok) {
         el.fbStatus.textContent = data.error || 'Could not load leaderboard.';

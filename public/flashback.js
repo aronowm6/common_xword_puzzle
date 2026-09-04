@@ -165,7 +165,9 @@
     state.currentWord = null;
     state.mistakes = 0;
 
-    el.gameTheme.textContent = state.theme || '';
+    var idx = state.puzzles.findIndex(function (p) { return p.id === id; });
+    var puzzleLabel = idx >= 0 ? ('Puzzle ' + (idx + 1)) : '';
+    el.gameTheme.textContent = state.theme || puzzleLabel;
     el.feedback.textContent = '';
 
     revealNext();
@@ -241,11 +243,12 @@
   var MIGRATE_MS = 500;         // slide animation duration
   var SETTLE_MS = 700;           // pause after it lands before revealing the next word
 
-  // Flashes the just-placed card green/red, and flashes a bigger
+  // Flashes the just-placed card green/red (red stays solid -- see
+  // migrateCard for when it clears), and flashes a bigger
   // CORRECT/INCORRECT banner at the top of the game area.
   function flashResult(placedIndex, correct) {
     var cardEl = el.placedList.children[placedIndex * 2 + 1];
-    if (cardEl) cardEl.classList.add(correct ? 'flash-correct' : 'flash-wrong');
+    if (cardEl) cardEl.classList.add(correct ? 'flash-correct' : 'wrong-hold');
 
     el.resultFlash.textContent = correct ? 'Correct' : 'Incorrect';
     el.resultFlash.className = 'fb-result-flash show ' + (correct ? 'correct' : 'wrong');
@@ -257,7 +260,8 @@
 
   // Moves the card currently at `fromIndex` in state.placed to `toIndex`,
   // sliding it there visually (FLIP-style: measure before, update the DOM,
-  // measure after, animate the delta) instead of just teleporting.
+  // measure after, animate the delta) instead of just teleporting. Stays
+  // red for the whole slide and only fades back to normal once it lands.
   function migrateCard(fromIndex, toIndex) {
     var cardEl = el.placedList.children[fromIndex * 2 + 1];
     var oldRect = cardEl ? cardEl.getBoundingClientRect() : null;
@@ -268,6 +272,7 @@
 
     var newCardEl = el.placedList.children[toIndex * 2 + 1];
     if (newCardEl && oldRect) {
+      newCardEl.classList.add('wrong-hold'); // renderPlaced() built a fresh node -- stay red on it too
       var newRect = newCardEl.getBoundingClientRect();
       var delta = oldRect.top - newRect.top;
       newCardEl.style.transition = 'none';
@@ -276,6 +281,11 @@
       newCardEl.offsetHeight; // force reflow so the jump above applies before animating
       newCardEl.style.transition = 'transform ' + MIGRATE_MS + 'ms ease';
       newCardEl.style.transform = 'translateY(0)';
+
+      setTimeout(function () {
+        newCardEl.style.transition = 'background 250ms ease, border-color 250ms ease';
+        newCardEl.classList.remove('wrong-hold');
+      }, MIGRATE_MS);
     }
   }
 

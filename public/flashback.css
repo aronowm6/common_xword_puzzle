@@ -108,15 +108,14 @@
   letter-spacing: 0.02em;
 }
 .fb-word-card.flash-correct { animation: flashCorrect 1s ease; }
-.fb-word-card.flash-wrong { animation: flashWrong 1s ease; }
 @keyframes flashCorrect {
   0%, 25% { background: var(--correct); border-color: var(--correct); }
   100% { background: var(--ink); border-color: var(--ink); }
 }
-@keyframes flashWrong {
-  0%, 25% { background: var(--wrong); border-color: var(--wrong); }
-  100% { background: var(--ink); border-color: var(--ink); }
-}
+/* Wrong guesses: stays solid red (no auto-fade) through the hold and the
+   slide -- JS removes this class only once the card lands, so red
+   persists the whole time it's "wrong" and only clears on arrival. */
+.fb-word-card.wrong-hold { background: var(--wrong); border-color: var(--wrong); }
 
 /* A full-width dashed-border button, not a bare "+" floating on a line --
    the whole bar is the click target, and hovering inverts it just like

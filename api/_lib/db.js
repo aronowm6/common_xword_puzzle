@@ -49,16 +49,23 @@ async function ensureSchema() {
       );
       CREATE INDEX IF NOT EXISTS sessions_user_id_idx ON sessions(user_id);
 
-      -- Flashback: one row per completed attempt (not just best-of), so we
-      -- keep full history but the leaderboard only surfaces each player's
-      -- best (lowest-mistake) attempt per puzzle via MIN().
+      -- Flashback (aka Ordering Game): one row per completed attempt (not
+      -- just best-of), so we keep full history but the leaderboard only
+      -- surfaces each player's best (highest-score) attempt per puzzle
+      -- via MAX().
       CREATE TABLE IF NOT EXISTS flashback_attempts (
         id SERIAL PRIMARY KEY,
         user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
         puzzle_id TEXT NOT NULL,
-        mistakes INTEGER NOT NULL,
+        score INTEGER NOT NULL DEFAULT 0,
         completed_at TIMESTAMPTZ NOT NULL DEFAULT now()
       );
+      -- Migrated from a mistake-count scoring system to pairwise-comparison
+      -- points (higher is better). Old mistake-count rows can't be
+      -- converted, so the column is just dropped -- attempts get wiped
+      -- separately as a one-time cleanup alongside this change.
+      ALTER TABLE flashback_attempts DROP COLUMN IF EXISTS mistakes;
+      ALTER TABLE flashback_attempts ADD COLUMN IF NOT EXISTS score INTEGER NOT NULL DEFAULT 0;
       CREATE INDEX IF NOT EXISTS flashback_attempts_user_puzzle_idx ON flashback_attempts(user_id, puzzle_id);
     `).catch((err) => {
       schemaReady = undefined; // allow retry on next request

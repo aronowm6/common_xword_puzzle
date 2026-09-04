@@ -141,7 +141,7 @@
 
         var thead = document.createElement('thead');
         var headRow = document.createElement('tr');
-        ['#', 'Player', 'Mistakes'].forEach(function (label, idx) {
+        ['#', 'Player', 'Score'].forEach(function (label, idx) {
           var th = document.createElement('th');
           th.className = idx === 0 ? 'col-rank' : (idx === 2 ? 'col-count' : 'col-name');
           th.textContent = label;
@@ -160,12 +160,12 @@
           var tdName = document.createElement('td');
           tdName.textContent = entry.username;
 
-          var tdMistakes = document.createElement('td');
-          tdMistakes.textContent = String(entry.mistakes);
+          var tdScore = document.createElement('td');
+          tdScore.textContent = String(entry.score);
 
           tr.appendChild(tdRank);
           tr.appendChild(tdName);
-          tr.appendChild(tdMistakes);
+          tr.appendChild(tdScore);
           tbody.appendChild(tr);
         });
         table.appendChild(tbody);

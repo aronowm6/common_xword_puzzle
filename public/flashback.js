@@ -5,16 +5,23 @@
 
   var state = {
     puzzles: [],           // [{id, theme, wordCount}]
-    progress: {},           // { puzzleId: bestMistakes } for the signed-in player
+    progress: {},           // { puzzleId: bestScore } for the signed-in player
     puzzleId: null,
     theme: null,
     totalWords: 0,
+    maxScore: 0,
     revealQueue: [],        // words not yet revealed, in reveal order
     placed: [],              // [{word, count}] placed so far, correct order
     currentWord: null,        // word awaiting a guess
-    mistakes: 0,
+    score: 0,
     flashTimer: null,
   };
+
+  // Every pairwise comparison among N words, C(N, 2) -- matches the same
+  // formula the server uses to score each guess.
+  function maxScoreFor(n) {
+    return (n * (n - 1)) / 2;
+  }
 
   function cacheEls() {
     el.app = document.getElementById('app');
@@ -33,7 +40,7 @@
     el.gameSection = document.getElementById('gameSection');
     el.backToPickerBtn = document.getElementById('backToPickerBtn');
     el.gameTheme = document.getElementById('gameTheme');
-    el.mistakeCount = document.getElementById('mistakeCount');
+    el.scoreCount = document.getElementById('scoreCount');
     el.resultFlash = document.getElementById('resultFlash');
     el.resultFlashMain = document.getElementById('resultFlashMain');
     el.resultFlashSub = document.getElementById('resultFlashSub');
@@ -155,7 +162,7 @@
       if (done) {
         var doneEl = document.createElement('div');
         doneEl.className = 'fb-puzzle-done';
-        doneEl.textContent = '✓ Done — ' + best + (best === 1 ? ' mistake' : ' mistakes');
+        doneEl.textContent = '✓ Done — ' + best + ' / ' + maxScoreFor(p.wordCount) + ' points';
         card.appendChild(doneEl);
       }
 
@@ -178,7 +185,7 @@
     el.resultSection.classList.add('hidden');
     el.gameSection.classList.remove('hidden');
     el.gameTheme.textContent = '';
-    el.mistakeCount.textContent = '0';
+    el.scoreCount.textContent = '0';
     el.feedback.className = 'feedback';
     el.feedback.textContent = 'Loading puzzle…';
 
@@ -189,10 +196,12 @@
     state.puzzleId = data.id;
     state.theme = data.theme;
     state.totalWords = data.revealOrder.length;
+    state.maxScore = maxScoreFor(state.totalWords);
     state.revealQueue = data.revealOrder.slice();
     state.placed = [];
     state.currentWord = null;
-    state.mistakes = 0;
+    state.score = 0;
+    el.scoreCount.textContent = '0 / ' + state.maxScore;
 
     var idx = state.puzzles.findIndex(function (p) { return p.id === id; });
     var puzzleLabel = idx >= 0 ? ('Puzzle ' + (idx + 1)) : '';
@@ -274,14 +283,15 @@
 
   // Flashes the just-placed card green/red (red stays solid -- see
   // migrateCard for when it clears), and flashes a bigger CORRECT/
-  // INCORRECT banner (with a detail subheader) at the top of the game
-  // area. `detail` carries what used to be a separate message at the
-  // bottom of the page -- now shown as part of the same banner instead.
-  function flashResult(placedIndex, correct, detail) {
+  // INCORRECT (+points) banner (with a detail subheader) at the top of
+  // the game area. `detail` carries what used to be a separate message at
+  // the bottom of the page -- now shown as part of the same banner
+  // instead.
+  function flashResult(placedIndex, correct, detail, points) {
     var cardEl = el.placedList.children[placedIndex * 2 + 1];
     if (cardEl) cardEl.classList.add(correct ? 'flash-correct' : 'wrong-hold');
 
-    el.resultFlashMain.textContent = correct ? 'Correct' : 'Incorrect';
+    el.resultFlashMain.textContent = (correct ? 'Correct' : 'Incorrect') + '  +' + points;
     el.resultFlashSub.textContent = detail || '';
     el.resultFlash.className = 'fb-result-flash show ' + (correct ? 'correct' : 'wrong');
     clearTimeout(state.flashTimer);
@@ -353,13 +363,15 @@
         renderPlaced();
 
         if (isFirst) {
-          // Auto-placed, no real guess involved -- nothing to flash, skip
-          // straight to revealing the next word.
+          // Auto-placed, no real guess involved -- nothing to flash or
+          // score, skip straight to revealing the next word.
           revealNext();
           return;
         }
 
-        flashResult(finalPosition, true, 'Used ' + data.count + ' times.');
+        state.score += data.points;
+        el.scoreCount.textContent = state.score + ' / ' + state.maxScore;
+        flashResult(finalPosition, true, 'Used ' + data.count + ' times.', data.points);
         el.feedback.className = 'feedback';
         el.feedback.textContent = '';
         setTimeout(revealNext, REVEAL_DELAY_MS);
@@ -371,10 +383,11 @@
       state.placed.splice(guessedPosition, 0, { word: word, count: data.count });
       el.currentWordCard.classList.add('hidden');
       renderPlaced();
-      flashResult(guessedPosition, false, word + ' actually goes here — used ' + data.count + ' times.');
 
-      state.mistakes += 1;
-      el.mistakeCount.textContent = String(state.mistakes);
+      state.score += data.points;
+      el.scoreCount.textContent = state.score + ' / ' + state.maxScore;
+      flashResult(guessedPosition, false, word + ' actually goes here — used ' + data.count + ' times.', data.points);
+
       el.feedback.className = 'feedback';
       el.feedback.textContent = '';
 
@@ -397,7 +410,7 @@
       var res = await fetch('/api/flashback-complete', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, puzzleId: state.puzzleId, mistakes: state.mistakes }),
+        body: JSON.stringify({ token: token, puzzleId: state.puzzleId, score: state.score }),
       });
       var data = await res.json();
       if (res.ok) {
@@ -411,13 +424,12 @@
     el.gameSection.classList.add('hidden');
     el.resultSection.classList.remove('hidden');
 
-    var maxMistakes = Math.max(state.totalWords - 1, 0);
-    var msg = state.mistakes === 0
-      ? 'Perfect! Zero mistakes.'
-      : 'You solved it with ' + state.mistakes + ' out of ' + maxMistakes + ' possible mistakes.';
-    if (best !== null && best < state.mistakes) {
+    var msg = state.score === state.maxScore
+      ? 'Perfect score! ' + state.maxScore + ' / ' + state.maxScore + ' points.'
+      : 'You scored ' + state.score + ' out of ' + state.maxScore + ' points.';
+    if (best !== null && best > state.score) {
       msg += ' Your best on this puzzle is still ' + best + '.';
-    } else if (best !== null && best === state.mistakes && state.mistakes > 0) {
+    } else if (best !== null && best === state.score) {
       msg += ' That matches your best so far.';
     }
     el.resultSummary.textContent = msg;

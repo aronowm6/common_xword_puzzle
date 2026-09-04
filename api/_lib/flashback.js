@@ -32,6 +32,16 @@ function getTrueOrder(id) {
 // new word being inserted at `position`, is that the correct slot? Works
 // for any subset because relative order within a sorted list is preserved
 // by any subset of it.
+//
+// Also scores the guess: placing a word among N already-placed words
+// implicitly makes N pairwise comparisons at once ("more/less common than
+// each of these"). If the guess is off by `k` slots from the true
+// position, exactly `k` of those comparisons are wrong -- the rest are
+// still right, since your judgment about everything outside that range
+// didn't actually change. So points = N - |guess - true position|,
+// bounded between 0 and N. Summed across all placements in a puzzle, this
+// totals exactly C(wordCount, 2) -- full pairwise-comparison scoring,
+// computed for free from the normal one-guess-per-word flow.
 function checkPlacement(puzzleId, placed, newWord, position) {
   const puzzle = getPuzzle(puzzleId);
   if (!puzzle) return { valid: false };
@@ -44,11 +54,17 @@ function checkPlacement(puzzleId, placed, newWord, position) {
     (a, b) => (countByWord.get(b) || 0) - (countByWord.get(a) || 0)
   );
   const correctIndex = subset.indexOf(newWord);
-  return { valid: true, correct: correctIndex === position, correctIndex };
+  const points = placed.length - Math.abs(position - correctIndex);
+  return { valid: true, correct: correctIndex === position, correctIndex, points };
 }
 
-// One guess per word; the first word never needs a guess. So a puzzle of
-// N words has at most N-1 mistakes.
-const MAX_MISTAKES = puzzles.length ? puzzles[0].words.length - 1 : 7;
+// Max possible score for a puzzle of N words: every pair compared once,
+// C(N, 2) = N*(N-1)/2. The first word is never guessed, so this is the
+// same as summing 1+2+...+(N-1).
+function maxScore(wordCount) {
+  return (wordCount * (wordCount - 1)) / 2;
+}
 
-module.exports = { listPuzzles, getPuzzle, getTrueOrder, checkPlacement, getCount, MAX_MISTAKES };
+const MAX_SCORE = puzzles.length ? maxScore(puzzles[0].words.length) : 28;
+
+module.exports = { listPuzzles, getPuzzle, getTrueOrder, checkPlacement, getCount, maxScore, MAX_SCORE };

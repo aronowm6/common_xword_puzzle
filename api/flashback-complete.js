@@ -1,9 +1,9 @@
 const { getPool, ensureSchema } = require('./_lib/db');
-const { getPuzzle, MAX_MISTAKES } = require('./_lib/flashback');
+const { getPuzzle, MAX_SCORE } = require('./_lib/flashback');
 
-// POST { token, puzzleId, mistakes } -> records a completed attempt.
+// POST { token, puzzleId, score } -> records a completed attempt.
 // Every attempt is logged (not just best-of); the leaderboard aggregates
-// down to each player's best per puzzle.
+// down to each player's best (highest) score per puzzle.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -13,7 +13,7 @@ module.exports = async (req, res) => {
   const body = req.body || {};
   const token = typeof body.token === 'string' ? body.token : null;
   const puzzleId = typeof body.puzzleId === 'string' ? body.puzzleId : null;
-  const mistakes = Number.isInteger(body.mistakes) ? body.mistakes : null;
+  const score = Number.isInteger(body.score) ? body.score : null;
 
   if (!token) {
     res.status(401).json({ error: 'Not signed in.' });
@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
     res.status(400).json({ error: 'Unknown puzzle.' });
     return;
   }
-  if (mistakes === null || mistakes < 0 || mistakes > MAX_MISTAKES) {
-    res.status(400).json({ error: 'Invalid mistake count.' });
+  if (score === null || score < 0 || score > MAX_SCORE) {
+    res.status(400).json({ error: 'Invalid score.' });
     return;
   }
 
@@ -43,16 +43,16 @@ module.exports = async (req, res) => {
     const userId = sessRes.rows[0].user_id;
 
     await pool.query(
-      'INSERT INTO flashback_attempts (user_id, puzzle_id, mistakes) VALUES ($1, $2, $3)',
-      [userId, puzzleId, mistakes]
+      'INSERT INTO flashback_attempts (user_id, puzzle_id, score) VALUES ($1, $2, $3)',
+      [userId, puzzleId, score]
     );
 
     const bestRes = await pool.query(
-      'SELECT MIN(mistakes)::int AS best FROM flashback_attempts WHERE user_id = $1 AND puzzle_id = $2',
+      'SELECT MAX(score)::int AS best FROM flashback_attempts WHERE user_id = $1 AND puzzle_id = $2',
       [userId, puzzleId]
     );
 
-    res.status(200).json({ ok: true, mistakes, best: bestRes.rows[0].best });
+    res.status(200).json({ ok: true, score, best: bestRes.rows[0].best });
   } catch (err) {
     console.error('flashback-complete error', err);
     res.status(500).json({ error: 'Server error, please try again.' });

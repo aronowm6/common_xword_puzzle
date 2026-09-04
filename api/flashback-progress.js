@@ -1,8 +1,8 @@
 const { getPool, ensureSchema } = require('./_lib/db');
 
-// POST { token } -> the signed-in player's own best (lowest-mistake)
-// score per puzzle they've completed, as a map: { puzzleId: mistakes }.
-// Puzzles not yet attempted are simply absent from the map.
+// POST { token } -> the signed-in player's own best (highest) score per
+// puzzle they've completed, as a map: { puzzleId: score }. Puzzles not
+// yet attempted are simply absent from the map.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -30,12 +30,12 @@ module.exports = async (req, res) => {
     const userId = sessRes.rows[0].user_id;
 
     const { rows } = await pool.query(
-      'SELECT puzzle_id, MIN(mistakes)::int AS mistakes FROM flashback_attempts WHERE user_id = $1 GROUP BY puzzle_id',
+      'SELECT puzzle_id, MAX(score)::int AS score FROM flashback_attempts WHERE user_id = $1 GROUP BY puzzle_id',
       [userId]
     );
 
     const progress = {};
-    for (const row of rows) progress[row.puzzle_id] = row.mistakes;
+    for (const row of rows) progress[row.puzzle_id] = row.score;
 
     res.setHeader('Cache-Control', 'no-store');
     res.status(200).json({ progress });

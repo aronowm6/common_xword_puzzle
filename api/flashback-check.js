@@ -1,11 +1,11 @@
 const { checkPlacement, getCount } = require('./_lib/flashback');
 
-// POST { puzzleId, placed, newWord, position } -> { correct, correctIndex, count }
+// POST { puzzleId, placed, newWord, position } -> { correct, correctIndex, count, points }
 // Stateless, one guess per word: says whether the guessed slot is right,
-// and always includes the true correct index (so the client can
-// auto-place a wrong guess into its real spot) plus the word's usage
-// count (revealed once it's placed, right or wrong). No auth needed --
-// doesn't touch the DB.
+// always includes the true correct index (so the client can auto-place a
+// wrong guess into its real spot), the word's usage count (revealed once
+// it's placed, right or wrong), and the pairwise-comparison points earned
+// for this placement. No auth needed -- doesn't touch the DB.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -31,5 +31,6 @@ module.exports = async (req, res) => {
     correct: result.correct,
     correctIndex: result.correctIndex,
     count: getCount(newWord),
+    points: result.points,
   });
 };

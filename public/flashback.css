@@ -53,7 +53,7 @@
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.85rem;
 }
-.fb-mistake-counter { white-space: nowrap; }
+.fb-score-counter { white-space: nowrap; }
 
 .fb-order-label {
   font-family: 'Courier New', Courier, monospace;

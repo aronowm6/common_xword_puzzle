@@ -5,6 +5,7 @@
 
   var state = {
     username: null,
+    isGuest: false,
     words: [],                 // [{num, length, count}] ordered 1..N
     solvedAnswers: new Map(),  // num -> answer text
     lastChecked: '',            // avoid re-checking the same string twice in a row
@@ -12,17 +13,15 @@
 
   var el = {};
   var debounceTimer = null;
+  var authUI = null;
 
   function cacheEls() {
     el.app = document.getElementById('app');
-    el.overlay = document.getElementById('usernameOverlay');
-    el.usernameForm = document.getElementById('usernameForm');
-    el.usernameInput = document.getElementById('usernameInput');
-    el.passwordInput = document.getElementById('passwordInput');
-    el.usernameError = document.getElementById('usernameError');
     el.whoami = document.getElementById('whoami');
     el.whoamiName = document.getElementById('whoamiName');
     el.switchUserBtn = document.getElementById('switchUserBtn');
+    el.guestBanner = document.getElementById('guestBanner');
+    el.guestLoginBtn = document.getElementById('guestLoginBtn');
 
     el.subtitle = document.getElementById('subtitle');
     el.gridTitle = document.getElementById('gridTitle');
@@ -38,13 +37,12 @@
   }
 
   function bindEvents() {
-    el.usernameForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      loginUser(el.usernameInput.value, el.passwordInput.value);
-    });
-
     el.switchUserBtn.addEventListener('click', function () {
       logout();
+    });
+
+    el.guestLoginBtn.addEventListener('click', function () {
+      authUI.show();
     });
 
     el.entryInput.addEventListener('input', handleEntryInput);
@@ -80,6 +78,17 @@
     cacheEls();
     bindEvents();
 
+    authUI = CXPAuthUI.init({
+      onLoggedIn: function (username, solved, claimedLegacy) {
+        applySession(username, solved);
+        if (claimedLegacy) {
+          el.feedback.className = 'feedback';
+          el.feedback.textContent = 'This username didn’t have a password yet — it’s now set to what you just entered.';
+        }
+      },
+      onGuest: applyGuestSession,
+    });
+
     var wordsRes = await fetch('/api/words');
     var wordsData = await wordsRes.json();
     state.words = wordsData.words;
@@ -93,22 +102,27 @@
     if (resumed) {
       applySession(resumed.username, resumed.solved);
     } else {
-      showOverlay();
+      authUI.show();
     }
   }
 
-  function showOverlay() {
-    el.overlay.classList.remove('hidden');
-    el.app.classList.add('hidden');
-    el.usernameInput.focus();
-  }
+  function applyGuestSession() {
+    state.username = null;
+    state.isGuest = true;
+    state.solvedAnswers = new Map(); // ephemeral -- nothing to load, nothing persists
 
-  function hideOverlay() {
-    el.overlay.classList.add('hidden');
     el.app.classList.remove('hidden');
+    el.whoami.classList.add('hidden');
+    el.guestBanner.classList.remove('hidden');
+
+    renderAllCells();
+    updateStats();
+    el.entryInput.value = '';
+    el.entryInput.focus();
   }
 
   function applySession(username, solved) {
+    state.isGuest = false;
     state.username = username;
     state.solvedAnswers = new Map();
     (solved || []).forEach(function (entry) {
@@ -117,7 +131,7 @@
 
     el.whoamiName.textContent = state.username;
     el.whoami.classList.remove('hidden');
-    hideOverlay();
+    el.guestBanner.classList.add('hidden');
 
     renderAllCells();
     updateStats();
@@ -125,41 +139,9 @@
     el.entryInput.focus();
   }
 
-  async function loginUser(rawName, rawPassword) {
-    var name = (rawName || '').trim();
-    var password = rawPassword || '';
-    if (!name) {
-      showUsernameError('Enter a username to play.');
-      return false;
-    }
-    if (password.length < 4) {
-      showUsernameError('Password must be at least 4 characters.');
-      return false;
-    }
-    var result = await CXPAuth.login(name, password);
-    if (!result.ok) {
-      showUsernameError(result.error);
-      return false;
-    }
-
-    el.passwordInput.value = '';
-    applySession(result.username, result.solved);
-
-    if (result.claimedLegacy) {
-      el.feedback.className = 'feedback';
-      el.feedback.textContent = 'This username didn’t have a password yet — it’s now set to what you just entered.';
-    }
-    return true;
-  }
-
   function logout() {
     CXPAuth.logout();
     window.location.reload();
-  }
-
-  function showUsernameError(msg) {
-    el.usernameError.textContent = msg;
-    el.usernameError.classList.remove('hidden');
   }
 
   function blanksFor(length) {
@@ -255,7 +237,7 @@
 
   async function attemptMatch(guess) {
     var token = CXPAuth.getToken();
-    if (!token) return;
+    if (!token && !state.isGuest) return;
     if (guess !== el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '')) return; // stale
     if (guess === state.lastChecked) return;
     state.lastChecked = guess;

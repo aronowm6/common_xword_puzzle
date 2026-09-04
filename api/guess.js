@@ -6,6 +6,9 @@ const { normalizeGuess } = require('./_lib/validate');
 // token (not a bare username) so guesses can't be forged for someone else.
 // The guess is checked against all 501 answers (not tied to a specific
 // entry number); if it exactly matches one, that entry is marked solved.
+//
+// `token` is optional: guest play (no account) still gets guesses checked
+// and answers revealed, it just never touches the DB, so nothing persists.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -16,10 +19,6 @@ module.exports = async (req, res) => {
   const token = typeof body.token === 'string' ? body.token : null;
   const guess = normalizeGuess(body.guess);
 
-  if (!token) {
-    res.status(401).json({ error: 'Not signed in.' });
-    return;
-  }
   if (!guess) {
     res.status(200).json({ correct: false });
     return;
@@ -28,6 +27,12 @@ module.exports = async (req, res) => {
   const word = findByAnswer(guess);
   if (!word) {
     res.status(200).json({ correct: false });
+    return;
+  }
+
+  if (!token) {
+    // Guest: checked, but nothing saved.
+    res.status(200).json({ correct: true, num: word.num, answer: word.answer, alreadySolved: false, guest: true });
     return;
   }
 

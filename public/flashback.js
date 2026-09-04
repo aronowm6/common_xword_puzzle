@@ -2,8 +2,10 @@
   'use strict';
 
   var el = {};
+  var authUI = null;
 
   var state = {
+    isGuest: false,
     puzzles: [],           // [{id, theme, wordCount}]
     progress: {},           // { puzzleId: bestScore } for the signed-in player
     puzzleId: null,
@@ -25,14 +27,11 @@
 
   function cacheEls() {
     el.app = document.getElementById('app');
-    el.overlay = document.getElementById('usernameOverlay');
-    el.usernameForm = document.getElementById('usernameForm');
-    el.usernameInput = document.getElementById('usernameInput');
-    el.passwordInput = document.getElementById('passwordInput');
-    el.usernameError = document.getElementById('usernameError');
     el.whoami = document.getElementById('whoami');
     el.whoamiName = document.getElementById('whoamiName');
     el.switchUserBtn = document.getElementById('switchUserBtn');
+    el.guestBanner = document.getElementById('guestBanner');
+    el.guestLoginBtn = document.getElementById('guestLoginBtn');
 
     el.pickerSection = document.getElementById('pickerSection');
     el.puzzleList = document.getElementById('puzzleList');
@@ -57,13 +56,12 @@
   }
 
   function bindEvents() {
-    el.usernameForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      loginUser(el.usernameInput.value, el.passwordInput.value);
-    });
     el.switchUserBtn.addEventListener('click', function () {
       CXPAuth.logout();
       window.location.reload();
+    });
+    el.guestLoginBtn.addEventListener('click', function () {
+      authUI.show();
     });
     el.backToPickerBtn.addEventListener('click', showPicker);
     el.playAgainBtn.addEventListener('click', function () { startPuzzle(state.puzzleId); });
@@ -74,44 +72,37 @@
     cacheEls();
     bindEvents();
 
+    authUI = CXPAuthUI.init({
+      onLoggedIn: function (username) { onLoggedIn(username); },
+      onGuest: onGuestPlay,
+    });
+
     var resumed = await CXPAuth.tryResume();
     if (resumed) {
       onLoggedIn(resumed.username);
     } else {
-      showOverlay();
+      authUI.show();
     }
   }
 
-  function showOverlay() {
-    el.overlay.classList.remove('hidden');
-    el.app.classList.add('hidden');
-    el.usernameInput.focus();
-  }
-
   async function onLoggedIn(username) {
+    state.isGuest = false;
     el.whoamiName.textContent = username;
     el.whoami.classList.remove('hidden');
-    el.overlay.classList.add('hidden');
+    el.guestBanner.classList.add('hidden');
     el.app.classList.remove('hidden');
     await Promise.all([loadPuzzleList(), loadPuzzleProgress()]);
     showPicker();
   }
 
-  async function loginUser(rawName, rawPassword) {
-    var name = (rawName || '').trim();
-    var password = rawPassword || '';
-    if (!name) { showUsernameError('Enter a username to play.'); return; }
-    if (password.length < 4) { showUsernameError('Password must be at least 4 characters.'); return; }
-
-    var result = await CXPAuth.login(name, password);
-    if (!result.ok) { showUsernameError(result.error); return; }
-    el.passwordInput.value = '';
-    onLoggedIn(result.username);
-  }
-
-  function showUsernameError(msg) {
-    el.usernameError.textContent = msg;
-    el.usernameError.classList.remove('hidden');
+  async function onGuestPlay() {
+    state.isGuest = true;
+    state.progress = {}; // nothing to show as "done" -- guest attempts never save
+    el.whoami.classList.add('hidden');
+    el.guestBanner.classList.remove('hidden');
+    el.app.classList.remove('hidden');
+    await loadPuzzleList();
+    showPicker();
   }
 
   async function loadPuzzleList() {
@@ -406,19 +397,21 @@
 
     var token = CXPAuth.getToken();
     var best = null;
-    try {
-      var res = await fetch('/api/flashback-complete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token, puzzleId: state.puzzleId, score: state.score }),
-      });
-      var data = await res.json();
-      if (res.ok) {
-        best = data.best;
-        state.progress[state.puzzleId] = best; // picker shows "done" immediately, no refetch needed
+    if (!state.isGuest) {
+      try {
+        var res = await fetch('/api/flashback-complete', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token: token, puzzleId: state.puzzleId, score: state.score }),
+        });
+        var data = await res.json();
+        if (res.ok) {
+          best = data.best;
+          state.progress[state.puzzleId] = best; // picker shows "done" immediately, no refetch needed
+        }
+      } catch (err) {
+        // Non-fatal -- still show the result locally even if saving failed.
       }
-    } catch (err) {
-      // Non-fatal -- still show the result locally even if saving failed.
     }
 
     el.gameSection.classList.add('hidden');
@@ -427,7 +420,9 @@
     var msg = state.score === state.maxScore
       ? 'Perfect score! ' + state.maxScore + ' / ' + state.maxScore + ' points.'
       : 'You scored ' + state.score + ' out of ' + state.maxScore + ' points.';
-    if (best !== null && best > state.score) {
+    if (state.isGuest) {
+      msg += ' Log in to save your score next time.';
+    } else if (best !== null && best > state.score) {
       msg += ' Your best on this puzzle is still ' + best + '.';
     } else if (best !== null && best === state.score) {
       msg += ' That matches your best so far.';

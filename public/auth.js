@@ -69,6 +69,23 @@ window.CXPAuth = (function () {
     }
   }
 
+  // { ok: true, username, solved: [] } or { ok: false, error }
+  async function signup(name, password) {
+    try {
+      var res = await fetch('/api/signup', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: name, password: password }),
+      });
+      var data = await res.json();
+      if (!res.ok) return { ok: false, error: data.error || 'Something went wrong.' };
+      setSession(data.token, data.username);
+      return { ok: true, username: data.username, solved: data.solved || [] };
+    } catch (err) {
+      return { ok: false, error: 'Network error -- try again.' };
+    }
+  }
+
   function logout() {
     var t = token;
     clearSession();
@@ -81,5 +98,12 @@ window.CXPAuth = (function () {
     }
   }
 
-  return { getToken: getToken, getUsername: getUsername, tryResume: tryResume, login: login, logout: logout };
+  return {
+    getToken: getToken,
+    getUsername: getUsername,
+    tryResume: tryResume,
+    login: login,
+    signup: signup,
+    logout: logout,
+  };
 })();

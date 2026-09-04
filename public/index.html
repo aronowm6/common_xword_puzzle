@@ -19,6 +19,7 @@
     </div>
     <nav class="topnav">
       <span id="whoami" class="whoami hidden">Playing as <strong id="whoamiName"></strong> &middot; <button id="switchUserBtn" class="link-btn">log out</button></span>
+      <span id="guestBanner" class="whoami hidden">Playing as <strong>Guest</strong> (not saved) &middot; <button id="guestLoginBtn" class="link-btn">log in</button></span>
       <a href="/ordering_game">Ordering Game</a>
       <a href="/leaderboard">Leaderboard</a>
     </nav>
@@ -26,15 +27,30 @@
 
   <div id="usernameOverlay" class="overlay">
     <div class="overlay-card">
-      <h2>Log in to play</h2>
-      <p class="muted">New username? It's created automatically with the password you choose. Already have one? Enter its password to continue &mdash; your progress is saved either way.</p>
-      <form id="usernameForm">
-        <input id="usernameInput" type="text" maxlength="24" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" />
-        <input id="passwordInput" type="password" maxlength="72" placeholder="Password" autocomplete="current-password" />
-        <button type="submit">Play</button>
+      <div class="auth-tabs">
+        <button type="button" id="loginTabBtn" class="auth-tab active">Log In</button>
+        <button type="button" id="signupTabBtn" class="auth-tab">Sign Up</button>
+      </div>
+
+      <form id="loginForm" class="auth-form">
+        <input id="loginUsernameInput" type="text" maxlength="24" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" />
+        <input id="loginPasswordInput" type="password" maxlength="72" placeholder="Password" autocomplete="current-password" />
+        <button type="submit">Log In</button>
       </form>
+
+      <form id="signupForm" class="auth-form hidden">
+        <input id="signupUsernameInput" type="text" maxlength="24" placeholder="Choose a username" autocomplete="username" autocapitalize="off" spellcheck="false" />
+        <input id="signupPasswordInput" type="password" maxlength="72" placeholder="Choose a password" autocomplete="new-password" />
+        <button type="submit">Sign Up</button>
+      </form>
+
       <p class="warning-text">&#9888; This is just a fun trivia game &mdash; please use a throwaway password, not one you use anywhere real.</p>
-      <p id="usernameError" class="error-text hidden"></p>
+      <p id="authError" class="error-text hidden"></p>
+
+      <div class="auth-guest">
+        <button type="button" id="guestBtn" class="link-btn">Play without an account</button>
+        <p class="muted auth-guest-note">Your progress won't be saved.</p>
+      </div>
     </div>
   </div>
 
@@ -69,6 +85,7 @@
   </footer>
 
   <script src="/auth.js"></script>
+  <script src="/auth-ui.js"></script>
   <script src="/app.js"></script>
 </body>
 </html>

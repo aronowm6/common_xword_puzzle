@@ -12,6 +12,7 @@
     placed: [],              // [{word, count}] placed so far, correct order
     currentWord: null,        // word awaiting a guess
     mistakes: 0,
+    flashTimer: null,
   };
 
   function cacheEls() {
@@ -32,6 +33,7 @@
     el.backToPickerBtn = document.getElementById('backToPickerBtn');
     el.gameTheme = document.getElementById('gameTheme');
     el.mistakeCount = document.getElementById('mistakeCount');
+    el.resultFlash = document.getElementById('resultFlash');
     el.placedList = document.getElementById('placedList');
     el.currentWordCard = document.getElementById('currentWordCard');
     el.currentWord = document.getElementById('currentWord');
@@ -191,15 +193,18 @@
     renderPlaced();
   }
 
+  // Slots are always rendered (one more than the number of placed words),
+  // just active/clickable only while a word is awaiting a guess. That way
+  // the list only ever grows by exactly one slot per round instead of all
+  // slots disappearing after a guess and reappearing for the next word --
+  // which is what caused the layout to visibly collapse and re-expand.
   function renderPlaced() {
     el.placedList.innerHTML = '';
     var n = state.placed.length;
-    var showSlots = !!state.currentWord;
+    var active = !!state.currentWord;
 
     for (var i = 0; i <= n; i++) {
-      if (showSlots) {
-        el.placedList.appendChild(makeSlot(i));
-      }
+      el.placedList.appendChild(makeSlot(i, active));
       if (i < n) {
         var item = state.placed[i];
         var card = document.createElement('div');
@@ -218,13 +223,30 @@
     }
   }
 
-  function makeSlot(index) {
+  function makeSlot(index, active) {
     var slot = document.createElement('button');
     slot.type = 'button';
     slot.className = 'fb-slot';
     slot.textContent = '+';
-    slot.addEventListener('click', function () { placeWord(state.currentWord, index, false); });
+    slot.disabled = !active;
+    if (active) {
+      slot.addEventListener('click', function () { placeWord(state.currentWord, index, false); });
+    }
     return slot;
+  }
+
+  // Flashes the just-placed card green/red, and flashes a bigger
+  // CORRECT/INCORRECT banner at the top of the game area.
+  function flashResult(placedIndex, correct) {
+    var cardEl = el.placedList.children[placedIndex * 2 + 1];
+    if (cardEl) cardEl.classList.add(correct ? 'flash-correct' : 'flash-wrong');
+
+    el.resultFlash.textContent = correct ? 'Correct' : 'Incorrect';
+    el.resultFlash.className = 'fb-result-flash show ' + (correct ? 'correct' : 'wrong');
+    clearTimeout(state.flashTimer);
+    state.flashTimer = setTimeout(function () {
+      el.resultFlash.classList.remove('show');
+    }, 700);
   }
 
   // One guess per word. A wrong guess auto-corrects into the word's real
@@ -255,9 +277,10 @@
       var finalPosition = data.correct ? guessedPosition : data.correctIndex;
       state.placed.splice(finalPosition, 0, { word: word, count: data.count });
       el.currentWordCard.classList.add('hidden');
+      renderPlaced();
+      flashResult(finalPosition, data.correct);
 
       if (isFirst) {
-        renderPlaced();
         revealNext();
         return;
       }
@@ -271,7 +294,6 @@
         el.feedback.className = 'feedback wrong';
         el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
       }
-      renderPlaced();
       setTimeout(revealNext, data.correct ? 500 : 1100);
     } catch (err) {
       el.feedback.className = 'feedback error';

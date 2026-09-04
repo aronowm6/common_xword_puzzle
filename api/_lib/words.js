@@ -3,6 +3,7 @@
 const words = require('../../data/words.json');
 
 const byNum = new Map(words.map((w) => [w.num, w]));
+const byAnswer = new Map(words.map((w) => [w.answer, w]));
 
 // Never expose `answer` to the client — only rank number + letter count.
 function publicWords() {
@@ -13,4 +14,10 @@ function getWord(num) {
   return byNum.get(Number(num));
 }
 
-module.exports = { words, publicWords, getWord };
+// Freeform matching: does this typed guess exactly equal any of the 500
+// answers, regardless of rank?
+function findByAnswer(answer) {
+  return byAnswer.get(answer);
+}
+
+module.exports = { words, publicWords, getWord, findByAnswer };

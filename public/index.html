@@ -35,43 +35,28 @@
   </div>
 
   <main id="app" class="hidden">
-    <section class="stats-bar">
-      <div class="stats-text"><strong id="solvedCount">0</strong> / <span id="totalCount">500</span> solved</div>
-      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+    <section class="entry-panel">
+      <label for="entryInput" class="entry-label">Type any of the 500 entries &mdash; no need to press Enter</label>
+      <div class="entry-row">
+        <input id="entryInput" class="entry-input" type="text"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               placeholder="Just start typing…" aria-label="Type a guess" />
+        <button id="clearBtn" type="button" title="Clear (Esc)">Clear</button>
+      </div>
+      <div id="feedback" class="feedback" aria-live="polite">Guesses are checked live as you type.</div>
+
+      <div class="stats-bar">
+        <div class="stats-text"><strong id="solvedCount">0</strong> / <span id="totalCount">500</span> solved</div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+      </div>
     </section>
 
-    <section class="game">
-      <div class="clue-card">
-        <div class="clue-head">
-          <div class="clue-number">#<span id="clueNum">1</span></div>
-          <div class="clue-sub">of the 500 most common entries</div>
-        </div>
-
-        <div id="tiles" class="tiles" aria-live="polite"></div>
-
-        <input id="guessInput" class="guess-input" type="text"
-               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
-               aria-label="Type your guess &mdash; checks automatically, no Enter needed" />
-
-        <div id="feedback" class="feedback" aria-live="polite">Just start typing &mdash; no need to press Enter.</div>
-
-        <div class="nav-buttons">
-          <button id="prevBtn" title="Previous entry">&lsaquo; Prev</button>
-          <button id="randomBtn" title="Jump to a random unsolved entry">Random</button>
-          <button id="nextBtn" title="Next entry">Next &rsaquo;</button>
-        </div>
+    <section class="grid-panel">
+      <div class="grid-panel-header">
+        <span>All 500 entries</span>
+        <span class="muted">solved entries reveal the word</span>
       </div>
-
-      <div class="grid-panel">
-        <div class="grid-panel-header">
-          <span>All 500 entries</span>
-          <form id="jumpForm" class="jump-form">
-            <input id="jumpInput" type="number" min="1" max="500" placeholder="#" />
-            <button type="submit">Go</button>
-          </form>
-        </div>
-        <div id="numberGrid" class="number-grid"></div>
-      </div>
+      <div id="numberGrid" class="number-grid"></div>
     </section>
   </main>
 

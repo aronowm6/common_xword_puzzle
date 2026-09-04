@@ -2,18 +2,17 @@
   'use strict';
 
   var STORAGE_KEY = 'cxp_username';
+  var CHECK_DEBOUNCE_MS = 120;
 
   var state = {
     username: null,
-    words: [],             // [{num, length}] ordered 1..500
-    numToIndex: new Map(), // num -> index in words[]
-    solvedAnswers: new Map(), // num -> answer text (only known once solved)
-    currentIndex: 0,
-    lastChecked: new Map(), // num -> last guess string checked (avoid dup calls)
-    gridCells: new Map(),   // num -> DOM element
+    words: [],                // [{num, length}] ordered 1..500
+    solvedAnswers: new Map(), // num -> answer text
+    lastChecked: '',           // avoid re-checking the same string twice in a row
   };
 
   var el = {};
+  var debounceTimer = null;
 
   function cacheEls() {
     el.app = document.getElementById('app');
@@ -29,25 +28,17 @@
     el.totalCount = document.getElementById('totalCount');
     el.progressFill = document.getElementById('progressFill');
 
-    el.clueNum = document.getElementById('clueNum');
-    el.tiles = document.getElementById('tiles');
-    el.guessInput = document.getElementById('guessInput');
+    el.entryInput = document.getElementById('entryInput');
+    el.clearBtn = document.getElementById('clearBtn');
     el.feedback = document.getElementById('feedback');
 
-    el.prevBtn = document.getElementById('prevBtn');
-    el.nextBtn = document.getElementById('nextBtn');
-    el.randomBtn = document.getElementById('randomBtn');
-
     el.numberGrid = document.getElementById('numberGrid');
-    el.jumpForm = document.getElementById('jumpForm');
-    el.jumpInput = document.getElementById('jumpInput');
   }
 
   function bindEvents() {
     el.usernameForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      var name = el.usernameInput.value;
-      loginUser(name);
+      loginUser(el.usernameInput.value);
     });
 
     el.switchUserBtn.addEventListener('click', function () {
@@ -55,40 +46,31 @@
       window.location.reload();
     });
 
-    el.guessInput.addEventListener('input', handleGuessInput);
-
-    el.prevBtn.addEventListener('click', function () { step(-1); });
-    el.nextBtn.addEventListener('click', function () { step(1); });
-    el.randomBtn.addEventListener('click', goToRandomUnsolved);
-
-    el.jumpForm.addEventListener('submit', function (e) {
-      e.preventDefault();
-      var n = parseInt(el.jumpInput.value, 10);
-      if (n && state.numToIndex.has(n)) {
-        state.currentIndex = state.numToIndex.get(n);
-        renderClue();
-      }
-      el.jumpInput.value = '';
+    el.entryInput.addEventListener('input', handleEntryInput);
+    el.entryInput.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') clearEntry();
     });
+    el.clearBtn.addEventListener('click', clearEntry);
 
     // Let the player just start typing anywhere on the page -- no need to
-    // click into the guess box first, and no need to press Enter either.
+    // click into the entry bar first, and no need to press Enter either.
     document.addEventListener('keydown', function (e) {
       if (!el.app || el.app.classList.contains('hidden')) return;
-      if (document.activeElement === el.guessInput) return;
-      if (document.activeElement && document.activeElement.tagName === 'INPUT' && document.activeElement !== el.guessInput) return;
-      if (el.guessInput.disabled) return;
+      if (document.activeElement === el.entryInput) return;
+      if (document.activeElement && document.activeElement.tagName === 'INPUT') return;
 
       if (/^[a-zA-Z]$/.test(e.key)) {
-        el.guessInput.focus();
-        el.guessInput.value = (el.guessInput.value + e.key).toUpperCase();
-        handleGuessInput();
+        el.entryInput.focus();
+        el.entryInput.value += e.key.toUpperCase();
+        handleEntryInput();
         e.preventDefault();
       } else if (e.key === 'Backspace') {
-        el.guessInput.focus();
-        el.guessInput.value = el.guessInput.value.slice(0, -1);
-        handleGuessInput();
+        el.entryInput.focus();
+        el.entryInput.value = el.entryInput.value.slice(0, -1);
+        handleEntryInput();
         e.preventDefault();
+      } else if (e.key === 'Escape') {
+        clearEntry();
       }
     });
   }
@@ -100,7 +82,6 @@
     var wordsRes = await fetch('/api/words');
     var wordsData = await wordsRes.json();
     state.words = wordsData.words;
-    state.words.forEach(function (w, i) { state.numToIndex.set(w.num, i); });
     el.totalCount.textContent = state.words.length;
 
     buildGrid();
@@ -154,10 +135,10 @@
       el.whoami.classList.remove('hidden');
       hideOverlay();
 
-      state.currentIndex = findFirstUnsolvedIndex();
-      markAllGridCells();
+      renderAllCells();
       updateStats();
-      renderClue();
+      el.entryInput.value = '';
+      el.entryInput.focus();
       return true;
     } catch (err) {
       if (!silent) showUsernameError('Network error -- try again.');
@@ -170,146 +151,60 @@
     el.usernameError.classList.remove('hidden');
   }
 
-  function getCurrentWord() {
-    return state.words[state.currentIndex];
+  function blanksFor(length) {
+    return new Array(length).fill('_').join(' ');
   }
 
-  function findFirstUnsolvedIndex() {
-    for (var i = 0; i < state.words.length; i++) {
-      if (!state.solvedAnswers.has(state.words[i].num)) return i;
-    }
-    return 0;
+  function spacedWord(word) {
+    return word.split('').join(' ');
   }
 
   function buildGrid() {
     var frag = document.createDocumentFragment();
-    state.words.forEach(function (w, i) {
+    state.words.forEach(function (w) {
       var cell = document.createElement('div');
       cell.className = 'num-cell';
-      cell.textContent = w.num;
-      cell.title = w.length + ' letters';
-      cell.addEventListener('click', function () {
-        state.currentIndex = i;
-        renderClue();
-      });
-      state.gridCells.set(w.num, cell);
-      frag.appendChild(cell);
+      cell.dataset.num = w.num;
+
+      var num = document.createElement('span');
+      num.className = 'cell-num';
+      num.textContent = w.num;
+
+      var word = document.createElement('span');
+      word.className = 'cell-word';
+      word.textContent = blanksFor(w.length);
+
+      cell.appendChild(num);
+      cell.appendChild(word);
+      el.numberGrid.appendChild(cell);
     });
-    el.numberGrid.appendChild(frag);
   }
 
-  function markAllGridCells() {
-    state.gridCells.forEach(function (cell, num) {
-      cell.classList.toggle('solved', state.solvedAnswers.has(num));
-    });
-    markCurrentGridCell();
-  }
-
-  function markCurrentGridCell() {
-    state.gridCells.forEach(function (cell) { cell.classList.remove('current'); });
-    var word = getCurrentWord();
-    if (word) {
-      var cell = state.gridCells.get(word.num);
-      if (cell) cell.classList.add('current');
-    }
-  }
-
-  function renderClue() {
-    var word = getCurrentWord();
-    if (!word) return;
-    el.clueNum.textContent = word.num;
-    el.feedback.className = 'feedback';
-
-    var solvedAnswer = state.solvedAnswers.get(word.num);
-    el.guessInput.value = solvedAnswer || '';
-    el.guessInput.disabled = !!solvedAnswer;
-    el.feedback.textContent = solvedAnswer
-      ? 'Solved ✓'
-      : 'Just start typing — no need to press Enter.';
-    if (solvedAnswer) el.feedback.classList.add('correct');
-
-    renderTiles(word.length, solvedAnswer || '', !!solvedAnswer);
-    markCurrentGridCell();
-
-    if (!solvedAnswer) {
-      el.guessInput.focus();
-    }
-  }
-
-  function renderTiles(length, value, solved) {
-    el.tiles.innerHTML = '';
-    el.tiles.classList.toggle('solved', !!solved);
-    for (var i = 0; i < length; i++) {
-      var tile = document.createElement('div');
-      tile.className = 'tile';
-      tile.textContent = value[i] || '';
-      el.tiles.appendChild(tile);
-    }
-  }
-
-  function shakeTiles() {
-    el.tiles.classList.remove('shake');
-    // force reflow so the animation can restart
-    void el.tiles.offsetWidth;
-    el.tiles.classList.add('shake');
-  }
-
-  function handleGuessInput() {
-    var word = getCurrentWord();
-    if (!word) return;
-    var v = el.guessInput.value.toUpperCase().replace(/[^A-Z]/g, '');
-    if (v.length > word.length) v = v.slice(0, word.length);
-    el.guessInput.value = v;
-    renderTiles(word.length, v, false);
-
-    if (v.length === word.length && v.length > 0) {
-      if (state.lastChecked.get(word.num) !== v) {
-        checkGuess(word, v);
-      }
-    } else {
-      el.feedback.className = 'feedback';
-      el.feedback.textContent = 'Just start typing — no need to press Enter.';
-    }
-  }
-
-  async function checkGuess(word, guess) {
-    state.lastChecked.set(word.num, guess);
-    el.feedback.className = 'feedback';
-    el.feedback.textContent = 'Checking…';
-    try {
-      var res = await fetch('/api/guess', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: state.username, num: word.num, guess: guess }),
-      });
-      var data = await res.json();
-      if (!res.ok) {
-        el.feedback.className = 'feedback error';
-        el.feedback.textContent = data.error || 'Something went wrong.';
-        return;
-      }
-      if (data.correct) {
-        state.solvedAnswers.set(word.num, data.answer || guess);
-        el.feedback.className = 'feedback correct';
-        el.feedback.textContent = data.alreadySolved ? 'Already solved!' : 'Correct! ✓';
-        el.tiles.classList.add('solved');
-        el.guessInput.disabled = true;
-        markAllGridCells();
-        updateStats();
-        setTimeout(function () {
-          if (getCurrentWord() && getCurrentWord().num === word.num) {
-            goToRandomUnsolved(true);
-          }
-        }, 500);
+  function renderAllCells() {
+    var cells = el.numberGrid.children;
+    for (var i = 0; i < cells.length; i++) {
+      var cell = cells[i];
+      var num = Number(cell.dataset.num);
+      var word = state.words[i];
+      var answer = state.solvedAnswers.get(num);
+      var wordEl = cell.querySelector('.cell-word');
+      if (answer) {
+        cell.classList.add('solved');
+        wordEl.textContent = spacedWord(answer);
       } else {
-        el.feedback.className = 'feedback wrong';
-        el.feedback.textContent = 'Not quite — keep trying.';
-        shakeTiles();
+        cell.classList.remove('solved');
+        wordEl.textContent = blanksFor(word.length);
       }
-    } catch (err) {
-      el.feedback.className = 'feedback error';
-      el.feedback.textContent = 'Network error — try again.';
     }
+  }
+
+  function markCellSolved(num, answer) {
+    var cell = el.numberGrid.querySelector('.num-cell[data-num="' + num + '"]');
+    if (!cell) return;
+    cell.classList.add('solved');
+    cell.classList.add('flash');
+    cell.querySelector('.cell-word').textContent = spacedWord(answer);
+    setTimeout(function () { cell.classList.remove('flash'); }, 500);
   }
 
   function updateStats() {
@@ -318,29 +213,61 @@
     el.progressFill.style.width = pct + '%';
   }
 
-  function step(delta) {
-    var n = state.words.length;
-    state.currentIndex = (state.currentIndex + delta + n) % n;
-    renderClue();
+  function clearEntry() {
+    el.entryInput.value = '';
+    state.lastChecked = '';
+    el.feedback.className = 'feedback';
+    el.feedback.textContent = 'Guesses are checked live as you type.';
+    el.entryInput.focus();
   }
 
-  function goToRandomUnsolved(preferSequential) {
-    var unsolved = [];
-    for (var i = 0; i < state.words.length; i++) {
-      if (!state.solvedAnswers.has(state.words[i].num)) unsolved.push(i);
+  function handleEntryInput() {
+    var v = el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '');
+    if (v !== el.entryInput.value) el.entryInput.value = v;
+
+    clearTimeout(debounceTimer);
+    if (!v) return;
+    debounceTimer = setTimeout(function () { attemptMatch(v); }, CHECK_DEBOUNCE_MS);
+  }
+
+  async function attemptMatch(guess) {
+    if (!state.username) return;
+    if (guess !== el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '')) return; // stale
+    if (guess === state.lastChecked) return;
+    state.lastChecked = guess;
+
+    try {
+      var res = await fetch('/api/guess', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: state.username, guess: guess }),
+      });
+      var data = await res.json();
+      if (!res.ok) {
+        el.feedback.className = 'feedback error';
+        el.feedback.textContent = data.error || 'Something went wrong.';
+        return;
+      }
+      if (data.correct) {
+        var isNew = !state.solvedAnswers.has(data.num);
+        state.solvedAnswers.set(data.num, data.answer);
+        markCellSolved(data.num, data.answer);
+        updateStats();
+        el.feedback.className = 'feedback correct';
+        el.feedback.textContent = (isNew ? 'Got it — ' : 'Already had ') +
+          '#' + data.num + ' ' + data.answer + ' ✓';
+        el.entryInput.value = '';
+        state.lastChecked = '';
+
+        if (state.solvedAnswers.size === state.words.length) {
+          el.feedback.textContent = 'All 500 solved! ☆';
+        }
+      }
+      // No match: stay silent, keep accumulating -- matches Sporcle-style entry.
+    } catch (err) {
+      el.feedback.className = 'feedback error';
+      el.feedback.textContent = 'Network error — try again.';
     }
-    if (unsolved.length === 0) {
-      el.feedback.className = 'feedback correct';
-      el.feedback.textContent = 'All 500 solved! ☆';
-      return;
-    }
-    if (preferSequential) {
-      var next = unsolved.find(function (i) { return i > state.currentIndex; });
-      state.currentIndex = next !== undefined ? next : unsolved[0];
-    } else {
-      state.currentIndex = unsolved[Math.floor(Math.random() * unsolved.length)];
-    }
-    renderClue();
   }
 
   init();

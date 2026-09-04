@@ -140,89 +140,54 @@ button:disabled:hover { background: var(--paper); color: var(--ink); }
   transition: width 0.25s ease;
 }
 
-/* ---------- Game layout ---------- */
-.game {
-  display: flex;
-  gap: 1.5rem;
-  padding: 1.25rem 1.5rem 2rem;
-  align-items: flex-start;
-  flex-wrap: wrap;
-}
-
-.clue-card {
-  border: 3px solid var(--ink);
+/* ---------- Entry panel ---------- */
+.entry-panel {
   padding: 1.5rem;
-  width: 380px;
-  flex: 0 0 auto;
-  background: var(--paper);
+  border-bottom: 3px solid var(--ink);
 }
-.clue-head { display: flex; align-items: baseline; gap: 0.6rem; margin-bottom: 1.1rem; }
-.clue-number { font-size: 2.2rem; font-weight: bold; line-height: 1; }
-.clue-sub { color: var(--muted); font-family: 'Courier New', Courier, monospace; font-size: 0.8rem; }
-
-.tiles {
-  display: flex;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 1.1rem;
-}
-.tile {
-  width: 42px;
-  height: 42px;
-  border: 2px solid var(--ink);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+.entry-label {
+  display: block;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 1.4rem;
-  font-weight: bold;
+  font-size: 0.78rem;
   text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 0.5rem;
+}
+.entry-row { display: flex; gap: 0.6rem; max-width: 620px; }
+.entry-input {
+  flex: 1;
+  min-width: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.5rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  padding: 0.65rem 0.8rem;
+  border: 3px solid var(--ink);
   background: var(--paper);
   color: var(--ink);
 }
-.tiles.solved .tile { background: var(--ink); color: var(--paper); }
-.tiles.shake { animation: shake 0.32s ease; }
-@keyframes shake {
-  10%, 90% { transform: translateX(-3px); }
-  20%, 80% { transform: translateX(4px); }
-  30%, 50%, 70% { transform: translateX(-6px); }
-  40%, 60% { transform: translateX(6px); }
-}
-
-.guess-input {
-  width: 100%;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 1.1rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  padding: 0.6rem 0.7rem;
-  border: 2px solid var(--ink);
-  background: var(--paper);
-  color: var(--ink);
-}
-.guess-input:focus { outline: 3px solid var(--focus-ring); outline-offset: 1px; }
-.guess-input:disabled { background: var(--panel); color: var(--muted); }
+.entry-input:focus { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+#clearBtn { flex: 0 0 auto; }
 
 .feedback {
   min-height: 1.4em;
   margin-top: 0.7rem;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   color: var(--muted);
+  max-width: 620px;
 }
 .feedback.correct { color: var(--ink); font-weight: bold; }
-.feedback.wrong { color: var(--wrong); }
 .feedback.error { color: var(--wrong); }
 
-.nav-buttons { display: flex; gap: 0.5rem; margin-top: 1.3rem; }
-.nav-buttons button { flex: 1; }
+.stats-bar { max-width: 620px; margin-top: 1.1rem; font-family: 'Courier New', Courier, monospace; padding: 0; }
 
 /* ---------- Number grid ---------- */
 .grid-panel {
-  flex: 1 1 420px;
+  margin: 1.25rem 1.5rem 2rem;
   border: 3px solid var(--ink);
   padding: 1.25rem;
-  min-width: 300px;
 }
 .grid-panel-header {
   display: flex;
@@ -234,42 +199,43 @@ button:disabled:hover { background: var(--paper); color: var(--ink); }
   letter-spacing: 0.05em;
   margin-bottom: 0.9rem;
 }
-.jump-form { display: flex; gap: 0.4rem; }
-.jump-form input {
-  width: 70px;
-  font-family: 'Courier New', Courier, monospace;
-  border: 2px solid var(--ink);
-  padding: 0.3rem 0.4rem;
-  background: var(--paper);
-  color: var(--ink);
-}
-.jump-form button { padding: 0.3rem 0.6rem; font-size: 0.75rem; }
 
 .number-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(38px, 1fr));
-  gap: 4px;
-  max-height: 62vh;
-  overflow-y: auto;
-  padding-right: 4px;
+  grid-template-columns: repeat(auto-fill, minmax(92px, 1fr));
+  gap: 6px;
 }
 .num-cell {
-  aspect-ratio: 1;
   border: 1.5px solid var(--ink);
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.3rem;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.72rem;
   background: var(--paper);
   color: var(--ink);
-  cursor: pointer;
   user-select: none;
 }
-.num-cell:hover { background: var(--panel); }
+.cell-num {
+  font-size: 0.68rem;
+  color: var(--muted);
+  align-self: flex-start;
+}
+.num-cell.solved .cell-num { color: #bbb; }
+.cell-word {
+  font-size: 1rem;
+  font-weight: bold;
+  letter-spacing: 0.05em;
+}
 .num-cell.solved { background: var(--ink); color: var(--paper); }
-.num-cell.solved:hover { background: #333; }
-.num-cell.current { outline: 2px solid var(--ink); outline-offset: 2px; }
+.num-cell.flash { animation: cellFlash 0.5s ease; }
+@keyframes cellFlash {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.12); box-shadow: 0 0 0 3px var(--ink); }
+  100% { transform: scale(1); }
+}
 
 /* ---------- Footer ---------- */
 footer {
@@ -316,7 +282,10 @@ footer {
 
 /* ---------- Responsive ---------- */
 @media (max-width: 640px) {
-  .clue-card { width: 100%; }
   .topbar { padding: 1rem; }
-  .game { padding: 1rem; }
+  .entry-panel { padding: 1rem; }
+  .grid-panel { margin: 1rem; padding: 1rem; }
+  .entry-input { font-size: 1.2rem; letter-spacing: 0.15em; }
+  .number-grid { grid-template-columns: repeat(auto-fill, minmax(72px, 1fr)); }
+  .cell-word { font-size: 0.85rem; }
 }

@@ -25,14 +25,17 @@ module.exports = async (req, res) => {
       [username]
     );
     const { rows } = await pool.query(
-      `SELECT p.word_num
+      `SELECT p.word_num, p.answer
        FROM progress p
        JOIN users u ON u.id = p.user_id
        WHERE u.username = $1
        ORDER BY p.word_num`,
       [username]
     );
-    res.status(200).json({ username, solved: rows.map((r) => r.word_num) });
+    res.status(200).json({
+      username,
+      solved: rows.map((r) => ({ num: r.word_num, answer: r.answer })),
+    });
   } catch (err) {
     console.error('login error', err);
     res.status(500).json({ error: 'Server error, please try again.' });

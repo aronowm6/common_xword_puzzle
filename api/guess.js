@@ -1,9 +1,10 @@
 const { getPool, ensureSchema } = require('./_lib/db');
-const { getWord } = require('./_lib/words');
+const { findByAnswer } = require('./_lib/words');
 const { normalizeUsername, normalizeGuess } = require('./_lib/validate');
 
-// POST { username, num, guess } -> checks the guess server-side against the
-// answer for entry `num`. Correct + first-time guesses are persisted.
+// POST { username, guess } -> freeform matching. The guess is checked
+// against all 500 answers (not tied to a specific entry number); if it
+// exactly matches one, that entry is marked solved for this user.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -12,26 +13,20 @@ module.exports = async (req, res) => {
 
   const body = req.body || {};
   const username = normalizeUsername(body.username);
-  const num = Number(body.num);
   const guess = normalizeGuess(body.guess);
 
   if (!username) {
     res.status(400).json({ error: 'Missing username.' });
     return;
   }
-  const word = getWord(num);
-  if (!word) {
-    res.status(400).json({ error: 'Unknown entry.' });
-    return;
-  }
   if (!guess) {
-    res.status(400).json({ error: 'Missing guess.' });
+    res.status(200).json({ correct: false });
     return;
   }
 
-  const correct = guess === word.answer;
-  if (!correct) {
-    res.status(200).json({ correct: false, num });
+  const word = findByAnswer(guess);
+  if (!word) {
+    res.status(200).json({ correct: false });
     return;
   }
 
@@ -49,10 +44,10 @@ module.exports = async (req, res) => {
        VALUES ($1, $2, $3)
        ON CONFLICT (user_id, word_num) DO NOTHING
        RETURNING word_num`,
-      [userId, num, word.answer]
+      [userId, word.num, word.answer]
     );
     const alreadySolved = insertRes.rowCount === 0;
-    res.status(200).json({ correct: true, num, answer: word.answer, alreadySolved });
+    res.status(200).json({ correct: true, num: word.num, answer: word.answer, alreadySolved });
   } catch (err) {
     console.error('guess error', err);
     res.status(500).json({ error: 'Server error, please try again.' });

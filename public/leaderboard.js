@@ -46,27 +46,31 @@
       tdName.textContent = row.username;
 
       var tdCount = document.createElement('td');
-      tdCount.textContent = row.count + ' / 500';
+      tdCount.textContent = row.count + ' / 501';
 
+      // Deliberately shows which entry NUMBERS a player has solved, never
+      // the answer text itself -- otherwise anyone could read other
+      // players' solved words straight off the leaderboard instead of
+      // solving them.
       var tdWords = document.createElement('td');
-      if (row.words && row.words.length > 0) {
+      if (row.nums && row.nums.length > 0) {
         var toggle = document.createElement('button');
         toggle.className = 'link-btn words-toggle';
-        toggle.textContent = 'Show ' + row.words.length + ' word' + (row.words.length === 1 ? '' : 's');
+        toggle.textContent = 'Show ' + row.nums.length + ' entr' + (row.nums.length === 1 ? 'y' : 'ies');
         var list = document.createElement('div');
         list.className = 'word-chip-list hidden';
-        row.words.forEach(function (w) {
+        row.nums.forEach(function (num) {
           var chip = document.createElement('span');
           chip.className = 'word-chip';
-          chip.textContent = '#' + w.num + ' ' + w.answer;
+          chip.textContent = '#' + num;
           list.appendChild(chip);
         });
         toggle.addEventListener('click', function () {
           var showing = !list.classList.contains('hidden');
           list.classList.toggle('hidden', showing);
           toggle.textContent = showing
-            ? 'Show ' + row.words.length + ' word' + (row.words.length === 1 ? '' : 's')
-            : 'Hide words';
+            ? 'Show ' + row.nums.length + ' entr' + (row.nums.length === 1 ? 'y' : 'ies')
+            : 'Hide';
         });
         tdWords.appendChild(toggle);
         tdWords.appendChild(list);

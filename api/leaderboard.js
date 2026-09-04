@@ -1,7 +1,9 @@
 const { getPool, ensureSchema } = require('./_lib/db');
 
-// GET -> every user who has ever logged in, their solved count, and the
-// full list of words they've gotten so far (most-solved first).
+// GET -> every user who has ever logged in, their solved count, and which
+// entry numbers they've gotten so far (most-solved first). Deliberately
+// never includes the answer text -- that would let anyone read other
+// players' solved words off the public leaderboard instead of solving them.
 module.exports = async (req, res) => {
   if (req.method !== 'GET') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -15,12 +17,9 @@ module.exports = async (req, res) => {
         u.username,
         COUNT(p.word_num)::int AS count,
         COALESCE(
-          json_agg(
-            json_build_object('num', p.word_num, 'answer', p.answer)
-            ORDER BY p.word_num
-          ) FILTER (WHERE p.word_num IS NOT NULL),
+          json_agg(p.word_num ORDER BY p.word_num) FILTER (WHERE p.word_num IS NOT NULL),
           '[]'
-        ) AS words
+        ) AS nums
       FROM users u
       LEFT JOIN progress p ON p.user_id = u.id
       GROUP BY u.username

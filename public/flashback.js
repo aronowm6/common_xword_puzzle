@@ -237,6 +237,9 @@
 
   var FLASH_DURATION_MS = 1600;
   var REVEAL_DELAY_MS = 1800; // slightly longer than the flash so it fully fades first
+  var WRONG_HOLD_MS = 1300;    // how long it sits red at the wrong spot before sliding
+  var MIGRATE_MS = 500;         // slide animation duration
+  var SETTLE_MS = 700;           // pause after it lands before revealing the next word
 
   // Flashes the just-placed card green/red, and flashes a bigger
   // CORRECT/INCORRECT banner at the top of the game area.
@@ -252,9 +255,33 @@
     }, FLASH_DURATION_MS);
   }
 
-  // One guess per word. A wrong guess auto-corrects into the word's real
-  // spot (revealed via `correctIndex`) rather than letting the player
-  // retry -- either way the word's count is revealed once it lands.
+  // Moves the card currently at `fromIndex` in state.placed to `toIndex`,
+  // sliding it there visually (FLIP-style: measure before, update the DOM,
+  // measure after, animate the delta) instead of just teleporting.
+  function migrateCard(fromIndex, toIndex) {
+    var cardEl = el.placedList.children[fromIndex * 2 + 1];
+    var oldRect = cardEl ? cardEl.getBoundingClientRect() : null;
+
+    var item = state.placed.splice(fromIndex, 1)[0];
+    state.placed.splice(toIndex, 0, item);
+    renderPlaced();
+
+    var newCardEl = el.placedList.children[toIndex * 2 + 1];
+    if (newCardEl && oldRect) {
+      var newRect = newCardEl.getBoundingClientRect();
+      var delta = oldRect.top - newRect.top;
+      newCardEl.style.transition = 'none';
+      newCardEl.style.transform = 'translateY(' + delta + 'px)';
+      // eslint-disable-next-line no-unused-expressions
+      newCardEl.offsetHeight; // force reflow so the jump above applies before animating
+      newCardEl.style.transition = 'transform ' + MIGRATE_MS + 'ms ease';
+      newCardEl.style.transform = 'translateY(0)';
+    }
+  }
+
+  // One guess per word. A wrong guess flashes red at the spot the player
+  // guessed, then slides to its real spot -- rather than silently
+  // teleporting there, which made it easy to miss that you were wrong.
   async function placeWord(word, guessedPosition, isFirst) {
     if (!word) return;
     if (!isFirst) state.currentWord = null; // lock out further clicks immediately
@@ -277,31 +304,42 @@
         return;
       }
 
-      var finalPosition = data.correct ? guessedPosition : data.correctIndex;
-      state.placed.splice(finalPosition, 0, { word: word, count: data.count });
-      el.currentWordCard.classList.add('hidden');
-      renderPlaced();
+      if (isFirst || data.correct) {
+        var finalPosition = data.correct ? guessedPosition : data.correctIndex;
+        state.placed.splice(finalPosition, 0, { word: word, count: data.count });
+        el.currentWordCard.classList.add('hidden');
+        renderPlaced();
 
-      if (isFirst) {
-        // The first word is auto-placed with no real guess involved --
-        // nothing to flash correct/incorrect about, so skip straight to
-        // revealing the next word.
-        revealNext();
+        if (isFirst) {
+          // Auto-placed, no real guess involved -- nothing to flash, skip
+          // straight to revealing the next word.
+          revealNext();
+          return;
+        }
+
+        flashResult(finalPosition, true);
+        el.feedback.className = 'feedback correct';
+        el.feedback.textContent = 'Correct! ✓ Used ' + data.count + ' times.';
+        setTimeout(revealNext, REVEAL_DELAY_MS);
         return;
       }
 
-      flashResult(finalPosition, data.correct);
+      // Wrong: place it at the spot the player actually guessed first, so
+      // the red flash happens where they clicked, not somewhere else.
+      state.placed.splice(guessedPosition, 0, { word: word, count: data.count });
+      el.currentWordCard.classList.add('hidden');
+      renderPlaced();
+      flashResult(guessedPosition, false);
 
-      if (data.correct) {
-        el.feedback.className = 'feedback correct';
-        el.feedback.textContent = 'Correct! ✓ Used ' + data.count + ' times.';
-      } else {
-        state.mistakes += 1;
-        el.mistakeCount.textContent = String(state.mistakes);
-        el.feedback.className = 'feedback wrong';
-        el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
-      }
-      setTimeout(revealNext, REVEAL_DELAY_MS);
+      state.mistakes += 1;
+      el.mistakeCount.textContent = String(state.mistakes);
+      el.feedback.className = 'feedback wrong';
+      el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
+
+      setTimeout(function () {
+        migrateCard(guessedPosition, data.correctIndex);
+        setTimeout(revealNext, MIGRATE_MS + SETTLE_MS);
+      }, WRONG_HOLD_MS);
     } catch (err) {
       el.feedback.className = 'feedback error';
       el.feedback.textContent = 'Network error — try again.';

@@ -137,6 +137,20 @@
   }
 
   async function startPuzzle(id) {
+    // Clear any leftover cards from a previous attempt (and switch
+    // sections) immediately, *before* the fetch below -- otherwise the old
+    // puzzle's word list stays on screen during the loading gap and then
+    // jump-replaces all at once when the new data arrives.
+    el.placedList.innerHTML = '';
+    el.currentWordCard.classList.add('hidden');
+    el.pickerSection.classList.add('hidden');
+    el.resultSection.classList.add('hidden');
+    el.gameSection.classList.remove('hidden');
+    el.gameTheme.textContent = '';
+    el.mistakeCount.textContent = '0';
+    el.feedback.className = 'feedback';
+    el.feedback.textContent = 'Loading puzzle…';
+
     var res = await fetch('/api/flashback-puzzle?id=' + encodeURIComponent(id));
     if (!res.ok) return;
     var data = await res.json();
@@ -149,12 +163,7 @@
     state.currentWord = null;
     state.mistakes = 0;
 
-    el.pickerSection.classList.add('hidden');
-    el.resultSection.classList.add('hidden');
-    el.gameSection.classList.remove('hidden');
     el.gameTheme.textContent = state.theme || '';
-    el.mistakeCount.textContent = '0';
-    el.feedback.className = 'feedback';
     el.feedback.textContent = '';
 
     revealNext();

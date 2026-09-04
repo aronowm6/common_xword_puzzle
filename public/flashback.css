@@ -59,7 +59,7 @@
   text-align: center;
 }
 .fb-order-label-top { margin-bottom: 0.4rem; }
-.fb-order-label-bottom { margin-top: -0.9rem; margin-bottom: 1.3rem; }
+.fb-order-label-bottom { margin-top: 0.4rem; margin-bottom: 1.3rem; }
 
 .fb-placed-list {
   display: flex;

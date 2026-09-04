@@ -5,6 +5,7 @@
 
   var state = {
     puzzles: [],           // [{id, theme, wordCount}]
+    progress: {},           // { puzzleId: bestMistakes } for the signed-in player
     puzzleId: null,
     theme: null,
     totalWords: 0,
@@ -85,7 +86,7 @@
     el.whoami.classList.remove('hidden');
     el.overlay.classList.add('hidden');
     el.app.classList.remove('hidden');
-    await loadPuzzleList();
+    await Promise.all([loadPuzzleList(), loadPuzzleProgress()]);
     showPicker();
   }
 
@@ -112,6 +113,22 @@
     state.puzzles = data.puzzles || [];
   }
 
+  async function loadPuzzleProgress() {
+    var token = CXPAuth.getToken();
+    if (!token) return;
+    try {
+      var res = await fetch('/api/flashback-progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+      });
+      var data = await res.json();
+      if (res.ok) state.progress = data.progress || {};
+    } catch (err) {
+      // Non-fatal -- picker just won't show "done" state if this fails.
+    }
+  }
+
   function showPicker() {
     el.pickerSection.classList.remove('hidden');
     el.gameSection.classList.add('hidden');
@@ -130,12 +147,21 @@
       sub.className = 'muted fb-puzzle-sub';
       sub.textContent = p.wordCount + ' words to order';
 
-      var btn = document.createElement('button');
-      btn.textContent = 'Play';
-      btn.addEventListener('click', function () { startPuzzle(p.id); });
-
       card.appendChild(label);
       card.appendChild(sub);
+
+      var best = state.progress[p.id];
+      var done = best !== undefined && best !== null;
+      if (done) {
+        var doneEl = document.createElement('div');
+        doneEl.className = 'fb-puzzle-done';
+        doneEl.textContent = '✓ Done — ' + best + (best === 1 ? ' mistake' : ' mistakes');
+        card.appendChild(doneEl);
+      }
+
+      var btn = document.createElement('button');
+      btn.textContent = done ? 'Play Again' : 'Play';
+      btn.addEventListener('click', function () { startPuzzle(p.id); });
       card.appendChild(btn);
       el.puzzleList.appendChild(card);
     });
@@ -374,7 +400,10 @@
         body: JSON.stringify({ token: token, puzzleId: state.puzzleId, mistakes: state.mistakes }),
       });
       var data = await res.json();
-      if (res.ok) best = data.best;
+      if (res.ok) {
+        best = data.best;
+        state.progress[state.puzzleId] = best; // picker shows "done" immediately, no refetch needed
+      }
     } catch (err) {
       // Non-fatal -- still show the result locally even if saving failed.
     }

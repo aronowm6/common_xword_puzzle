@@ -1,6 +1,8 @@
 #!/usr/bin/env node
-// One-time DB setup: creates the users/progress tables against whatever
-// Postgres DATABASE_URL points at (e.g. your Supabase connection string).
+// One-time DB setup: creates/updates the schema against whatever Postgres
+// DATABASE_URL points at (e.g. your Neon connection string). Reuses the
+// same ensureSchema() the live API calls lazily, so this file can't drift
+// out of sync with what's actually deployed.
 //
 // Usage:
 //   DATABASE_URL="postgres://..." node scripts/seed.js
@@ -12,40 +14,22 @@ try {
   // dotenv is optional; ignore if not installed.
 }
 
-const { Pool } = require('pg');
+const { ensureSchema, getPool } = require('../api/_lib/db');
 
 async function main() {
-  const connectionString = process.env.DATABASE_URL;
-  if (!connectionString) {
+  if (!process.env.DATABASE_URL) {
     console.error('Missing DATABASE_URL. Set it in your env or in a .env file.');
     process.exit(1);
   }
 
-  const pool = new Pool({ connectionString, ssl: { rejectUnauthorized: false } });
-
   console.log('Connecting to database...');
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS users (
-      id SERIAL PRIMARY KEY,
-      username TEXT UNIQUE NOT NULL,
-      created_at TIMESTAMPTZ NOT NULL DEFAULT now()
-    );
-  `);
-  await pool.query(`
-    CREATE TABLE IF NOT EXISTS progress (
-      user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-      word_num INTEGER NOT NULL,
-      answer TEXT NOT NULL,
-      solved_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-      PRIMARY KEY (user_id, word_num)
-    );
-  `);
-  console.log('Schema ready: users, progress');
+  await ensureSchema();
+  console.log('Schema ready: users, progress, sessions');
 
   const words = require('../data/words.json');
   console.log(`Word list loaded: ${words.length} entries (not stored in DB, served from data/words.json).`);
 
-  await pool.end();
+  await getPool().end();
   console.log('Done.');
 }
 

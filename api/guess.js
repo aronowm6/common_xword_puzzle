@@ -1,10 +1,11 @@
 const { getPool, ensureSchema } = require('./_lib/db');
 const { findByAnswer } = require('./_lib/words');
-const { normalizeUsername, normalizeGuess } = require('./_lib/validate');
+const { normalizeGuess } = require('./_lib/validate');
 
-// POST { username, guess } -> freeform matching. The guess is checked
-// against all 500 answers (not tied to a specific entry number); if it
-// exactly matches one, that entry is marked solved for this user.
+// POST { token, guess } -> freeform matching, authenticated by session
+// token (not a bare username) so guesses can't be forged for someone else.
+// The guess is checked against all 501 answers (not tied to a specific
+// entry number); if it exactly matches one, that entry is marked solved.
 module.exports = async (req, res) => {
   if (req.method !== 'POST') {
     res.status(405).json({ error: 'Method not allowed' });
@@ -12,11 +13,11 @@ module.exports = async (req, res) => {
   }
 
   const body = req.body || {};
-  const username = normalizeUsername(body.username);
+  const token = typeof body.token === 'string' ? body.token : null;
   const guess = normalizeGuess(body.guess);
 
-  if (!username) {
-    res.status(400).json({ error: 'Missing username.' });
+  if (!token) {
+    res.status(401).json({ error: 'Not signed in.' });
     return;
   }
   if (!guess) {
@@ -33,12 +34,17 @@ module.exports = async (req, res) => {
   try {
     await ensureSchema();
     const pool = getPool();
-    await pool.query(
-      'INSERT INTO users (username) VALUES ($1) ON CONFLICT (username) DO NOTHING',
-      [username]
+
+    const sessRes = await pool.query(
+      'SELECT user_id FROM sessions WHERE token = $1 AND expires_at > now()',
+      [token]
     );
-    const userRes = await pool.query('SELECT id FROM users WHERE username = $1', [username]);
-    const userId = userRes.rows[0].id;
+    if (sessRes.rows.length === 0) {
+      res.status(401).json({ error: 'Session expired, please log in again.' });
+      return;
+    }
+    const userId = sessRes.rows[0].user_id;
+
     const insertRes = await pool.query(
       `INSERT INTO progress (user_id, word_num, answer)
        VALUES ($1, $2, $3)

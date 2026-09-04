@@ -5,9 +5,10 @@ const words = require('../../data/words.json');
 const byNum = new Map(words.map((w) => [w.num, w]));
 const byAnswer = new Map(words.map((w) => [w.answer, w]));
 
-// Never expose `answer` to the client — only rank number + letter count.
+// Never expose `answer` to the client — rank number, letter count, and
+// popularity count (how many NYT puzzles used it) are all fair to show.
 function publicWords() {
-  return words.map(({ num, length }) => ({ num, length }));
+  return words.map(({ num, length, count }) => ({ num, length, count }));
 }
 
 function getWord(num) {

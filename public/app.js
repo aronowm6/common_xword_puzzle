@@ -1,14 +1,15 @@
 (function () {
   'use strict';
 
-  var STORAGE_KEY = 'cxp_username';
+  var TOKEN_KEY = 'cxp_token';
   var CHECK_DEBOUNCE_MS = 120;
 
   var state = {
     username: null,
-    words: [],                // [{num, length}] ordered 1..500
-    solvedAnswers: new Map(), // num -> answer text
-    lastChecked: '',           // avoid re-checking the same string twice in a row
+    token: null,
+    words: [],                 // [{num, length, count}] ordered 1..N
+    solvedAnswers: new Map(),  // num -> answer text
+    lastChecked: '',            // avoid re-checking the same string twice in a row
   };
 
   var el = {};
@@ -19,11 +20,14 @@
     el.overlay = document.getElementById('usernameOverlay');
     el.usernameForm = document.getElementById('usernameForm');
     el.usernameInput = document.getElementById('usernameInput');
+    el.passwordInput = document.getElementById('passwordInput');
     el.usernameError = document.getElementById('usernameError');
     el.whoami = document.getElementById('whoami');
     el.whoamiName = document.getElementById('whoamiName');
     el.switchUserBtn = document.getElementById('switchUserBtn');
 
+    el.subtitle = document.getElementById('subtitle');
+    el.gridTitle = document.getElementById('gridTitle');
     el.solvedCount = document.getElementById('solvedCount');
     el.totalCount = document.getElementById('totalCount');
     el.progressFill = document.getElementById('progressFill');
@@ -38,12 +42,11 @@
   function bindEvents() {
     el.usernameForm.addEventListener('submit', function (e) {
       e.preventDefault();
-      loginUser(el.usernameInput.value);
+      loginUser(el.usernameInput.value, el.passwordInput.value);
     });
 
     el.switchUserBtn.addEventListener('click', function () {
-      localStorage.removeItem(STORAGE_KEY);
-      window.location.reload();
+      logout();
     });
 
     el.entryInput.addEventListener('input', handleEntryInput);
@@ -83,12 +86,14 @@
     var wordsData = await wordsRes.json();
     state.words = wordsData.words;
     el.totalCount.textContent = state.words.length;
+    el.subtitle.textContent = 'Top ' + state.words.length + ' NYT crossword entries — Modern Era';
+    el.gridTitle.textContent = 'All ' + state.words.length + ' entries';
 
     buildGrid();
 
-    var saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      var ok = await loginUser(saved, true);
+    var token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      var ok = await resumeSession(token);
       if (!ok) showOverlay();
     } else {
       showOverlay();
@@ -106,44 +111,93 @@
     el.app.classList.remove('hidden');
   }
 
-  async function loginUser(rawName, silent) {
+  function applySession(username, solved) {
+    state.username = username;
+    state.solvedAnswers = new Map();
+    (solved || []).forEach(function (entry) {
+      state.solvedAnswers.set(entry.num, entry.answer);
+    });
+
+    el.whoamiName.textContent = state.username;
+    el.whoami.classList.remove('hidden');
+    hideOverlay();
+
+    renderAllCells();
+    updateStats();
+    el.entryInput.value = '';
+    el.entryInput.focus();
+  }
+
+  async function resumeSession(token) {
+    try {
+      var res = await fetch('/api/session', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+      });
+      var data = await res.json();
+      if (!res.ok) {
+        localStorage.removeItem(TOKEN_KEY);
+        return false;
+      }
+      state.token = token;
+      applySession(data.username, data.solved);
+      return true;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  async function loginUser(rawName, rawPassword) {
     var name = (rawName || '').trim();
+    var password = rawPassword || '';
     if (!name) {
-      if (!silent) showUsernameError('Enter a username to play.');
+      showUsernameError('Enter a username to play.');
+      return false;
+    }
+    if (password.length < 4) {
+      showUsernameError('Password must be at least 4 characters.');
       return false;
     }
     try {
       var res = await fetch('/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: name }),
+        body: JSON.stringify({ username: name, password: password }),
       });
       var data = await res.json();
       if (!res.ok) {
-        if (!silent) showUsernameError(data.error || 'Something went wrong.');
+        showUsernameError(data.error || 'Something went wrong.');
         return false;
       }
 
-      state.username = data.username;
-      state.solvedAnswers = new Map();
-      (data.solved || []).forEach(function (entry) {
-        state.solvedAnswers.set(entry.num, entry.answer);
-      });
-      localStorage.setItem(STORAGE_KEY, state.username);
+      state.token = data.token;
+      localStorage.setItem(TOKEN_KEY, state.token);
+      el.passwordInput.value = '';
+      applySession(data.username, data.solved);
 
-      el.whoamiName.textContent = state.username;
-      el.whoami.classList.remove('hidden');
-      hideOverlay();
-
-      renderAllCells();
-      updateStats();
-      el.entryInput.value = '';
-      el.entryInput.focus();
+      if (data.claimedLegacy) {
+        el.feedback.className = 'feedback';
+        el.feedback.textContent = 'This username didn’t have a password yet — it’s now set to what you just entered.';
+      }
       return true;
     } catch (err) {
-      if (!silent) showUsernameError('Network error -- try again.');
+      showUsernameError('Network error -- try again.');
       return false;
     }
+  }
+
+  function logout() {
+    var token = state.token;
+    localStorage.removeItem(TOKEN_KEY);
+    if (token) {
+      fetch('/api/logout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ token: token }),
+      }).catch(function () {});
+    }
+    window.location.reload();
   }
 
   function showUsernameError(msg) {
@@ -165,19 +219,31 @@
       var cell = document.createElement('div');
       cell.className = 'num-cell';
       cell.dataset.num = w.num;
+      cell.title = 'Used in ' + w.count + ' NYT puzzles';
+
+      var topRow = document.createElement('div');
+      topRow.className = 'cell-top-row';
 
       var num = document.createElement('span');
       num.className = 'cell-num';
       num.textContent = w.num;
 
+      var count = document.createElement('span');
+      count.className = 'cell-count';
+      count.textContent = '×' + w.count;
+
+      topRow.appendChild(num);
+      topRow.appendChild(count);
+
       var word = document.createElement('span');
       word.className = 'cell-word';
       word.textContent = blanksFor(w.length);
 
-      cell.appendChild(num);
+      cell.appendChild(topRow);
       cell.appendChild(word);
-      el.numberGrid.appendChild(cell);
+      frag.appendChild(cell);
     });
+    el.numberGrid.appendChild(frag);
   }
 
   function renderAllCells() {
@@ -231,7 +297,7 @@
   }
 
   async function attemptMatch(guess) {
-    if (!state.username) return;
+    if (!state.token) return;
     if (guess !== el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '')) return; // stale
     if (guess === state.lastChecked) return;
     state.lastChecked = guess;
@@ -240,12 +306,16 @@
       var res = await fetch('/api/guess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: state.username, guess: guess }),
+        body: JSON.stringify({ token: state.token, guess: guess }),
       });
       var data = await res.json();
       if (!res.ok) {
         el.feedback.className = 'feedback error';
         el.feedback.textContent = data.error || 'Something went wrong.';
+        if (res.status === 401) {
+          localStorage.removeItem(TOKEN_KEY);
+          setTimeout(function () { window.location.reload(); }, 1200);
+        }
         return;
       }
       if (data.correct && data.alreadySolved) {
@@ -255,16 +325,18 @@
         return;
       }
       if (data.correct) {
+        var word = state.words.find(function (w) { return w.num === data.num; });
         state.solvedAnswers.set(data.num, data.answer);
         markCellSolved(data.num, data.answer);
         updateStats();
         el.feedback.className = 'feedback correct';
-        el.feedback.textContent = 'Got it — #' + data.num + ' ' + data.answer + ' ✓';
+        el.feedback.textContent = 'Got it — #' + data.num + ' ' + data.answer +
+          (word ? ' (used ' + word.count + '×) ' : ' ') + '✓';
         el.entryInput.value = '';
         state.lastChecked = '';
 
         if (state.solvedAnswers.size === state.words.length) {
-          el.feedback.textContent = 'All 500 solved! ☆';
+          el.feedback.textContent = 'All ' + state.words.length + ' solved! ☆';
         }
       }
       // No match: stay silent, keep accumulating -- matches Sporcle-style entry.

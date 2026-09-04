@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Top 500 &mdash; Common Crossword Entries</title>
+<title>Top 501 &mdash; Common Crossword Entries</title>
 <link rel="stylesheet" href="/style.css" />
 </head>
 <body>
@@ -13,30 +13,33 @@
       <span class="brand-mark">&#9632;&#9633;</span>
       <div class="brand-text">
         <h1>COMMON&nbsp;XWORD</h1>
-        <p>Top 500 NYT crossword entries &mdash; Modern Era</p>
+        <p id="subtitle">Top 501 NYT crossword entries &mdash; Modern Era</p>
+        <p class="asof">Data as of 9/4/2026</p>
       </div>
     </div>
     <nav class="topnav">
-      <span id="whoami" class="whoami hidden">Playing as <strong id="whoamiName"></strong> &middot; <button id="switchUserBtn" class="link-btn">switch</button></span>
+      <span id="whoami" class="whoami hidden">Playing as <strong id="whoamiName"></strong> &middot; <button id="switchUserBtn" class="link-btn">log out</button></span>
       <a href="/leaderboard">Leaderboard</a>
     </nav>
   </header>
 
   <div id="usernameOverlay" class="overlay">
     <div class="overlay-card">
-      <h2>Enter a username to play</h2>
-      <p class="muted">No password needed &mdash; your progress saves under this name and shows up on the leaderboard.</p>
+      <h2>Log in to play</h2>
+      <p class="muted">New username? It's created automatically with the password you choose. Already have one? Enter its password to continue &mdash; your progress is saved either way.</p>
       <form id="usernameForm">
-        <input id="usernameInput" type="text" maxlength="24" placeholder="e.g. wordsmith42" autocomplete="off" autocapitalize="off" spellcheck="false" />
-        <button type="submit">Start solving</button>
+        <input id="usernameInput" type="text" maxlength="24" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" />
+        <input id="passwordInput" type="password" maxlength="72" placeholder="Password" autocomplete="current-password" />
+        <button type="submit">Play</button>
       </form>
+      <p class="warning-text">&#9888; This is just a fun trivia game &mdash; please use a throwaway password, not one you use anywhere real.</p>
       <p id="usernameError" class="error-text hidden"></p>
     </div>
   </div>
 
   <main id="app" class="hidden">
     <section class="entry-panel">
-      <label for="entryInput" class="entry-label">Type any of the 500 entries &mdash; no need to press Enter</label>
+      <label for="entryInput" class="entry-label">Type any entry &mdash; no need to press Enter</label>
       <div class="entry-row">
         <input id="entryInput" class="entry-input" type="text"
                autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
@@ -46,22 +49,22 @@
       <div id="feedback" class="feedback" aria-live="polite">Guesses are checked live as you type.</div>
 
       <div class="stats-bar">
-        <div class="stats-text"><strong id="solvedCount">0</strong> / <span id="totalCount">500</span> solved</div>
+        <div class="stats-text"><strong id="solvedCount">0</strong> / <span id="totalCount">501</span> solved</div>
         <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
       </div>
     </section>
 
     <section class="grid-panel">
       <div class="grid-panel-header">
-        <span>All 500 entries</span>
-        <span class="muted">solved entries reveal the word</span>
+        <span id="gridTitle">All 501 entries</span>
+        <span class="muted">number = popularity rank &middot; &times;N = times used in NYT puzzles</span>
       </div>
       <div id="numberGrid" class="number-grid"></div>
     </section>
   </main>
 
   <footer>
-    Word list sourced from <a href="https://www.xwordinfo.com/Popular" target="_blank" rel="noopener">xwordinfo.com/Popular</a> (NYT Modern Era). Not affiliated with the New York Times or XWord Info.
+    Word list sourced from <a href="https://www.xwordinfo.com/Popular" target="_blank" rel="noopener">xwordinfo.com/Popular</a> (NYT Modern Era), data as of 9/4/2026. Not affiliated with the New York Times or XWord Info.
   </footer>
 
   <script src="/app.js"></script>

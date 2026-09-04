@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Flashback &mdash; The 501 Challenge</title>
+<link rel="stylesheet" href="/style.css" />
+<link rel="stylesheet" href="/flashback.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">&#9632;&#9633;</span>
+      <div class="brand-text">
+        <h1>FLASHBACK</h1>
+        <p>Place 8 crossword entries in order, most common first</p>
+      </div>
+    </div>
+    <nav class="topnav">
+      <span id="whoami" class="whoami hidden">Playing as <strong id="whoamiName"></strong> &middot; <button id="switchUserBtn" class="link-btn">log out</button></span>
+      <a href="/">&larr; Main game</a>
+      <a href="/leaderboard">Leaderboard</a>
+    </nav>
+  </header>
+
+  <div id="usernameOverlay" class="overlay">
+    <div class="overlay-card">
+      <h2>Log in to play</h2>
+      <p class="muted">Same account as the main game. New username? It's created automatically with the password you choose.</p>
+      <form id="usernameForm">
+        <input id="usernameInput" type="text" maxlength="24" placeholder="Username" autocomplete="username" autocapitalize="off" spellcheck="false" />
+        <input id="passwordInput" type="password" maxlength="72" placeholder="Password" autocomplete="current-password" />
+        <button type="submit">Play</button>
+      </form>
+      <p class="warning-text">&#9888; This is just a fun trivia game &mdash; please use a throwaway password, not one you use anywhere real.</p>
+      <p id="usernameError" class="error-text hidden"></p>
+    </div>
+  </div>
+
+  <main id="app" class="hidden">
+    <section id="pickerSection" class="fb-picker">
+      <h2>Choose a puzzle</h2>
+      <div id="puzzleList" class="fb-puzzle-list"></div>
+    </section>
+
+    <section id="gameSection" class="fb-game hidden">
+      <div class="fb-game-header">
+        <button id="backToPickerBtn" class="link-btn">&larr; All puzzles</button>
+        <div id="gameTheme" class="muted"></div>
+        <div class="fb-mistake-counter">Mistakes: <strong id="mistakeCount">0</strong></div>
+      </div>
+
+      <div id="placedList" class="fb-placed-list"></div>
+
+      <div id="currentWordCard" class="fb-current-card hidden">
+        <div class="fb-current-label">Where does this rank &mdash; most common first?</div>
+        <div id="currentWord" class="fb-current-word"></div>
+      </div>
+
+      <div id="feedback" class="feedback"></div>
+    </section>
+
+    <section id="resultSection" class="fb-result hidden">
+      <h2>Puzzle complete!</h2>
+      <p id="resultSummary"></p>
+      <div class="nav-buttons">
+        <button id="playAgainBtn">Try again</button>
+        <button id="otherPuzzleBtn">Other puzzles</button>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Word list sourced from <a href="https://www.xwordinfo.com/Popular" target="_blank" rel="noopener">xwordinfo.com/Popular</a> (NYT Modern Era). Not affiliated with the New York Times or XWord Info.
+  </footer>
+
+  <script src="/auth.js"></script>
+  <script src="/flashback.js"></script>
+</body>
+</html>

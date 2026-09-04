@@ -1,0 +1,5818 @@
+[
+  {
+    "word": "ALIEN",
+    "count": 180
+  },
+  {
+    "word": "STAB",
+    "count": 180
+  },
+  {
+    "word": "EMAIL",
+    "count": 180
+  },
+  {
+    "word": "AMOS",
+    "count": 179
+  },
+  {
+    "word": "SENSE",
+    "count": 179
+  },
+  {
+    "word": "DEE",
+    "count": 179
+  },
+  {
+    "word": "AVON",
+    "count": 179
+  },
+  {
+    "word": "TRY",
+    "count": 179
+  },
+  {
+    "word": "CAT",
+    "count": 179
+  },
+  {
+    "word": "OPS",
+    "count": 179
+  },
+  {
+    "word": "INA",
+    "count": 178
+  },
+  {
+    "word": "TIER",
+    "count": 178
+  },
+  {
+    "word": "TRE",
+    "count": 178
+  },
+  {
+    "word": "TALE",
+    "count": 178
+  },
+  {
+    "word": "SARA",
+    "count": 178
+  },
+  {
+    "word": "SIN",
+    "count": 178
+  },
+  {
+    "word": "SCI",
+    "count": 178
+  },
+  {
+    "word": "STOP",
+    "count": 177
+  },
+  {
+    "word": "ULNA",
+    "count": 177
+  },
+  {
+    "word": "SKI",
+    "count": 177
+  },
+  {
+    "word": "DOT",
+    "count": 177
+  },
+  {
+    "word": "ELENA",
+    "count": 177
+  },
+  {
+    "word": "CEO",
+    "count": 177
+  },
+  {
+    "word": "LIAR",
+    "count": 176
+  },
+  {
+    "word": "AIM",
+    "count": 176
+  },
+  {
+    "word": "OLA",
+    "count": 176
+  },
+  {
+    "word": "DOS",
+    "count": 176
+  },
+  {
+    "word": "ELMO",
+    "count": 175
+  },
+  {
+    "word": "SPY",
+    "count": 175
+  },
+  {
+    "word": "ERATO",
+    "count": 174
+  },
+  {
+    "word": "AMES",
+    "count": 174
+  },
+  {
+    "word": "SOL",
+    "count": 174
+  },
+  {
+    "word": "UMA",
+    "count": 174
+  },
+  {
+    "word": "AMOR",
+    "count": 173
+  },
+  {
+    "word": "OVEN",
+    "count": 173
+  },
+  {
+    "word": "EMMA",
+    "count": 173
+  },
+  {
+    "word": "IAGO",
+    "count": 173
+  },
+  {
+    "word": "LAS",
+    "count": 173
+  },
+  {
+    "word": "NASA",
+    "count": 173
+  },
+  {
+    "word": "UCLA",
+    "count": 173
+  },
+  {
+    "word": "AGAR",
+    "count": 172
+  },
+  {
+    "word": "SERA",
+    "count": 172
+  },
+  {
+    "word": "NETS",
+    "count": 172
+  },
+  {
+    "word": "ERAT",
+    "count": 171
+  },
+  {
+    "word": "SEER",
+    "count": 170
+  },
+  {
+    "word": "AMIE",
+    "count": 170
+  },
+  {
+    "word": "EOS",
+    "count": 170
+  },
+  {
+    "word": "SIT",
+    "count": 170
+  },
+  {
+    "word": "ATL",
+    "count": 170
+  },
+  {
+    "word": "TROT",
+    "count": 169
+  },
+  {
+    "word": "SAO",
+    "count": 169
+  },
+  {
+    "word": "STAG",
+    "count": 168
+  },
+  {
+    "word": "THE",
+    "count": 168
+  },
+  {
+    "word": "TAU",
+    "count": 168
+  },
+  {
+    "word": "RON",
+    "count": 168
+  },
+  {
+    "word": "DIE",
+    "count": 168
+  },
+  {
+    "word": "APR",
+    "count": 168
+  },
+  {
+    "word": "TESS",
+    "count": 167
+  },
+  {
+    "word": "TIRE",
+    "count": 167
+  },
+  {
+    "word": "SAC",
+    "count": 167
+  },
+  {
+    "word": "LEN",
+    "count": 167
+  },
+  {
+    "word": "TIL",
+    "count": 167
+  },
+  {
+    "word": "NATO",
+    "count": 166
+  },
+  {
+    "word": "AID",
+    "count": 166
+  },
+  {
+    "word": "INON",
+    "count": 166
+  },
+  {
+    "word": "SCAM",
+    "count": 166
+  },
+  {
+    "word": "ROLE",
+    "count": 165
+  },
+  {
+    "word": "OTTER",
+    "count": 165
+  },
+  {
+    "word": "ERTE",
+    "count": 165
+  },
+  {
+    "word": "SPAS",
+    "count": 164
+  },
+  {
+    "word": "AUTO",
+    "count": 164
+  },
+  {
+    "word": "INK",
+    "count": 164
+  },
+  {
+    "word": "NCAA",
+    "count": 164
+  },
+  {
+    "word": "ADEN",
+    "count": 163
+  },
+  {
+    "word": "ERNIE",
+    "count": 163
+  },
+  {
+    "word": "LIL",
+    "count": 163
+  },
+  {
+    "word": "TWO",
+    "count": 163
+  },
+  {
+    "word": "REC",
+    "count": 163
+  },
+  {
+    "word": "NILE",
+    "count": 162
+  },
+  {
+    "word": "ONA",
+    "count": 162
+  },
+  {
+    "word": "AYE",
+    "count": 162
+  },
+  {
+    "word": "SKA",
+    "count": 162
+  },
+  {
+    "word": "AIDA",
+    "count": 161
+  },
+  {
+    "word": "ERROR",
+    "count": 161
+  },
+  {
+    "word": "CHE",
+    "count": 161
+  },
+  {
+    "word": "ORS",
+    "count": 161
+  },
+  {
+    "word": "REAL",
+    "count": 160
+  },
+  {
+    "word": "SALE",
+    "count": 160
+  },
+  {
+    "word": "EEN",
+    "count": 160
+  },
+  {
+    "word": "ALDA",
+    "count": 160
+  },
+  {
+    "word": "PERU",
+    "count": 160
+  },
+  {
+    "word": "ARK",
+    "count": 160
+  },
+  {
+    "word": "ENYA",
+    "count": 160
+  },
+  {
+    "word": "EARS",
+    "count": 159
+  },
+  {
+    "word": "HERO",
+    "count": 159
+  },
+  {
+    "word": "EIN",
+    "count": 159
+  },
+  {
+    "word": "ELIE",
+    "count": 159
+  },
+  {
+    "word": "ODIN",
+    "count": 157
+  },
+  {
+    "word": "REDS",
+    "count": 157
+  },
+  {
+    "word": "GENE",
+    "count": 157
+  },
+  {
+    "word": "ASPS",
+    "count": 157
+  },
+  {
+    "word": "NEMO",
+    "count": 157
+  },
+  {
+    "word": "STA",
+    "count": 156
+  },
+  {
+    "word": "ACID",
+    "count": 156
+  },
+  {
+    "word": "AHAB",
+    "count": 156
+  },
+  {
+    "word": "NOD",
+    "count": 156
+  },
+  {
+    "word": "ROD",
+    "count": 156
+  },
+  {
+    "word": "ERST",
+    "count": 155
+  },
+  {
+    "word": "MERE",
+    "count": 155
+  },
+  {
+    "word": "TRAP",
+    "count": 155
+  },
+  {
+    "word": "DATA",
+    "count": 155
+  },
+  {
+    "word": "MER",
+    "count": 155
+  },
+  {
+    "word": "ADELE",
+    "count": 155
+  },
+  {
+    "word": "NINE",
+    "count": 154
+  },
+  {
+    "word": "ARTE",
+    "count": 154
+  },
+  {
+    "word": "TARA",
+    "count": 154
+  },
+  {
+    "word": "SAM",
+    "count": 154
+  },
+  {
+    "word": "ESTA",
+    "count": 154
+  },
+  {
+    "word": "CAL",
+    "count": 154
+  },
+  {
+    "word": "NOS",
+    "count": 154
+  },
+  {
+    "word": "LAO",
+    "count": 154
+  },
+  {
+    "word": "REESE",
+    "count": 153
+  },
+  {
+    "word": "INE",
+    "count": 153
+  },
+  {
+    "word": "APES",
+    "count": 153
+  },
+  {
+    "word": "DES",
+    "count": 153
+  },
+  {
+    "word": "OARS",
+    "count": 153
+  },
+  {
+    "word": "POE",
+    "count": 153
+  },
+  {
+    "word": "TAI",
+    "count": 153
+  },
+  {
+    "word": "ALOU",
+    "count": 153
+  },
+  {
+    "word": "ESPN",
+    "count": 153
+  },
+  {
+    "word": "SANE",
+    "count": 152
+  },
+  {
+    "word": "HALO",
+    "count": 152
+  },
+  {
+    "word": "TETE",
+    "count": 152
+  },
+  {
+    "word": "REAP",
+    "count": 152
+  },
+  {
+    "word": "OCT",
+    "count": 152
+  },
+  {
+    "word": "UNI",
+    "count": 152
+  },
+  {
+    "word": "ABC",
+    "count": 152
+  },
+  {
+    "word": "OAK",
+    "count": 152
+  },
+  {
+    "word": "MESA",
+    "count": 151
+  },
+  {
+    "word": "AMO",
+    "count": 151
+  },
+  {
+    "word": "MEL",
+    "count": 151
+  },
+  {
+    "word": "ITT",
+    "count": 151
+  },
+  {
+    "word": "ITE",
+    "count": 149
+  },
+  {
+    "word": "TEAR",
+    "count": 149
+  },
+  {
+    "word": "INERT",
+    "count": 149
+  },
+  {
+    "word": "RISE",
+    "count": 149
+  },
+  {
+    "word": "EMS",
+    "count": 149
+  },
+  {
+    "word": "AER",
+    "count": 149
+  },
+  {
+    "word": "OPIE",
+    "count": 149
+  },
+  {
+    "word": "OHNO",
+    "count": 149
+  },
+  {
+    "word": "TENET",
+    "count": 148
+  },
+  {
+    "word": "UTES",
+    "count": 148
+  },
+  {
+    "word": "AGENT",
+    "count": 148
+  },
+  {
+    "word": "CHI",
+    "count": 148
+  },
+  {
+    "word": "ADIEU",
+    "count": 148
+  },
+  {
+    "word": "ARGO",
+    "count": 147
+  },
+  {
+    "word": "ETES",
+    "count": 147
+  },
+  {
+    "word": "AGED",
+    "count": 147
+  },
+  {
+    "word": "OCEAN",
+    "count": 147
+  },
+  {
+    "word": "MOE",
+    "count": 147
+  },
+  {
+    "word": "EWER",
+    "count": 146
+  },
+  {
+    "word": "TONE",
+    "count": 146
+  },
+  {
+    "word": "NCO",
+    "count": 146
+  },
+  {
+    "word": "ERMA",
+    "count": 146
+  },
+  {
+    "word": "TALC",
+    "count": 145
+  },
+  {
+    "word": "VIA",
+    "count": 145
+  },
+  {
+    "word": "UNE",
+    "count": 145
+  },
+  {
+    "word": "LYE",
+    "count": 145
+  },
+  {
+    "word": "NAH",
+    "count": 145
+  },
+  {
+    "word": "AORTA",
+    "count": 144
+  },
+  {
+    "word": "OSCAR",
+    "count": 144
+  },
+  {
+    "word": "TEES",
+    "count": 144
+  },
+  {
+    "word": "RIP",
+    "count": 144
+  },
+  {
+    "word": "LOS",
+    "count": 144
+  },
+  {
+    "word": "HAM",
+    "count": 144
+  },
+  {
+    "word": "WAR",
+    "count": 144
+  },
+  {
+    "word": "ARNO",
+    "count": 143
+  },
+  {
+    "word": "UNTO",
+    "count": 143
+  },
+  {
+    "word": "MEN",
+    "count": 143
+  },
+  {
+    "word": "TOM",
+    "count": 143
+  },
+  {
+    "word": "OUT",
+    "count": 143
+  },
+  {
+    "word": "KEN",
+    "count": 143
+  },
+  {
+    "word": "DAD",
+    "count": 143
+  },
+  {
+    "word": "TBAR",
+    "count": 143
+  },
+  {
+    "word": "TESLA",
+    "count": 143
+  },
+  {
+    "word": "NADA",
+    "count": 143
+  },
+  {
+    "word": "ETAT",
+    "count": 142
+  },
+  {
+    "word": "LAB",
+    "count": 142
+  },
+  {
+    "word": "OPEC",
+    "count": 142
+  },
+  {
+    "word": "SLAT",
+    "count": 141
+  },
+  {
+    "word": "ONSET",
+    "count": 141
+  },
+  {
+    "word": "NON",
+    "count": 141
+  },
+  {
+    "word": "MAO",
+    "count": 141
+  },
+  {
+    "word": "ESO",
+    "count": 141
+  },
+  {
+    "word": "OED",
+    "count": 141
+  },
+  {
+    "word": "SCAT",
+    "count": 140
+  },
+  {
+    "word": "ETO",
+    "count": 140
+  },
+  {
+    "word": "EPI",
+    "count": 140
+  },
+  {
+    "word": "HAL",
+    "count": 140
+  },
+  {
+    "word": "ONEAL",
+    "count": 140
+  },
+  {
+    "word": "NORA",
+    "count": 139
+  },
+  {
+    "word": "ANITA",
+    "count": 139
+  },
+  {
+    "word": "TIA",
+    "count": 139
+  },
+  {
+    "word": "CEE",
+    "count": 139
+  },
+  {
+    "word": "SETH",
+    "count": 139
+  },
+  {
+    "word": "SEED",
+    "count": 138
+  },
+  {
+    "word": "RITA",
+    "count": 138
+  },
+  {
+    "word": "NENE",
+    "count": 138
+  },
+  {
+    "word": "EZRA",
+    "count": 138
+  },
+  {
+    "word": "NOAH",
+    "count": 138
+  },
+  {
+    "word": "MIR",
+    "count": 138
+  },
+  {
+    "word": "LOU",
+    "count": 138
+  },
+  {
+    "word": "DESI",
+    "count": 138
+  },
+  {
+    "word": "ALPO",
+    "count": 138
+  },
+  {
+    "word": "TADA",
+    "count": 138
+  },
+  {
+    "word": "ROSA",
+    "count": 137
+  },
+  {
+    "word": "ACLU",
+    "count": 137
+  },
+  {
+    "word": "TRES",
+    "count": 136
+  },
+  {
+    "word": "ASIAN",
+    "count": 136
+  },
+  {
+    "word": "PETE",
+    "count": 136
+  },
+  {
+    "word": "ENERO",
+    "count": 136
+  },
+  {
+    "word": "LIP",
+    "count": 136
+  },
+  {
+    "word": "IVAN",
+    "count": 135
+  },
+  {
+    "word": "LIRA",
+    "count": 135
+  },
+  {
+    "word": "ROSE",
+    "count": 135
+  },
+  {
+    "word": "AINT",
+    "count": 135
+  },
+  {
+    "word": "TIC",
+    "count": 135
+  },
+  {
+    "word": "CAP",
+    "count": 135
+  },
+  {
+    "word": "AMY",
+    "count": 135
+  },
+  {
+    "word": "YSER",
+    "count": 134
+  },
+  {
+    "word": "SOLO",
+    "count": 134
+  },
+  {
+    "word": "AARON",
+    "count": 134
+  },
+  {
+    "word": "PAPA",
+    "count": 134
+  },
+  {
+    "word": "OWL",
+    "count": 134
+  },
+  {
+    "word": "ALPS",
+    "count": 133
+  },
+  {
+    "word": "OLGA",
+    "count": 133
+  },
+  {
+    "word": "ALS",
+    "count": 133
+  },
+  {
+    "word": "RHEA",
+    "count": 133
+  },
+  {
+    "word": "ISAAC",
+    "count": 133
+  },
+  {
+    "word": "NOTE",
+    "count": 132
+  },
+  {
+    "word": "NONE",
+    "count": 132
+  },
+  {
+    "word": "PGA",
+    "count": 132
+  },
+  {
+    "word": "ACAI",
+    "count": 132
+  },
+  {
+    "word": "LION",
+    "count": 131
+  },
+  {
+    "word": "ONION",
+    "count": 131
+  },
+  {
+    "word": "ELIOT",
+    "count": 131
+  },
+  {
+    "word": "TAG",
+    "count": 131
+  },
+  {
+    "word": "ABCS",
+    "count": 131
+  },
+  {
+    "word": "EDT",
+    "count": 131
+  },
+  {
+    "word": "LORE",
+    "count": 130
+  },
+  {
+    "word": "ALMA",
+    "count": 130
+  },
+  {
+    "word": "LOLA",
+    "count": 130
+  },
+  {
+    "word": "HARE",
+    "count": 129
+  },
+  {
+    "word": "ELBA",
+    "count": 129
+  },
+  {
+    "word": "IRAS",
+    "count": 129
+  },
+  {
+    "word": "OMEGA",
+    "count": 129
+  },
+  {
+    "word": "THAI",
+    "count": 129
+  },
+  {
+    "word": "ARP",
+    "count": 129
+  },
+  {
+    "word": "ANNO",
+    "count": 128
+  },
+  {
+    "word": "BAT",
+    "count": 128
+  },
+  {
+    "word": "OLES",
+    "count": 128
+  },
+  {
+    "word": "PESO",
+    "count": 128
+  },
+  {
+    "word": "RAY",
+    "count": 128
+  },
+  {
+    "word": "CAB",
+    "count": 128
+  },
+  {
+    "word": "ACTI",
+    "count": 128
+  },
+  {
+    "word": "SKY",
+    "count": 128
+  },
+  {
+    "word": "ICU",
+    "count": 128
+  },
+  {
+    "word": "DEL",
+    "count": 127
+  },
+  {
+    "word": "OUI",
+    "count": 127
+  },
+  {
+    "word": "HBO",
+    "count": 127
+  },
+  {
+    "word": "MRI",
+    "count": 127
+  },
+  {
+    "word": "AESOP",
+    "count": 126
+  },
+  {
+    "word": "COT",
+    "count": 126
+  },
+  {
+    "word": "GNU",
+    "count": 126
+  },
+  {
+    "word": "ACDC",
+    "count": 126
+  },
+  {
+    "word": "CNN",
+    "count": 126
+  },
+  {
+    "word": "ESSEN",
+    "count": 125
+  },
+  {
+    "word": "ESTES",
+    "count": 125
+  },
+  {
+    "word": "YEAR",
+    "count": 125
+  },
+  {
+    "word": "SILO",
+    "count": 125
+  },
+  {
+    "word": "ACH",
+    "count": 125
+  },
+  {
+    "word": "IAM",
+    "count": 125
+  },
+  {
+    "word": "GTO",
+    "count": 125
+  },
+  {
+    "word": "SASH",
+    "count": 124
+  },
+  {
+    "word": "PAN",
+    "count": 124
+  },
+  {
+    "word": "YETI",
+    "count": 124
+  },
+  {
+    "word": "ORC",
+    "count": 124
+  },
+  {
+    "word": "TKO",
+    "count": 124
+  },
+  {
+    "word": "ALTA",
+    "count": 123
+  },
+  {
+    "word": "NOVA",
+    "count": 123
+  },
+  {
+    "word": "ARTY",
+    "count": 123
+  },
+  {
+    "word": "UPS",
+    "count": 123
+  },
+  {
+    "word": "PEP",
+    "count": 123
+  },
+  {
+    "word": "OMANI",
+    "count": 123
+  },
+  {
+    "word": "SCENE",
+    "count": 122
+  },
+  {
+    "word": "ARIEL",
+    "count": 122
+  },
+  {
+    "word": "BEN",
+    "count": 122
+  },
+  {
+    "word": "BIO",
+    "count": 122
+  },
+  {
+    "word": "ROI",
+    "count": 121
+  },
+  {
+    "word": "DEAN",
+    "count": 121
+  },
+  {
+    "word": "MEAT",
+    "count": 121
+  },
+  {
+    "word": "HUE",
+    "count": 121
+  },
+  {
+    "word": "IDI",
+    "count": 121
+  },
+  {
+    "word": "BLT",
+    "count": 121
+  },
+  {
+    "word": "TARO",
+    "count": 120
+  },
+  {
+    "word": "TEND",
+    "count": 120
+  },
+  {
+    "word": "TOAD",
+    "count": 120
+  },
+  {
+    "word": "CON",
+    "count": 120
+  },
+  {
+    "word": "IDAHO",
+    "count": 120
+  },
+  {
+    "word": "KEY",
+    "count": 120
+  },
+  {
+    "word": "PEI",
+    "count": 120
+  },
+  {
+    "word": "NAS",
+    "count": 120
+  },
+  {
+    "word": "ASTRO",
+    "count": 119
+  },
+  {
+    "word": "HIS",
+    "count": 119
+  },
+  {
+    "word": "HES",
+    "count": 119
+  },
+  {
+    "word": "OBIE",
+    "count": 119
+  },
+  {
+    "word": "GEAR",
+    "count": 118
+  },
+  {
+    "word": "SANTA",
+    "count": 118
+  },
+  {
+    "word": "HANOI",
+    "count": 118
+  },
+  {
+    "word": "UBER",
+    "count": 118
+  },
+  {
+    "word": "SDS",
+    "count": 118
+  },
+  {
+    "word": "TONI",
+    "count": 118
+  },
+  {
+    "word": "SEGA",
+    "count": 118
+  },
+  {
+    "word": "ICES",
+    "count": 117
+  },
+  {
+    "word": "TSARS",
+    "count": 117
+  },
+  {
+    "word": "POT",
+    "count": 117
+  },
+  {
+    "word": "WET",
+    "count": 117
+  },
+  {
+    "word": "NIN",
+    "count": 117
+  },
+  {
+    "word": "SORT",
+    "count": 116
+  },
+  {
+    "word": "ERICA",
+    "count": 116
+  },
+  {
+    "word": "BET",
+    "count": 116
+  },
+  {
+    "word": "ELMS",
+    "count": 116
+  },
+  {
+    "word": "FAT",
+    "count": 116
+  },
+  {
+    "word": "DRS",
+    "count": 116
+  },
+  {
+    "word": "TBS",
+    "count": 116
+  },
+  {
+    "word": "CIAO",
+    "count": 116
+  },
+  {
+    "word": "OREL",
+    "count": 115
+  },
+  {
+    "word": "HERA",
+    "count": 115
+  },
+  {
+    "word": "DAS",
+    "count": 115
+  },
+  {
+    "word": "WED",
+    "count": 115
+  },
+  {
+    "word": "ISLA",
+    "count": 115
+  },
+  {
+    "word": "ILSA",
+    "count": 115
+  },
+  {
+    "word": "ANG",
+    "count": 115
+  },
+  {
+    "word": "NES",
+    "count": 115
+  },
+  {
+    "word": "STLO",
+    "count": 114
+  },
+  {
+    "word": "TENSE",
+    "count": 114
+  },
+  {
+    "word": "EGGS",
+    "count": 114
+  },
+  {
+    "word": "SAGE",
+    "count": 114
+  },
+  {
+    "word": "MAN",
+    "count": 114
+  },
+  {
+    "word": "VEE",
+    "count": 114
+  },
+  {
+    "word": "USO",
+    "count": 114
+  },
+  {
+    "word": "PELE",
+    "count": 114
+  },
+  {
+    "word": "PAS",
+    "count": 113
+  },
+  {
+    "word": "SOAP",
+    "count": 113
+  },
+  {
+    "word": "NONO",
+    "count": 113
+  },
+  {
+    "word": "ETHAN",
+    "count": 113
+  },
+  {
+    "word": "RIB",
+    "count": 113
+  },
+  {
+    "word": "OFT",
+    "count": 113
+  },
+  {
+    "word": "FRO",
+    "count": 113
+  },
+  {
+    "word": "WES",
+    "count": 113
+  },
+  {
+    "word": "ELOI",
+    "count": 113
+  },
+  {
+    "word": "LEIA",
+    "count": 113
+  },
+  {
+    "word": "DENT",
+    "count": 112
+  },
+  {
+    "word": "EDENS",
+    "count": 112
+  },
+  {
+    "word": "TUNA",
+    "count": 112
+  },
+  {
+    "word": "HAN",
+    "count": 112
+  },
+  {
+    "word": "REX",
+    "count": 112
+  },
+  {
+    "word": "PHI",
+    "count": 112
+  },
+  {
+    "word": "TRON",
+    "count": 112
+  },
+  {
+    "word": "ETH",
+    "count": 111
+  },
+  {
+    "word": "DON",
+    "count": 111
+  },
+  {
+    "word": "LAT",
+    "count": 111
+  },
+  {
+    "word": "STYX",
+    "count": 111
+  },
+  {
+    "word": "IHOP",
+    "count": 111
+  },
+  {
+    "word": "DEED",
+    "count": 110
+  },
+  {
+    "word": "ROME",
+    "count": 110
+  },
+  {
+    "word": "ETHER",
+    "count": 110
+  },
+  {
+    "word": "LEAH",
+    "count": 110
+  },
+  {
+    "word": "MAS",
+    "count": 110
+  },
+  {
+    "word": "SHOO",
+    "count": 110
+  },
+  {
+    "word": "AXIS",
+    "count": 110
+  },
+  {
+    "word": "FOE",
+    "count": 110
+  },
+  {
+    "word": "AXEL",
+    "count": 110
+  },
+  {
+    "word": "AUDI",
+    "count": 110
+  },
+  {
+    "word": "ICET",
+    "count": 110
+  },
+  {
+    "word": "IMAGE",
+    "count": 109
+  },
+  {
+    "word": "DORA",
+    "count": 109
+  },
+  {
+    "word": "ROB",
+    "count": 109
+  },
+  {
+    "word": "NOIR",
+    "count": 109
+  },
+  {
+    "word": "STL",
+    "count": 109
+  },
+  {
+    "word": "SNARE",
+    "count": 108
+  },
+  {
+    "word": "TENOR",
+    "count": 108
+  },
+  {
+    "word": "ASHES",
+    "count": 108
+  },
+  {
+    "word": "TIM",
+    "count": 108
+  },
+  {
+    "word": "AMPS",
+    "count": 108
+  },
+  {
+    "word": "VAN",
+    "count": 107
+  },
+  {
+    "word": "FAN",
+    "count": 107
+  },
+  {
+    "word": "OLDE",
+    "count": 107
+  },
+  {
+    "word": "NATE",
+    "count": 107
+  },
+  {
+    "word": "DALI",
+    "count": 106
+  },
+  {
+    "word": "LISA",
+    "count": 106
+  },
+  {
+    "word": "ORBS",
+    "count": 106
+  },
+  {
+    "word": "LANA",
+    "count": 105
+  },
+  {
+    "word": "EDYS",
+    "count": 105
+  },
+  {
+    "word": "NICE",
+    "count": 104
+  },
+  {
+    "word": "BALI",
+    "count": 104
+  },
+  {
+    "word": "NIECE",
+    "count": 104
+  },
+  {
+    "word": "EPEES",
+    "count": 104
+  },
+  {
+    "word": "SHAH",
+    "count": 103
+  },
+  {
+    "word": "ALF",
+    "count": 103
+  },
+  {
+    "word": "OHM",
+    "count": 103
+  },
+  {
+    "word": "SRTA",
+    "count": 103
+  },
+  {
+    "word": "ECOLI",
+    "count": 103
+  },
+  {
+    "word": "SEAS",
+    "count": 102
+  },
+  {
+    "word": "SELL",
+    "count": 102
+  },
+  {
+    "word": "SINE",
+    "count": 102
+  },
+  {
+    "word": "ELON",
+    "count": 102
+  },
+  {
+    "word": "MAGI",
+    "count": 102
+  },
+  {
+    "word": "ELKS",
+    "count": 102
+  },
+  {
+    "word": "EARP",
+    "count": 102
+  },
+  {
+    "word": "ASSES",
+    "count": 102
+  },
+  {
+    "word": "CHER",
+    "count": 102
+  },
+  {
+    "word": "HOP",
+    "count": 102
+  },
+  {
+    "word": "PLAN",
+    "count": 101
+  },
+  {
+    "word": "LEST",
+    "count": 101
+  },
+  {
+    "word": "DOC",
+    "count": 101
+  },
+  {
+    "word": "AGUA",
+    "count": 101
+  },
+  {
+    "word": "MOI",
+    "count": 101
+  },
+  {
+    "word": "KAT",
+    "count": 101
+  },
+  {
+    "word": "ERNST",
+    "count": 101
+  },
+  {
+    "word": "ISIS",
+    "count": 100
+  },
+  {
+    "word": "IBIS",
+    "count": 100
+  },
+  {
+    "word": "AMINO",
+    "count": 100
+  },
+  {
+    "word": "LON",
+    "count": 100
+  },
+  {
+    "word": "VIE",
+    "count": 100
+  },
+  {
+    "word": "SUN",
+    "count": 100
+  },
+  {
+    "word": "HIT",
+    "count": 100
+  },
+  {
+    "word": "OVID",
+    "count": 99
+  },
+  {
+    "word": "REB",
+    "count": 99
+  },
+  {
+    "word": "DRIP",
+    "count": 99
+  },
+  {
+    "word": "ESSEX",
+    "count": 99
+  },
+  {
+    "word": "YSL",
+    "count": 99
+  },
+  {
+    "word": "RAGU",
+    "count": 99
+  },
+  {
+    "word": "SLAV",
+    "count": 98
+  },
+  {
+    "word": "LEAD",
+    "count": 98
+  },
+  {
+    "word": "SCAB",
+    "count": 98
+  },
+  {
+    "word": "DDAY",
+    "count": 98
+  },
+  {
+    "word": "SHH",
+    "count": 98
+  },
+  {
+    "word": "THOR",
+    "count": 97
+  },
+  {
+    "word": "DADA",
+    "count": 97
+  },
+  {
+    "word": "OPUS",
+    "count": 97
+  },
+  {
+    "word": "REY",
+    "count": 97
+  },
+  {
+    "word": "NAOMI",
+    "count": 97
+  },
+  {
+    "word": "GPS",
+    "count": 97
+  },
+  {
+    "word": "FDA",
+    "count": 97
+  },
+  {
+    "word": "MRT",
+    "count": 97
+  },
+  {
+    "word": "LEVI",
+    "count": 96
+  },
+  {
+    "word": "TEAM",
+    "count": 96
+  },
+  {
+    "word": "SPREE",
+    "count": 96
+  },
+  {
+    "word": "SUR",
+    "count": 96
+  },
+  {
+    "word": "UMP",
+    "count": 96
+  },
+  {
+    "word": "CZAR",
+    "count": 96
+  },
+  {
+    "word": "APU",
+    "count": 96
+  },
+  {
+    "word": "ARMS",
+    "count": 95
+  },
+  {
+    "word": "DIET",
+    "count": 95
+  },
+  {
+    "word": "LASSO",
+    "count": 95
+  },
+  {
+    "word": "MEMO",
+    "count": 95
+  },
+  {
+    "word": "TAROT",
+    "count": 95
+  },
+  {
+    "word": "USERS",
+    "count": 95
+  },
+  {
+    "word": "ROW",
+    "count": 95
+  },
+  {
+    "word": "WIN",
+    "count": 95
+  },
+  {
+    "word": "ISTO",
+    "count": 95
+  },
+  {
+    "word": "OCHO",
+    "count": 95
+  },
+  {
+    "word": "EXPO",
+    "count": 95
+  },
+  {
+    "word": "SOSA",
+    "count": 95
+  },
+  {
+    "word": "SAVE",
+    "count": 94
+  },
+  {
+    "word": "EDO",
+    "count": 94
+  },
+  {
+    "word": "SAMOA",
+    "count": 94
+  },
+  {
+    "word": "BRIE",
+    "count": 94
+  },
+  {
+    "word": "NUN",
+    "count": 94
+  },
+  {
+    "word": "HESSE",
+    "count": 94
+  },
+  {
+    "word": "ONER",
+    "count": 93
+  },
+  {
+    "word": "PEAR",
+    "count": 93
+  },
+  {
+    "word": "AWARE",
+    "count": 93
+  },
+  {
+    "word": "TESTS",
+    "count": 93
+  },
+  {
+    "word": "SPRY",
+    "count": 93
+  },
+  {
+    "word": "ZEE",
+    "count": 93
+  },
+  {
+    "word": "ALGA",
+    "count": 92
+  },
+  {
+    "word": "ARNIE",
+    "count": 92
+  },
+  {
+    "word": "MSG",
+    "count": 92
+  },
+  {
+    "word": "LATTE",
+    "count": 92
+  },
+  {
+    "word": "EGGO",
+    "count": 92
+  },
+  {
+    "word": "SEINE",
+    "count": 91
+  },
+  {
+    "word": "DELTA",
+    "count": 91
+  },
+  {
+    "word": "MOM",
+    "count": 91
+  },
+  {
+    "word": "ATBAT",
+    "count": 91
+  },
+  {
+    "word": "PDA",
+    "count": 91
+  },
+  {
+    "word": "SENOR",
+    "count": 90
+  },
+  {
+    "word": "ERROL",
+    "count": 90
+  },
+  {
+    "word": "MALI",
+    "count": 90
+  },
+  {
+    "word": "SINAI",
+    "count": 90
+  },
+  {
+    "word": "NBC",
+    "count": 90
+  },
+  {
+    "word": "ANGST",
+    "count": 90
+  },
+  {
+    "word": "OSSA",
+    "count": 89
+  },
+  {
+    "word": "PANE",
+    "count": 89
+  },
+  {
+    "word": "CAST",
+    "count": 89
+  },
+  {
+    "word": "OILS",
+    "count": 89
+  },
+  {
+    "word": "LOAN",
+    "count": 89
+  },
+  {
+    "word": "WHO",
+    "count": 89
+  },
+  {
+    "word": "WON",
+    "count": 89
+  },
+  {
+    "word": "HIP",
+    "count": 89
+  },
+  {
+    "word": "JAM",
+    "count": 89
+  },
+  {
+    "word": "RKO",
+    "count": 89
+  },
+  {
+    "word": "OBAMA",
+    "count": 89
+  },
+  {
+    "word": "DEEP",
+    "count": 88
+  },
+  {
+    "word": "POSE",
+    "count": 88
+  },
+  {
+    "word": "PLIE",
+    "count": 88
+  },
+  {
+    "word": "OLLA",
+    "count": 87
+  },
+  {
+    "word": "LIMA",
+    "count": 87
+  },
+  {
+    "word": "CARE",
+    "count": 87
+  },
+  {
+    "word": "OCTET",
+    "count": 87
+  },
+  {
+    "word": "CONE",
+    "count": 87
+  },
+  {
+    "word": "SOU",
+    "count": 87
+  },
+  {
+    "word": "ARARAT",
+    "count": 87
+  },
+  {
+    "word": "IRAQ",
+    "count": 87
+  },
+  {
+    "word": "PTAS",
+    "count": 87
+  },
+  {
+    "word": "WEB",
+    "count": 87
+  },
+  {
+    "word": "TSO",
+    "count": 87
+  },
+  {
+    "word": "RIGA",
+    "count": 86
+  },
+  {
+    "word": "OHARA",
+    "count": 86
+  },
+  {
+    "word": "PREP",
+    "count": 86
+  },
+  {
+    "word": "RYAN",
+    "count": 86
+  },
+  {
+    "word": "SLAB",
+    "count": 85
+  },
+  {
+    "word": "UTA",
+    "count": 85
+  },
+  {
+    "word": "SAND",
+    "count": 85
+  },
+  {
+    "word": "AROD",
+    "count": 85
+  },
+  {
+    "word": "CORE",
+    "count": 84
+  },
+  {
+    "word": "TUNE",
+    "count": 84
+  },
+  {
+    "word": "HERR",
+    "count": 84
+  },
+  {
+    "word": "CLAP",
+    "count": 84
+  },
+  {
+    "word": "URDU",
+    "count": 84
+  },
+  {
+    "word": "ALPHA",
+    "count": 84
+  },
+  {
+    "word": "ETHEL",
+    "count": 83
+  },
+  {
+    "word": "RESIN",
+    "count": 83
+  },
+  {
+    "word": "ABU",
+    "count": 83
+  },
+  {
+    "word": "RBIS",
+    "count": 83
+  },
+  {
+    "word": "SHO",
+    "count": 83
+  },
+  {
+    "word": "PBS",
+    "count": 83
+  },
+  {
+    "word": "INTEL",
+    "count": 83
+  },
+  {
+    "word": "DIVA",
+    "count": 82
+  },
+  {
+    "word": "SHIN",
+    "count": 82
+  },
+  {
+    "word": "ENNUI",
+    "count": 82
+  },
+  {
+    "word": "CLEO",
+    "count": 82
+  },
+  {
+    "word": "OSAKA",
+    "count": 82
+  },
+  {
+    "word": "SERTA",
+    "count": 82
+  },
+  {
+    "word": "RASTA",
+    "count": 82
+  },
+  {
+    "word": "ODER",
+    "count": 81
+  },
+  {
+    "word": "SANS",
+    "count": 81
+  },
+  {
+    "word": "MAIN",
+    "count": 81
+  },
+  {
+    "word": "HOBO",
+    "count": 81
+  },
+  {
+    "word": "NEIN",
+    "count": 81
+  },
+  {
+    "word": "SUMO",
+    "count": 81
+  },
+  {
+    "word": "DROP",
+    "count": 80
+  },
+  {
+    "word": "SPIT",
+    "count": 80
+  },
+  {
+    "word": "ROMEO",
+    "count": 80
+  },
+  {
+    "word": "YAM",
+    "count": 80
+  },
+  {
+    "word": "ALLA",
+    "count": 79
+  },
+  {
+    "word": "DANTE",
+    "count": 79
+  },
+  {
+    "word": "STYLE",
+    "count": 79
+  },
+  {
+    "word": "HID",
+    "count": 79
+  },
+  {
+    "word": "SIRI",
+    "count": 79
+  },
+  {
+    "word": "SWAN",
+    "count": 78
+  },
+  {
+    "word": "PENN",
+    "count": 78
+  },
+  {
+    "word": "ADIOS",
+    "count": 78
+  },
+  {
+    "word": "METS",
+    "count": 78
+  },
+  {
+    "word": "LIU",
+    "count": 78
+  },
+  {
+    "word": "ANDES",
+    "count": 77
+  },
+  {
+    "word": "FRAT",
+    "count": 77
+  },
+  {
+    "word": "KEYS",
+    "count": 77
+  },
+  {
+    "word": "MOB",
+    "count": 77
+  },
+  {
+    "word": "SARAH",
+    "count": 76
+  },
+  {
+    "word": "BERET",
+    "count": 76
+  },
+  {
+    "word": "SAKE",
+    "count": 76
+  },
+  {
+    "word": "ALBA",
+    "count": 76
+  },
+  {
+    "word": "WACO",
+    "count": 76
+  },
+  {
+    "word": "DDT",
+    "count": 76
+  },
+  {
+    "word": "REI",
+    "count": 76
+  },
+  {
+    "word": "NFL",
+    "count": 76
+  },
+  {
+    "word": "OPEL",
+    "count": 76
+  },
+  {
+    "word": "RADAR",
+    "count": 75
+  },
+  {
+    "word": "KOREA",
+    "count": 75
+  },
+  {
+    "word": "ITALY",
+    "count": 75
+  },
+  {
+    "word": "LAURA",
+    "count": 75
+  },
+  {
+    "word": "TOSCA",
+    "count": 75
+  },
+  {
+    "word": "SID",
+    "count": 75
+  },
+  {
+    "word": "LOIS",
+    "count": 75
+  },
+  {
+    "word": "FBI",
+    "count": 75
+  },
+  {
+    "word": "JOE",
+    "count": 75
+  },
+  {
+    "word": "INTER",
+    "count": 74
+  },
+  {
+    "word": "LUNA",
+    "count": 74
+  },
+  {
+    "word": "BEAU",
+    "count": 74
+  },
+  {
+    "word": "ONYX",
+    "count": 74
+  },
+  {
+    "word": "TITAN",
+    "count": 73
+  },
+  {
+    "word": "TERESA",
+    "count": 73
+  },
+  {
+    "word": "THY",
+    "count": 73
+  },
+  {
+    "word": "LAMB",
+    "count": 72
+  },
+  {
+    "word": "FETE",
+    "count": 72
+  },
+  {
+    "word": "PASSE",
+    "count": 72
+  },
+  {
+    "word": "NASAL",
+    "count": 72
+  },
+  {
+    "word": "AXES",
+    "count": 72
+  },
+  {
+    "word": "TKOS",
+    "count": 72
+  },
+  {
+    "word": "HAI",
+    "count": 72
+  },
+  {
+    "word": "ARIE",
+    "count": 72
+  },
+  {
+    "word": "MARS",
+    "count": 71
+  },
+  {
+    "word": "PART",
+    "count": 71
+  },
+  {
+    "word": "SIEGE",
+    "count": 70
+  },
+  {
+    "word": "DIANA",
+    "count": 69
+  },
+  {
+    "word": "ENTREE",
+    "count": 69
+  },
+  {
+    "word": "RAVI",
+    "count": 69
+  },
+  {
+    "word": "CODA",
+    "count": 68
+  },
+  {
+    "word": "IPSO",
+    "count": 68
+  },
+  {
+    "word": "CAIRO",
+    "count": 67
+  },
+  {
+    "word": "GENRE",
+    "count": 67
+  },
+  {
+    "word": "AMIGO",
+    "count": 67
+  },
+  {
+    "word": "NOGO",
+    "count": 67
+  },
+  {
+    "word": "APRIL",
+    "count": 66
+  },
+  {
+    "word": "SOIL",
+    "count": 66
+  },
+  {
+    "word": "BOP",
+    "count": 66
+  },
+  {
+    "word": "CAFE",
+    "count": 65
+  },
+  {
+    "word": "SNEAD",
+    "count": 65
+  },
+  {
+    "word": "PROS",
+    "count": 65
+  },
+  {
+    "word": "TWAS",
+    "count": 65
+  },
+  {
+    "word": "STENT",
+    "count": 65
+  },
+  {
+    "word": "GTOS",
+    "count": 65
+  },
+  {
+    "word": "EBRO",
+    "count": 64
+  },
+  {
+    "word": "STEIN",
+    "count": 64
+  },
+  {
+    "word": "POPE",
+    "count": 64
+  },
+  {
+    "word": "TOMB",
+    "count": 64
+  },
+  {
+    "word": "KLEE",
+    "count": 63
+  },
+  {
+    "word": "ROTH",
+    "count": 63
+  },
+  {
+    "word": "OSSO",
+    "count": 63
+  },
+  {
+    "word": "NOTA",
+    "count": 62
+  },
+  {
+    "word": "NAIVE",
+    "count": 62
+  },
+  {
+    "word": "LAKE",
+    "count": 62
+  },
+  {
+    "word": "NOLA",
+    "count": 61
+  },
+  {
+    "word": "BEAM",
+    "count": 61
+  },
+  {
+    "word": "KISS",
+    "count": 61
+  },
+  {
+    "word": "ATHENA",
+    "count": 61
+  },
+  {
+    "word": "ATOMS",
+    "count": 61
+  },
+  {
+    "word": "USC",
+    "count": 61
+  },
+  {
+    "word": "ANIME",
+    "count": 61
+  },
+  {
+    "word": "PSIS",
+    "count": 60
+  },
+  {
+    "word": "HELEN",
+    "count": 60
+  },
+  {
+    "word": "OHMS",
+    "count": 60
+  },
+  {
+    "word": "KOI",
+    "count": 60
+  },
+  {
+    "word": "OTOH",
+    "count": 60
+  },
+  {
+    "word": "MANN",
+    "count": 59
+  },
+  {
+    "word": "ELIAS",
+    "count": 59
+  },
+  {
+    "word": "TONY",
+    "count": 59
+  },
+  {
+    "word": "MIDI",
+    "count": 59
+  },
+  {
+    "word": "IAMB",
+    "count": 59
+  },
+  {
+    "word": "CAIN",
+    "count": 58
+  },
+  {
+    "word": "SATYR",
+    "count": 58
+  },
+  {
+    "word": "ORSON",
+    "count": 58
+  },
+  {
+    "word": "ROTI",
+    "count": 58
+  },
+  {
+    "word": "GRETA",
+    "count": 58
+  },
+  {
+    "word": "ACCRA",
+    "count": 58
+  },
+  {
+    "word": "ATTILA",
+    "count": 58
+  },
+  {
+    "word": "OTELLO",
+    "count": 58
+  },
+  {
+    "word": "AEIOU",
+    "count": 58
+  },
+  {
+    "word": "ORZO",
+    "count": 58
+  },
+  {
+    "word": "ITOO",
+    "count": 58
+  },
+  {
+    "word": "ATF",
+    "count": 58
+  },
+  {
+    "word": "NORMA",
+    "count": 57
+  },
+  {
+    "word": "MONET",
+    "count": 57
+  },
+  {
+    "word": "TORTE",
+    "count": 57
+  },
+  {
+    "word": "UDON",
+    "count": 57
+  },
+  {
+    "word": "SALON",
+    "count": 56
+  },
+  {
+    "word": "IBSEN",
+    "count": 56
+  },
+  {
+    "word": "PARIS",
+    "count": 55
+  },
+  {
+    "word": "CLEF",
+    "count": 55
+  },
+  {
+    "word": "MOORE",
+    "count": 54
+  },
+  {
+    "word": "HOSEA",
+    "count": 54
+  },
+  {
+    "word": "FRAU",
+    "count": 54
+  },
+  {
+    "word": "BETTE",
+    "count": 54
+  },
+  {
+    "word": "YOGI",
+    "count": 54
+  },
+  {
+    "word": "MIRO",
+    "count": 54
+  },
+  {
+    "word": "CARP",
+    "count": 53
+  },
+  {
+    "word": "BARS",
+    "count": 53
+  },
+  {
+    "word": "APOLLO",
+    "count": 53
+  },
+  {
+    "word": "MAUI",
+    "count": 53
+  },
+  {
+    "word": "ARTSY",
+    "count": 53
+  },
+  {
+    "word": "LOIRE",
+    "count": 52
+  },
+  {
+    "word": "LEEK",
+    "count": 52
+  },
+  {
+    "word": "DIEM",
+    "count": 52
+  },
+  {
+    "word": "AXON",
+    "count": 52
+  },
+  {
+    "word": "RACER",
+    "count": 51
+  },
+  {
+    "word": "BENE",
+    "count": 51
+  },
+  {
+    "word": "ORACLE",
+    "count": 51
+  },
+  {
+    "word": "RUTH",
+    "count": 51
+  },
+  {
+    "word": "CREPE",
+    "count": 51
+  },
+  {
+    "word": "IBEAM",
+    "count": 51
+  },
+  {
+    "word": "ICBM",
+    "count": 51
+  },
+  {
+    "word": "PENNE",
+    "count": 51
+  },
+  {
+    "word": "NOLAN",
+    "count": 50
+  },
+  {
+    "word": "GENOA",
+    "count": 50
+  },
+  {
+    "word": "LOKI",
+    "count": 50
+  },
+  {
+    "word": "DEGAS",
+    "count": 49
+  },
+  {
+    "word": "DONS",
+    "count": 49
+  },
+  {
+    "word": "SENECA",
+    "count": 49
+  },
+  {
+    "word": "CRANE",
+    "count": 48
+  },
+  {
+    "word": "SAINT",
+    "count": 48
+  },
+  {
+    "word": "SIESTA",
+    "count": 48
+  },
+  {
+    "word": "PEGS",
+    "count": 48
+  },
+  {
+    "word": "LOPE",
+    "count": 47
+  },
+  {
+    "word": "LIEGE",
+    "count": 47
+  },
+  {
+    "word": "EDITH",
+    "count": 47
+  },
+  {
+    "word": "GAY",
+    "count": 47
+  },
+  {
+    "word": "CATO",
+    "count": 46
+  },
+  {
+    "word": "DEPOT",
+    "count": 46
+  },
+  {
+    "word": "LEWIS",
+    "count": 46
+  },
+  {
+    "word": "FLY",
+    "count": 46
+  },
+  {
+    "word": "CORAL",
+    "count": 45
+  },
+  {
+    "word": "MANET",
+    "count": 45
+  },
+  {
+    "word": "SENORA",
+    "count": 45
+  },
+  {
+    "word": "PLATO",
+    "count": 45
+  },
+  {
+    "word": "AURORA",
+    "count": 45
+  },
+  {
+    "word": "RHONE",
+    "count": 44
+  },
+  {
+    "word": "AMPERE",
+    "count": 44
+  },
+  {
+    "word": "FEST",
+    "count": 44
+  },
+  {
+    "word": "CERES",
+    "count": 43
+  },
+  {
+    "word": "MIMI",
+    "count": 43
+  },
+  {
+    "word": "URALS",
+    "count": 43
+  },
+  {
+    "word": "BASSO",
+    "count": 43
+  },
+  {
+    "word": "SCOTT",
+    "count": 43
+  },
+  {
+    "word": "BERRA",
+    "count": 43
+  },
+  {
+    "word": "JANE",
+    "count": 43
+  },
+  {
+    "word": "TAPAS",
+    "count": 43
+  },
+  {
+    "word": "OREIDA",
+    "count": 43
+  },
+  {
+    "word": "UNIX",
+    "count": 43
+  },
+  {
+    "word": "OPI",
+    "count": 43
+  },
+  {
+    "word": "MOSES",
+    "count": 42
+  },
+  {
+    "word": "MILAN",
+    "count": 42
+  },
+  {
+    "word": "MAYS",
+    "count": 42
+  },
+  {
+    "word": "GOYA",
+    "count": 42
+  },
+  {
+    "word": "ZION",
+    "count": 41
+  },
+  {
+    "word": "HOLA",
+    "count": 41
+  },
+  {
+    "word": "ENOCH",
+    "count": 40
+  },
+  {
+    "word": "HUGO",
+    "count": 40
+  },
+  {
+    "word": "CIRCA",
+    "count": 40
+  },
+  {
+    "word": "DELHI",
+    "count": 40
+  },
+  {
+    "word": "MLK",
+    "count": 40
+  },
+  {
+    "word": "ENOKI",
+    "count": 40
+  },
+  {
+    "word": "SESTET",
+    "count": 39
+  },
+  {
+    "word": "FRED",
+    "count": 39
+  },
+  {
+    "word": "AENEAS",
+    "count": 39
+  },
+  {
+    "word": "ZOLA",
+    "count": 39
+  },
+  {
+    "word": "TIBIA",
+    "count": 39
+  },
+  {
+    "word": "BOHR",
+    "count": 39
+  },
+  {
+    "word": "VOILA",
+    "count": 39
+  },
+  {
+    "word": "NIGER",
+    "count": 38
+  },
+  {
+    "word": "CAESAR",
+    "count": 38
+  },
+  {
+    "word": "EVERS",
+    "count": 38
+  },
+  {
+    "word": "COSI",
+    "count": 38
+  },
+  {
+    "word": "MERCI",
+    "count": 38
+  },
+  {
+    "word": "DEJA",
+    "count": 38
+  },
+  {
+    "word": "BTS",
+    "count": 38
+  },
+  {
+    "word": "ELBE",
+    "count": 37
+  },
+  {
+    "word": "GRAY",
+    "count": 37
+  },
+  {
+    "word": "RODIN",
+    "count": 37
+  },
+  {
+    "word": "BONA",
+    "count": 37
+  },
+  {
+    "word": "SPIEL",
+    "count": 37
+  },
+  {
+    "word": "TUDOR",
+    "count": 37
+  },
+  {
+    "word": "NINJA",
+    "count": 37
+  },
+  {
+    "word": "DOHA",
+    "count": 37
+  },
+  {
+    "word": "HALS",
+    "count": 36
+  },
+  {
+    "word": "HADES",
+    "count": 36
+  },
+  {
+    "word": "ERSATZ",
+    "count": 36
+  },
+  {
+    "word": "SOIREE",
+    "count": 36
+  },
+  {
+    "word": "RHODA",
+    "count": 36
+  },
+  {
+    "word": "HOMER",
+    "count": 35
+  },
+  {
+    "word": "CALEB",
+    "count": 35
+  },
+  {
+    "word": "DONNE",
+    "count": 35
+  },
+  {
+    "word": "LIONEL",
+    "count": 35
+  },
+  {
+    "word": "BORG",
+    "count": 35
+  },
+  {
+    "word": "CTA",
+    "count": 35
+  },
+  {
+    "word": "EGOT",
+    "count": 35
+  },
+  {
+    "word": "HOWE",
+    "count": 34
+  },
+  {
+    "word": "RHINE",
+    "count": 34
+  },
+  {
+    "word": "BELLE",
+    "count": 34
+  },
+  {
+    "word": "AVANT",
+    "count": 34
+  },
+  {
+    "word": "BLEU",
+    "count": 34
+  },
+  {
+    "word": "BEBOP",
+    "count": 34
+  },
+  {
+    "word": "AENEID",
+    "count": 34
+  },
+  {
+    "word": "UMAMI",
+    "count": 34
+  },
+  {
+    "word": "KENYA",
+    "count": 33
+  },
+  {
+    "word": "ASTAIRE",
+    "count": 33
+  },
+  {
+    "word": "RAVEL",
+    "count": 32
+  },
+  {
+    "word": "MOTIF",
+    "count": 32
+  },
+  {
+    "word": "DIEGO",
+    "count": 32
+  },
+  {
+    "word": "TATTOO",
+    "count": 32
+  },
+  {
+    "word": "ELISHA",
+    "count": 32
+  },
+  {
+    "word": "HEROD",
+    "count": 31
+  },
+  {
+    "word": "CANTO",
+    "count": 31
+  },
+  {
+    "word": "VEGA",
+    "count": 31
+  },
+  {
+    "word": "NAIF",
+    "count": 31
+  },
+  {
+    "word": "BRAVO",
+    "count": 31
+  },
+  {
+    "word": "BASIE",
+    "count": 31
+  },
+  {
+    "word": "QUO",
+    "count": 31
+  },
+  {
+    "word": "DRAKE",
+    "count": 30
+  },
+  {
+    "word": "RENOIR",
+    "count": 30
+  },
+  {
+    "word": "TORERO",
+    "count": 30
+  },
+  {
+    "word": "WILT",
+    "count": 30
+  },
+  {
+    "word": "SANAA",
+    "count": 30
+  },
+  {
+    "word": "EMOJI",
+    "count": 30
+  },
+  {
+    "word": "KEATS",
+    "count": 29
+  },
+  {
+    "word": "AMMAN",
+    "count": 29
+  },
+  {
+    "word": "SODOM",
+    "count": 29
+  },
+  {
+    "word": "TIMOR",
+    "count": 28
+  },
+  {
+    "word": "ROUGE",
+    "count": 28
+  },
+  {
+    "word": "BABEL",
+    "count": 28
+  },
+  {
+    "word": "PLUTO",
+    "count": 28
+  },
+  {
+    "word": "JEAN",
+    "count": 28
+  },
+  {
+    "word": "KAPUT",
+    "count": 28
+  },
+  {
+    "word": "BRETT",
+    "count": 28
+  },
+  {
+    "word": "JUDO",
+    "count": 28
+  },
+  {
+    "word": "ELGAR",
+    "count": 27
+  },
+  {
+    "word": "HAGAR",
+    "count": 27
+  },
+  {
+    "word": "NELSON",
+    "count": 27
+  },
+  {
+    "word": "VICE",
+    "count": 27
+  },
+  {
+    "word": "COLON",
+    "count": 26
+  },
+  {
+    "word": "CIRCE",
+    "count": 26
+  },
+  {
+    "word": "CURIE",
+    "count": 26
+  },
+  {
+    "word": "MARIS",
+    "count": 26
+  },
+  {
+    "word": "GREER",
+    "count": 26
+  },
+  {
+    "word": "BLANC",
+    "count": 26
+  },
+  {
+    "word": "ISOMER",
+    "count": 26
+  },
+  {
+    "word": "HYDRA",
+    "count": 26
+  },
+  {
+    "word": "TEHRAN",
+    "count": 26
+  },
+  {
+    "word": "ORESTES",
+    "count": 25
+  },
+  {
+    "word": "ELGIN",
+    "count": 25
+  },
+  {
+    "word": "COBB",
+    "count": 25
+  },
+  {
+    "word": "FORD",
+    "count": 25
+  },
+  {
+    "word": "BELLA",
+    "count": 25
+  },
+  {
+    "word": "ZEUS",
+    "count": 25
+  },
+  {
+    "word": "BIZET",
+    "count": 25
+  },
+  {
+    "word": "DOJO",
+    "count": 25
+  },
+  {
+    "word": "TURIN",
+    "count": 24
+  },
+  {
+    "word": "GARBO",
+    "count": 24
+  },
+  {
+    "word": "FONDA",
+    "count": 24
+  },
+  {
+    "word": "HEDY",
+    "count": 24
+  },
+  {
+    "word": "KARATE",
+    "count": 24
+  },
+  {
+    "word": "ISAIAH",
+    "count": 24
+  },
+  {
+    "word": "STRAFE",
+    "count": 24
+  },
+  {
+    "word": "SENSEI",
+    "count": 24
+  },
+  {
+    "word": "EVEREST",
+    "count": 23
+  },
+  {
+    "word": "HENRY",
+    "count": 23
+  },
+  {
+    "word": "CAMUS",
+    "count": 23
+  },
+  {
+    "word": "SALOME",
+    "count": 23
+  },
+  {
+    "word": "MAGNA",
+    "count": 23
+  },
+  {
+    "word": "DOLCE",
+    "count": 23
+  },
+  {
+    "word": "CUBS",
+    "count": 23
+  },
+  {
+    "word": "JUNO",
+    "count": 23
+  },
+  {
+    "word": "DAKAR",
+    "count": 22
+  },
+  {
+    "word": "MONT",
+    "count": 22
+  },
+  {
+    "word": "CABOT",
+    "count": 22
+  },
+  {
+    "word": "CARY",
+    "count": 22
+  },
+  {
+    "word": "MONK",
+    "count": 22
+  },
+  {
+    "word": "VOLGA",
+    "count": 22
+  },
+  {
+    "word": "CICERO",
+    "count": 22
+  },
+  {
+    "word": "VERSA",
+    "count": 22
+  },
+  {
+    "word": "PHARAOH",
+    "count": 22
+  },
+  {
+    "word": "GARY",
+    "count": 21
+  },
+  {
+    "word": "PRONTO",
+    "count": 21
+  },
+  {
+    "word": "SUCRE",
+    "count": 21
+  },
+  {
+    "word": "NAPLES",
+    "count": 21
+  },
+  {
+    "word": "ELECTRA",
+    "count": 21
+  },
+  {
+    "word": "STATUS",
+    "count": 21
+  },
+  {
+    "word": "MALONE",
+    "count": 21
+  },
+  {
+    "word": "TASSO",
+    "count": 20
+  },
+  {
+    "word": "JAMES",
+    "count": 20
+  },
+  {
+    "word": "EMERSON",
+    "count": 20
+  },
+  {
+    "word": "HOGAN",
+    "count": 20
+  },
+  {
+    "word": "ABABA",
+    "count": 20
+  },
+  {
+    "word": "LAPAZ",
+    "count": 20
+  },
+  {
+    "word": "ICARUS",
+    "count": 20
+  },
+  {
+    "word": "MEDUSA",
+    "count": 20
+  },
+  {
+    "word": "BRONTE",
+    "count": 20
+  },
+  {
+    "word": "HAZEL",
+    "count": 20
+  },
+  {
+    "word": "SWIFT",
+    "count": 20
+  },
+  {
+    "word": "ARCHIE",
+    "count": 20
+  },
+  {
+    "word": "FUJI",
+    "count": 20
+  },
+  {
+    "word": "PAELLA",
+    "count": 20
+  },
+  {
+    "word": "BORAT",
+    "count": 20
+  },
+  {
+    "word": "GRANT",
+    "count": 19
+  },
+  {
+    "word": "DEBUT",
+    "count": 19
+  },
+  {
+    "word": "MILES",
+    "count": 19
+  },
+  {
+    "word": "DEFOE",
+    "count": 19
+  },
+  {
+    "word": "HORACE",
+    "count": 19
+  },
+  {
+    "word": "MICAH",
+    "count": 19
+  },
+  {
+    "word": "CAREW",
+    "count": 19
+  },
+  {
+    "word": "VERDI",
+    "count": 19
+  },
+  {
+    "word": "TWAIN",
+    "count": 19
+  },
+  {
+    "word": "HAGUE",
+    "count": 19
+  },
+  {
+    "word": "WILDE",
+    "count": 19
+  },
+  {
+    "word": "FIESTA",
+    "count": 19
+  },
+  {
+    "word": "HALAS",
+    "count": 19
+  },
+  {
+    "word": "VOLTA",
+    "count": 19
+  },
+  {
+    "word": "JASON",
+    "count": 19
+  },
+  {
+    "word": "PAIGE",
+    "count": 19
+  },
+  {
+    "word": "FIGARO",
+    "count": 19
+  },
+  {
+    "word": "STERNE",
+    "count": 18
+  },
+  {
+    "word": "TRIESTE",
+    "count": 18
+  },
+  {
+    "word": "GALEN",
+    "count": 18
+  },
+  {
+    "word": "GABLE",
+    "count": 18
+  },
+  {
+    "word": "LUCIA",
+    "count": 18
+  },
+  {
+    "word": "CARDS",
+    "count": 18
+  },
+  {
+    "word": "QUID",
+    "count": 18
+  },
+  {
+    "word": "TYRONE",
+    "count": 18
+  },
+  {
+    "word": "EINSTEIN",
+    "count": 18
+  },
+  {
+    "word": "OBLIGE",
+    "count": 18
+  },
+  {
+    "word": "DAPHNE",
+    "count": 18
+  },
+  {
+    "word": "JACOB",
+    "count": 18
+  },
+  {
+    "word": "RICHE",
+    "count": 18
+  },
+  {
+    "word": "OBRIEN",
+    "count": 18
+  },
+  {
+    "word": "KABUL",
+    "count": 18
+  },
+  {
+    "word": "LISZT",
+    "count": 18
+  },
+  {
+    "word": "LAMARR",
+    "count": 18
+  },
+  {
+    "word": "NEURON",
+    "count": 18
+  },
+  {
+    "word": "CHIANTI",
+    "count": 18
+  },
+  {
+    "word": "GIDE",
+    "count": 17
+  },
+  {
+    "word": "HULL",
+    "count": 17
+  },
+  {
+    "word": "GRACE",
+    "count": 17
+  },
+  {
+    "word": "ILIUM",
+    "count": 17
+  },
+  {
+    "word": "ORINOCO",
+    "count": 17
+  },
+  {
+    "word": "DAVID",
+    "count": 17
+  },
+  {
+    "word": "MANTLE",
+    "count": 17
+  },
+  {
+    "word": "MANANA",
+    "count": 17
+  },
+  {
+    "word": "ARTEMIS",
+    "count": 17
+  },
+  {
+    "word": "NEPTUNE",
+    "count": 17
+  },
+  {
+    "word": "DOYLE",
+    "count": 17
+  },
+  {
+    "word": "JOAN",
+    "count": 17
+  },
+  {
+    "word": "MONACO",
+    "count": 17
+  },
+  {
+    "word": "BEIRUT",
+    "count": 17
+  },
+  {
+    "word": "PASCAL",
+    "count": 17
+  },
+  {
+    "word": "CARPE",
+    "count": 17
+  },
+  {
+    "word": "EIGER",
+    "count": 17
+  },
+  {
+    "word": "HOLST",
+    "count": 17
+  },
+  {
+    "word": "SYNAPSE",
+    "count": 17
+  },
+  {
+    "word": "PADUA",
+    "count": 16
+  },
+  {
+    "word": "DUMAS",
+    "count": 16
+  },
+  {
+    "word": "AEGEAN",
+    "count": 16
+  },
+  {
+    "word": "BAKU",
+    "count": 16
+  },
+  {
+    "word": "PISTOL",
+    "count": 16
+  },
+  {
+    "word": "AMAZON",
+    "count": 16
+  },
+  {
+    "word": "ARISTOTLE",
+    "count": 16
+  },
+  {
+    "word": "ROUX",
+    "count": 16
+  },
+  {
+    "word": "ROSSINI",
+    "count": 16
+  },
+  {
+    "word": "LEIGH",
+    "count": 16
+  },
+  {
+    "word": "KELLY",
+    "count": 16
+  },
+  {
+    "word": "DANUBE",
+    "count": 16
+  },
+  {
+    "word": "GLORIA",
+    "count": 16
+  },
+  {
+    "word": "PERSONA",
+    "count": 16
+  },
+  {
+    "word": "GOMER",
+    "count": 16
+  },
+  {
+    "word": "NAMATH",
+    "count": 16
+  },
+  {
+    "word": "ALLELE",
+    "count": 16
+  },
+  {
+    "word": "KAHLO",
+    "count": 16
+  },
+  {
+    "word": "URKEL",
+    "count": 16
+  },
+  {
+    "word": "BERNE",
+    "count": 15
+  },
+  {
+    "word": "PLATA",
+    "count": 15
+  },
+  {
+    "word": "VENUS",
+    "count": 15
+  },
+  {
+    "word": "INDUS",
+    "count": 15
+  },
+  {
+    "word": "SAMSON",
+    "count": 15
+  },
+  {
+    "word": "HANDEL",
+    "count": 15
+  },
+  {
+    "word": "VENICE",
+    "count": 15
+  },
+  {
+    "word": "SOPRANO",
+    "count": 15
+  },
+  {
+    "word": "DARWIN",
+    "count": 15
+  },
+  {
+    "word": "SPAHN",
+    "count": 15
+  },
+  {
+    "word": "ELIJAH",
+    "count": 15
+  },
+  {
+    "word": "CLEOPATRA",
+    "count": 15
+  },
+  {
+    "word": "UNITAS",
+    "count": 15
+  },
+  {
+    "word": "LIPID",
+    "count": 15
+  },
+  {
+    "word": "GENOME",
+    "count": 15
+  },
+  {
+    "word": "THAMES",
+    "count": 14
+  },
+  {
+    "word": "GHENT",
+    "count": 14
+  },
+  {
+    "word": "CONGO",
+    "count": 14
+  },
+  {
+    "word": "LONDON",
+    "count": 14
+  },
+  {
+    "word": "ANDORRA",
+    "count": 14
+  },
+  {
+    "word": "QUITO",
+    "count": 14
+  },
+  {
+    "word": "CUPID",
+    "count": 14
+  },
+  {
+    "word": "LARRY",
+    "count": 14
+  },
+  {
+    "word": "FRANK",
+    "count": 14
+  },
+  {
+    "word": "GIANTS",
+    "count": 14
+  },
+  {
+    "word": "MAHLER",
+    "count": 14
+  },
+  {
+    "word": "GEISHA",
+    "count": 14
+  },
+  {
+    "word": "KAFKA",
+    "count": 14
+  },
+  {
+    "word": "NORRIS",
+    "count": 14
+  },
+  {
+    "word": "DONALD",
+    "count": 14
+  },
+  {
+    "word": "LAUREN",
+    "count": 14
+  },
+  {
+    "word": "ENZYME",
+    "count": 14
+  },
+  {
+    "word": "BALBOA",
+    "count": 14
+  },
+  {
+    "word": "CLICHE",
+    "count": 14
+  },
+  {
+    "word": "CAROLE",
+    "count": 14
+  },
+  {
+    "word": "GEHRIG",
+    "count": 14
+  },
+  {
+    "word": "GETZ",
+    "count": 14
+  },
+  {
+    "word": "WOOLF",
+    "count": 14
+  },
+  {
+    "word": "VITA",
+    "count": 13
+  },
+  {
+    "word": "MATISSE",
+    "count": 13
+  },
+  {
+    "word": "LAVER",
+    "count": 13
+  },
+  {
+    "word": "GOGOL",
+    "count": 13
+  },
+  {
+    "word": "TRACY",
+    "count": 13
+  },
+  {
+    "word": "WELLS",
+    "count": 13
+  },
+  {
+    "word": "DETRE",
+    "count": 13
+  },
+  {
+    "word": "HERMES",
+    "count": 13
+  },
+  {
+    "word": "RISOTTO",
+    "count": 13
+  },
+  {
+    "word": "HAYDN",
+    "count": 13
+  },
+  {
+    "word": "SEURAT",
+    "count": 13
+  },
+  {
+    "word": "ASGARD",
+    "count": 13
+  },
+  {
+    "word": "TRACHEA",
+    "count": 13
+  },
+  {
+    "word": "HARARE",
+    "count": 13
+  },
+  {
+    "word": "CLARK",
+    "count": 12
+  },
+  {
+    "word": "TIBER",
+    "count": 12
+  },
+  {
+    "word": "MATINEE",
+    "count": 12
+  },
+  {
+    "word": "ASMARA",
+    "count": 12
+  },
+  {
+    "word": "MATADOR",
+    "count": 12
+  },
+  {
+    "word": "ISOTOPE",
+    "count": 12
+  },
+  {
+    "word": "RILKE",
+    "count": 12
+  },
+  {
+    "word": "FEMUR",
+    "count": 12
+  },
+  {
+    "word": "CARACAS",
+    "count": 12
+  },
+  {
+    "word": "THOREAU",
+    "count": 12
+  },
+  {
+    "word": "FINALE",
+    "count": 12
+  },
+  {
+    "word": "LEFTY",
+    "count": 12
+  },
+  {
+    "word": "BALTIC",
+    "count": 12
+  },
+  {
+    "word": "KIMONO",
+    "count": 12
+  },
+  {
+    "word": "MYRNA",
+    "count": 12
+  },
+  {
+    "word": "TROJAN",
+    "count": 12
+  },
+  {
+    "word": "AUSTEN",
+    "count": 12
+  },
+  {
+    "word": "SAPPHO",
+    "count": 12
+  },
+  {
+    "word": "OSMOSIS",
+    "count": 12
+  },
+  {
+    "word": "GOETHE",
+    "count": 12
+  },
+  {
+    "word": "STURM",
+    "count": 12
+  },
+  {
+    "word": "JONAH",
+    "count": 12
+  },
+  {
+    "word": "LAVERNE",
+    "count": 12
+  },
+  {
+    "word": "BOGART",
+    "count": 12
+  },
+  {
+    "word": "LARYNX",
+    "count": 12
+  },
+  {
+    "word": "KAREEM",
+    "count": 12
+  },
+  {
+    "word": "CAYENNE",
+    "count": 12
+  },
+  {
+    "word": "BLITZ",
+    "count": 12
+  },
+  {
+    "word": "SANGRIA",
+    "count": 12
+  },
+  {
+    "word": "MANGA",
+    "count": 12
+  },
+  {
+    "word": "WESER",
+    "count": 11
+  },
+  {
+    "word": "STUART",
+    "count": 11
+  },
+  {
+    "word": "HARDY",
+    "count": 11
+  },
+  {
+    "word": "GRATA",
+    "count": 11
+  },
+  {
+    "word": "YANKS",
+    "count": 11
+  },
+  {
+    "word": "STEWART",
+    "count": 11
+  },
+  {
+    "word": "LIVY",
+    "count": 11
+  },
+  {
+    "word": "NAHUM",
+    "count": 11
+  },
+  {
+    "word": "SAMURAI",
+    "count": 11
+  },
+  {
+    "word": "ANTIGONE",
+    "count": 11
+  },
+  {
+    "word": "PROUST",
+    "count": 11
+  },
+  {
+    "word": "WALTZ",
+    "count": 11
+  },
+  {
+    "word": "DELILAH",
+    "count": 11
+  },
+  {
+    "word": "GALILEO",
+    "count": 11
+  },
+  {
+    "word": "MORK",
+    "count": 11
+  },
+  {
+    "word": "COLBERT",
+    "count": 11
+  },
+  {
+    "word": "KOJAK",
+    "count": 11
+  },
+  {
+    "word": "MATER",
+    "count": 10
+  },
+  {
+    "word": "STENGEL",
+    "count": 10
+  },
+  {
+    "word": "ADDIS",
+    "count": 10
+  },
+  {
+    "word": "PANDORA",
+    "count": 10
+  },
+  {
+    "word": "FACTO",
+    "count": 10
+  },
+  {
+    "word": "BYRON",
+    "count": 10
+  },
+  {
+    "word": "BENCH",
+    "count": 10
+  },
+  {
+    "word": "BLAKE",
+    "count": 10
+  },
+  {
+    "word": "COOPER",
+    "count": 10
+  },
+  {
+    "word": "TITIAN",
+    "count": 10
+  },
+  {
+    "word": "TASMAN",
+    "count": 10
+  },
+  {
+    "word": "MENDEL",
+    "count": 10
+  },
+  {
+    "word": "CANAAN",
+    "count": 10
+  },
+  {
+    "word": "MUSCAT",
+    "count": 10
+  },
+  {
+    "word": "DVORAK",
+    "count": 10
+  },
+  {
+    "word": "PEREZ",
+    "count": 10
+  },
+  {
+    "word": "WARHOL",
+    "count": 10
+  },
+  {
+    "word": "RIYADH",
+    "count": 10
+  },
+  {
+    "word": "BURRITO",
+    "count": 10
+  },
+  {
+    "word": "RICHIE",
+    "count": 10
+  },
+  {
+    "word": "SHEM",
+    "count": 9
+  },
+  {
+    "word": "DURER",
+    "count": 9
+  },
+  {
+    "word": "MEUSE",
+    "count": 9
+  },
+  {
+    "word": "LEGER",
+    "count": 9
+  },
+  {
+    "word": "BURNS",
+    "count": 9
+  },
+  {
+    "word": "MARLENE",
+    "count": 9
+  },
+  {
+    "word": "PLAYER",
+    "count": 9
+  },
+  {
+    "word": "GROVE",
+    "count": 9
+  },
+  {
+    "word": "AMSTERDAM",
+    "count": 9
+  },
+  {
+    "word": "BEAVER",
+    "count": 9
+  },
+  {
+    "word": "FOSTER",
+    "count": 9
+  },
+  {
+    "word": "PALERMO",
+    "count": 9
+  },
+  {
+    "word": "FLEUR",
+    "count": 9
+  },
+  {
+    "word": "BIJOU",
+    "count": 9
+  },
+  {
+    "word": "ORWELL",
+    "count": 9
+  },
+  {
+    "word": "FIANCE",
+    "count": 9
+  },
+  {
+    "word": "AREPA",
+    "count": 9
+  },
+  {
+    "word": "TOUCHE",
+    "count": 9
+  },
+  {
+    "word": "LIPPI",
+    "count": 9
+  },
+  {
+    "word": "MIRIAM",
+    "count": 9
+  },
+  {
+    "word": "GESTALT",
+    "count": 9
+  },
+  {
+    "word": "KITSCH",
+    "count": 9
+  },
+  {
+    "word": "SCHMALTZ",
+    "count": 9
+  },
+  {
+    "word": "CORTEX",
+    "count": 9
+  },
+  {
+    "word": "NEUTRINO",
+    "count": 9
+  },
+  {
+    "word": "HANOVER",
+    "count": 8
+  },
+  {
+    "word": "SPENSER",
+    "count": 8
+  },
+  {
+    "word": "NEWTON",
+    "count": 8
+  },
+  {
+    "word": "NAIROBI",
+    "count": 8
+  },
+  {
+    "word": "PLINY",
+    "count": 8
+  },
+  {
+    "word": "PEGASUS",
+    "count": 8
+  },
+  {
+    "word": "SILVER",
+    "count": 8
+  },
+  {
+    "word": "SNIDER",
+    "count": 8
+  },
+  {
+    "word": "DEBUSSY",
+    "count": 8
+  },
+  {
+    "word": "DRANG",
+    "count": 8
+  },
+  {
+    "word": "PSYCHE",
+    "count": 8
+  },
+  {
+    "word": "WATSON",
+    "count": 8
+  },
+  {
+    "word": "CASPER",
+    "count": 8
+  },
+  {
+    "word": "BARITONE",
+    "count": 8
+  },
+  {
+    "word": "JORDAN",
+    "count": 8
+  },
+  {
+    "word": "GOOBER",
+    "count": 8
+  },
+  {
+    "word": "CASPIAN",
+    "count": 8
+  },
+  {
+    "word": "GALILEE",
+    "count": 8
+  },
+  {
+    "word": "FIBULA",
+    "count": 8
+  },
+  {
+    "word": "RISQUE",
+    "count": 8
+  },
+  {
+    "word": "MITOSIS",
+    "count": 8
+  },
+  {
+    "word": "BOSON",
+    "count": 8
+  },
+  {
+    "word": "SACRUM",
+    "count": 8
+  },
+  {
+    "word": "GARDE",
+    "count": 7
+  },
+  {
+    "word": "PATELLA",
+    "count": 7
+  },
+  {
+    "word": "NAPOLEON",
+    "count": 7
+  },
+  {
+    "word": "INGENUE",
+    "count": 7
+  },
+  {
+    "word": "WAGNER",
+    "count": 7
+  },
+  {
+    "word": "ABSALOM",
+    "count": 7
+  },
+  {
+    "word": "GANGES",
+    "count": 7
+  },
+  {
+    "word": "ANTWERP",
+    "count": 7
+  },
+  {
+    "word": "BOGOTA",
+    "count": 7
+  },
+  {
+    "word": "CALYPSO",
+    "count": 7
+  },
+  {
+    "word": "JOIE",
+    "count": 7
+  },
+  {
+    "word": "GINGER",
+    "count": 7
+  },
+  {
+    "word": "GOPHER",
+    "count": 7
+  },
+  {
+    "word": "RAPHAEL",
+    "count": 7
+  },
+  {
+    "word": "RACHEL",
+    "count": 7
+  },
+  {
+    "word": "BACALL",
+    "count": 7
+  },
+  {
+    "word": "EMPTOR",
+    "count": 7
+  },
+  {
+    "word": "ACHILLES",
+    "count": 7
+  },
+  {
+    "word": "STERNUM",
+    "count": 7
+  },
+  {
+    "word": "MINERVA",
+    "count": 7
+  },
+  {
+    "word": "SOLUTE",
+    "count": 7
+  },
+  {
+    "word": "HARLOW",
+    "count": 7
+  },
+  {
+    "word": "ZAMBEZI",
+    "count": 7
+  },
+  {
+    "word": "CATALYST",
+    "count": 7
+  },
+  {
+    "word": "SOLVENT",
+    "count": 7
+  },
+  {
+    "word": "ENFANT",
+    "count": 7
+  },
+  {
+    "word": "MINDY",
+    "count": 7
+  },
+  {
+    "word": "SEAVER",
+    "count": 7
+  },
+  {
+    "word": "GRAPPA",
+    "count": 7
+  },
+  {
+    "word": "GNOCCHI",
+    "count": 7
+  },
+  {
+    "word": "ROGERS",
+    "count": 6
+  },
+  {
+    "word": "FIDE",
+    "count": 6
+  },
+  {
+    "word": "WARREN",
+    "count": 6
+  },
+  {
+    "word": "REAGENT",
+    "count": 6
+  },
+  {
+    "word": "SPHINX",
+    "count": 6
+  },
+  {
+    "word": "CHANCE",
+    "count": 6
+  },
+  {
+    "word": "WURST",
+    "count": 6
+  },
+  {
+    "word": "MODUS",
+    "count": 6
+  },
+  {
+    "word": "RUBENS",
+    "count": 6
+  },
+  {
+    "word": "EZEKIEL",
+    "count": 6
+  },
+  {
+    "word": "TORTILLA",
+    "count": 6
+  },
+  {
+    "word": "PROTEIN",
+    "count": 6
+  },
+  {
+    "word": "NEUTRON",
+    "count": 6
+  },
+  {
+    "word": "RAISON",
+    "count": 6
+  },
+  {
+    "word": "BRAVES",
+    "count": 6
+  },
+  {
+    "word": "AGAMEMNON",
+    "count": 6
+  },
+  {
+    "word": "OBADIAH",
+    "count": 6
+  },
+  {
+    "word": "RALEIGH",
+    "count": 6
+  },
+  {
+    "word": "DRYDEN",
+    "count": 6
+  },
+  {
+    "word": "LIBRETTO",
+    "count": 6
+  },
+  {
+    "word": "MINOTAUR",
+    "count": 6
+  },
+  {
+    "word": "AUDREY",
+    "count": 6
+  },
+  {
+    "word": "TARSUS",
+    "count": 6
+  },
+  {
+    "word": "CHAPLIN",
+    "count": 6
+  },
+  {
+    "word": "INGRID",
+    "count": 6
+  },
+  {
+    "word": "PHOTON",
+    "count": 6
+  },
+  {
+    "word": "GIOTTO",
+    "count": 6
+  },
+  {
+    "word": "GOLIATH",
+    "count": 6
+  },
+  {
+    "word": "HUDSON",
+    "count": 6
+  },
+  {
+    "word": "PASTEUR",
+    "count": 6
+  },
+  {
+    "word": "RADIUS",
+    "count": 6
+  },
+  {
+    "word": "FIANCEE",
+    "count": 6
+  },
+  {
+    "word": "ORPHEUS",
+    "count": 6
+  },
+  {
+    "word": "SCYLLA",
+    "count": 6
+  },
+  {
+    "word": "TRAJAN",
+    "count": 6
+  },
+  {
+    "word": "TURANDOT",
+    "count": 6
+  },
+  {
+    "word": "SATCHMO",
+    "count": 6
+  },
+  {
+    "word": "CALDER",
+    "count": 6
+  },
+  {
+    "word": "LUMPY",
+    "count": 6
+  },
+  {
+    "word": "CEZANNE",
+    "count": 6
+  },
+  {
+    "word": "MALACHI",
+    "count": 6
+  },
+  {
+    "word": "CORTEZ",
+    "count": 6
+  },
+  {
+    "word": "SAUERKRAUT",
+    "count": 6
+  },
+  {
+    "word": "BUONO",
+    "count": 6
+  },
+  {
+    "word": "ESPOSITO",
+    "count": 6
+  },
+  {
+    "word": "BOSOX",
+    "count": 6
+  },
+  {
+    "word": "ABUDHABI",
+    "count": 6
+  },
+  {
+    "word": "PIZARRO",
+    "count": 6
+  },
+  {
+    "word": "MCENROE",
+    "count": 6
+  },
+  {
+    "word": "ELEKTRA",
+    "count": 6
+  },
+  {
+    "word": "ALARIC",
+    "count": 5
+  },
+  {
+    "word": "SOLOMON",
+    "count": 5
+  },
+  {
+    "word": "OLIVIER",
+    "count": 5
+  },
+  {
+    "word": "ROBINSON",
+    "count": 5
+  },
+  {
+    "word": "ANTIPASTO",
+    "count": 5
+  },
+  {
+    "word": "ELECTRON",
+    "count": 5
+  },
+  {
+    "word": "PINDAR",
+    "count": 5
+  },
+  {
+    "word": "LAWRENCE",
+    "count": 5
+  },
+  {
+    "word": "BRAHMS",
+    "count": 5
+  },
+  {
+    "word": "CAVEAT",
+    "count": 5
+  },
+  {
+    "word": "CENTAUR",
+    "count": 5
+  },
+  {
+    "word": "WALTER",
+    "count": 5
+  },
+  {
+    "word": "YANGTZE",
+    "count": 5
+  },
+  {
+    "word": "DAMASCUS",
+    "count": 5
+  },
+  {
+    "word": "HERCULES",
+    "count": 5
+  },
+  {
+    "word": "BAYLOR",
+    "count": 5
+  },
+  {
+    "word": "PROTON",
+    "count": 5
+  },
+  {
+    "word": "NOBLESSE",
+    "count": 5
+  },
+  {
+    "word": "WALLY",
+    "count": 5
+  },
+  {
+    "word": "REGGIE",
+    "count": 5
+  },
+  {
+    "word": "SIBELIUS",
+    "count": 5
+  },
+  {
+    "word": "ENCHILADA",
+    "count": 5
+  },
+  {
+    "word": "POSEIDON",
+    "count": 5
+  },
+  {
+    "word": "PERSEUS",
+    "count": 5
+  },
+  {
+    "word": "ADRIATIC",
+    "count": 5
+  },
+  {
+    "word": "VIVALDI",
+    "count": 5
+  },
+  {
+    "word": "CHAGALL",
+    "count": 5
+  },
+  {
+    "word": "JUDAH",
+    "count": 5
+  },
+  {
+    "word": "NEFERTITI",
+    "count": 5
+  },
+  {
+    "word": "HODGES",
+    "count": 5
+  },
+  {
+    "word": "PLUTARCH",
+    "count": 5
+  },
+  {
+    "word": "LAZARUS",
+    "count": 5
+  },
+  {
+    "word": "GOMORRAH",
+    "count": 5
+  },
+  {
+    "word": "VERBOTEN",
+    "count": 5
+  },
+  {
+    "word": "TBILISI",
+    "count": 5
+  },
+  {
+    "word": "ZEITGEIST",
+    "count": 5
+  },
+  {
+    "word": "TIRAMISU",
+    "count": 5
+  },
+  {
+    "word": "ADENINE",
+    "count": 5
+  },
+  {
+    "word": "POTSIE",
+    "count": 5
+  },
+  {
+    "word": "LOMBARDI",
+    "count": 5
+  },
+  {
+    "word": "CLEMENTE",
+    "count": 5
+  },
+  {
+    "word": "FAURE",
+    "count": 4
+  },
+  {
+    "word": "DEMETER",
+    "count": 4
+  },
+  {
+    "word": "SULLA",
+    "count": 4
+  },
+  {
+    "word": "RIGOLETTO",
+    "count": 4
+  },
+  {
+    "word": "OEDIPUS",
+    "count": 4
+  },
+  {
+    "word": "HOLIDAY",
+    "count": 4
+  },
+  {
+    "word": "SPENCER",
+    "count": 4
+  },
+  {
+    "word": "MATTERHORN",
+    "count": 4
+  },
+  {
+    "word": "MARVEL",
+    "count": 4
+  },
+  {
+    "word": "VALHALLA",
+    "count": 4
+  },
+  {
+    "word": "ROMANOV",
+    "count": 4
+  },
+  {
+    "word": "BRUTUS",
+    "count": 4
+  },
+  {
+    "word": "BARNEY",
+    "count": 4
+  },
+  {
+    "word": "BALZAC",
+    "count": 4
+  },
+  {
+    "word": "GARSON",
+    "count": 4
+  },
+  {
+    "word": "TABLEAU",
+    "count": 4
+  },
+  {
+    "word": "AUTOBAHN",
+    "count": 4
+  },
+  {
+    "word": "HAWKEYE",
+    "count": 4
+  },
+  {
+    "word": "BRUSSELS",
+    "count": 4
+  },
+  {
+    "word": "WHARTON",
+    "count": 4
+  },
+  {
+    "word": "CORELLI",
+    "count": 4
+  },
+  {
+    "word": "VERMEER",
+    "count": 4
+  },
+  {
+    "word": "CHATEAU",
+    "count": 4
+  },
+  {
+    "word": "VERBATIM",
+    "count": 4
+  },
+  {
+    "word": "JUPITER",
+    "count": 4
+  },
+  {
+    "word": "GIBSON",
+    "count": 4
+  },
+  {
+    "word": "MEKONG",
+    "count": 4
+  },
+  {
+    "word": "SOPHOCLES",
+    "count": 4
+  },
+  {
+    "word": "MERCURY",
+    "count": 4
+  },
+  {
+    "word": "HIMALAYAS",
+    "count": 4
+  },
+  {
+    "word": "ILEUM",
+    "count": 4
+  },
+  {
+    "word": "QUARK",
+    "count": 4
+  },
+  {
+    "word": "VELAZQUEZ",
+    "count": 4
+  },
+  {
+    "word": "BERNINI",
+    "count": 4
+  },
+  {
+    "word": "COLUMBO",
+    "count": 4
+  },
+  {
+    "word": "LANDRY",
+    "count": 4
+  },
+  {
+    "word": "REYKJAVIK",
+    "count": 4
+  },
+  {
+    "word": "BERLIOZ",
+    "count": 4
+  },
+  {
+    "word": "GILLIGAN",
+    "count": 4
+  },
+  {
+    "word": "TREVINO",
+    "count": 4
+  },
+  {
+    "word": "BRADSHAW",
+    "count": 4
+  },
+  {
+    "word": "KAMPALA",
+    "count": 4
+  },
+  {
+    "word": "BOULEVARD",
+    "count": 4
+  },
+  {
+    "word": "ROLLIE",
+    "count": 4
+  },
+  {
+    "word": "KIGALI",
+    "count": 4
+  },
+  {
+    "word": "SHAN",
+    "count": 3
+  },
+  {
+    "word": "SOCRATES",
+    "count": 3
+  },
+  {
+    "word": "CELEBES",
+    "count": 3
+  },
+  {
+    "word": "PALMER",
+    "count": 3
+  },
+  {
+    "word": "MORGAN",
+    "count": 3
+  },
+  {
+    "word": "FLORENCE",
+    "count": 3
+  },
+  {
+    "word": "DODGERS",
+    "count": 3
+  },
+  {
+    "word": "TENNYSON",
+    "count": 3
+  },
+  {
+    "word": "THESEUS",
+    "count": 3
+  },
+  {
+    "word": "ISHMAEL",
+    "count": 3
+  },
+  {
+    "word": "PASSOS",
+    "count": 3
+  },
+  {
+    "word": "REMBRANDT",
+    "count": 3
+  },
+  {
+    "word": "UTRILLO",
+    "count": 3
+  },
+  {
+    "word": "FREYA",
+    "count": 3
+  },
+  {
+    "word": "TRAPPER",
+    "count": 3
+  },
+  {
+    "word": "WINDSOR",
+    "count": 3
+  },
+  {
+    "word": "JEZEBEL",
+    "count": 3
+  },
+  {
+    "word": "HAWTHORNE",
+    "count": 3
+  },
+  {
+    "word": "EURIPIDES",
+    "count": 3
+  },
+  {
+    "word": "COLUMBUS",
+    "count": 3
+  },
+  {
+    "word": "CASSANDRA",
+    "count": 3
+  },
+  {
+    "word": "NAZARETH",
+    "count": 3
+  },
+  {
+    "word": "CAGNEY",
+    "count": 3
+  },
+  {
+    "word": "HELSINKI",
+    "count": 3
+  },
+  {
+    "word": "MESSIER",
+    "count": 3
+  },
+  {
+    "word": "CARTIER",
+    "count": 3
+  },
+  {
+    "word": "PUCCINI",
+    "count": 3
+  },
+  {
+    "word": "NOUVEAU",
+    "count": 3
+  },
+  {
+    "word": "TROLLOPE",
+    "count": 3
+  },
+  {
+    "word": "MAGELLAN",
+    "count": 3
+  },
+  {
+    "word": "PARSIFAL",
+    "count": 3
+  },
+  {
+    "word": "BELLINI",
+    "count": 3
+  },
+  {
+    "word": "PARKER",
+    "count": 3
+  },
+  {
+    "word": "JOCASTA",
+    "count": 3
+  },
+  {
+    "word": "NICOSIA",
+    "count": 3
+  },
+  {
+    "word": "FITZGERALD",
+    "count": 3
+  },
+  {
+    "word": "HARVEY",
+    "count": 3
+  },
+  {
+    "word": "DIZZY",
+    "count": 3
+  },
+  {
+    "word": "TOULOUSE",
+    "count": 3
+  },
+  {
+    "word": "CRITIQUE",
+    "count": 3
+  },
+  {
+    "word": "FLAMENCO",
+    "count": 3
+  },
+  {
+    "word": "BATHSHEBA",
+    "count": 3
+  },
+  {
+    "word": "HOTLIPS",
+    "count": 3
+  },
+  {
+    "word": "HARMON",
+    "count": 3
+  },
+  {
+    "word": "FORSTER",
+    "count": 3
+  },
+  {
+    "word": "MEDULLA",
+    "count": 3
+  },
+  {
+    "word": "LAUTREC",
+    "count": 3
+  },
+  {
+    "word": "CYCLOPS",
+    "count": 3
+  },
+  {
+    "word": "BACCHUS",
+    "count": 3
+  },
+  {
+    "word": "BRENNAN",
+    "count": 3
+  },
+  {
+    "word": "KILIMANJARO",
+    "count": 3
+  },
+  {
+    "word": "VESPUCCI",
+    "count": 3
+  },
+  {
+    "word": "LEPTON",
+    "count": 3
+  },
+  {
+    "word": "COPERNICUS",
+    "count": 3
+  },
+  {
+    "word": "SCARLATTI",
+    "count": 3
+  },
+  {
+    "word": "CROISSANT",
+    "count": 3
+  },
+  {
+    "word": "VIGNETTE",
+    "count": 3
+  },
+  {
+    "word": "VIRGIL",
+    "count": 3
+  },
+  {
+    "word": "XENOPHON",
+    "count": 3
+  },
+  {
+    "word": "HADRON",
+    "count": 3
+  },
+  {
+    "word": "ADDERLEY",
+    "count": 3
+  },
+  {
+    "word": "DIONYSUS",
+    "count": 3
+  },
+  {
+    "word": "MEATHEAD",
+    "count": 3
+  },
+  {
+    "word": "PLANCK",
+    "count": 3
+  },
+  {
+    "word": "CELSIUS",
+    "count": 3
+  },
+  {
+    "word": "AIKIDO",
+    "count": 3
+  },
+  {
+    "word": "MANNIX",
+    "count": 3
+  },
+  {
+    "word": "FRAZIER",
+    "count": 3
+  },
+  {
+    "word": "GORDIE",
+    "count": 3
+  },
+  {
+    "word": "KOUFAX",
+    "count": 3
+  },
+  {
+    "word": "ABUJA",
+    "count": 3
+  },
+  {
+    "word": "CHARLEMAGNE",
+    "count": 3
+  },
+  {
+    "word": "URACIL",
+    "count": 3
+  },
+  {
+    "word": "BRUSCHETTA",
+    "count": 3
+  },
+  {
+    "word": "NAMUR",
+    "count": 2
+  },
+  {
+    "word": "TAGUS",
+    "count": 2
+  },
+  {
+    "word": "STEVENSON",
+    "count": 2
+  },
+  {
+    "word": "SPEAKER",
+    "count": 2
+  },
+  {
+    "word": "SHEARER",
+    "count": 2
+  },
+  {
+    "word": "VIDE",
+    "count": 2
+  },
+  {
+    "word": "DNIEPER",
+    "count": 2
+  },
+  {
+    "word": "BERING",
+    "count": 2
+  },
+  {
+    "word": "SHELLEY",
+    "count": 2
+  },
+  {
+    "word": "CATHER",
+    "count": 2
+  },
+  {
+    "word": "DICKENS",
+    "count": 2
+  },
+  {
+    "word": "ARMSTRONG",
+    "count": 2
+  },
+  {
+    "word": "WILLIAMS",
+    "count": 2
+  },
+  {
+    "word": "TOLSTOY",
+    "count": 2
+  },
+  {
+    "word": "TACITUS",
+    "count": 2
+  },
+  {
+    "word": "FELLER",
+    "count": 2
+  },
+  {
+    "word": "BOLOGNA",
+    "count": 2
+  },
+  {
+    "word": "APENNINES",
+    "count": 2
+  },
+  {
+    "word": "WORDSWORTH",
+    "count": 2
+  },
+  {
+    "word": "TINTORETTO",
+    "count": 2
+  },
+  {
+    "word": "NEHEMIAH",
+    "count": 2
+  },
+  {
+    "word": "DIMAGGIO",
+    "count": 2
+  },
+  {
+    "word": "MUSIAL",
+    "count": 2
+  },
+  {
+    "word": "MANDIBLE",
+    "count": 2
+  },
+  {
+    "word": "TERRIBLE",
+    "count": 2
+  },
+  {
+    "word": "NARCISSUS",
+    "count": 2
+  },
+  {
+    "word": "SKIPPER",
+    "count": 2
+  },
+  {
+    "word": "MELVILLE",
+    "count": 2
+  },
+  {
+    "word": "CASSIUS",
+    "count": 2
+  },
+  {
+    "word": "OFFENBACH",
+    "count": 2
+  },
+  {
+    "word": "CANNONBALL",
+    "count": 2
+  },
+  {
+    "word": "EURYDICE",
+    "count": 2
+  },
+  {
+    "word": "CHARYBDIS",
+    "count": 2
+  },
+  {
+    "word": "VULCAN",
+    "count": 2
+  },
+  {
+    "word": "HUMPHREY",
+    "count": 2
+  },
+  {
+    "word": "LOMBARD",
+    "count": 2
+  },
+  {
+    "word": "SINCLAIR",
+    "count": 2
+  },
+  {
+    "word": "AESCHYLUS",
+    "count": 2
+  },
+  {
+    "word": "APPENDIX",
+    "count": 2
+  },
+  {
+    "word": "DONATELLO",
+    "count": 2
+  },
+  {
+    "word": "METHUSELAH",
+    "count": 2
+  },
+  {
+    "word": "PYRENEES",
+    "count": 2
+  },
+  {
+    "word": "OLYMPUS",
+    "count": 2
+  },
+  {
+    "word": "TALLINN",
+    "count": 2
+  },
+  {
+    "word": "VERTEBRA",
+    "count": 2
+  },
+  {
+    "word": "DONIZETTI",
+    "count": 2
+  },
+  {
+    "word": "LUCILLE",
+    "count": 2
+  },
+  {
+    "word": "JABBAR",
+    "count": 2
+  },
+  {
+    "word": "PHILLIES",
+    "count": 2
+  },
+  {
+    "word": "ARISTOPHANES",
+    "count": 2
+  },
+  {
+    "word": "CONSTANTINE",
+    "count": 2
+  },
+  {
+    "word": "ESOPHAGUS",
+    "count": 2
+  },
+  {
+    "word": "CODON",
+    "count": 2
+  },
+  {
+    "word": "RAMEAU",
+    "count": 2
+  },
+  {
+    "word": "BILLIE",
+    "count": 2
+  },
+  {
+    "word": "PERSEPHONE",
+    "count": 2
+  },
+  {
+    "word": "REBEKAH",
+    "count": 2
+  },
+  {
+    "word": "VIVIEN",
+    "count": 2
+  },
+  {
+    "word": "YEREVAN",
+    "count": 2
+  },
+  {
+    "word": "HADRIAN",
+    "count": 2
+  },
+  {
+    "word": "CLAVICLE",
+    "count": 2
+  },
+  {
+    "word": "ALVEOLI",
+    "count": 2
+  },
+  {
+    "word": "FARADAY",
+    "count": 2
+  },
+  {
+    "word": "MONTEVERDI",
+    "count": 2
+  },
+  {
+    "word": "BRUBECK",
+    "count": 2
+  },
+  {
+    "word": "POLYPHEMUS",
+    "count": 2
+  },
+  {
+    "word": "KLINGER",
+    "count": 2
+  },
+  {
+    "word": "SHOELESS",
+    "count": 2
+  },
+  {
+    "word": "BISMARCK",
+    "count": 2
+  },
+  {
+    "word": "MAXILLA",
+    "count": 2
+  },
+  {
+    "word": "KLIMT",
+    "count": 2
+  },
+  {
+    "word": "MICHELANGELO",
+    "count": 2
+  },
+  {
+    "word": "BRATWURST",
+    "count": 2
+  },
+  {
+    "word": "BILDUNGSROMAN",
+    "count": 2
+  },
+  {
+    "word": "SHIRLEY",
+    "count": 2
+  },
+  {
+    "word": "LUSAKA",
+    "count": 2
+  },
+  {
+    "word": "MOGADISHU",
+    "count": 2
+  },
+  {
+    "word": "METACARPAL",
+    "count": 2
+  },
+  {
+    "word": "CECUM",
+    "count": 2
+  }
+]

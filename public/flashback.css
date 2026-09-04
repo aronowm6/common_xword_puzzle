@@ -1,0 +1,128 @@
+/* ---------- Puzzle picker ---------- */
+.fb-picker {
+  padding: 1.5rem;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.fb-picker h2 {
+  font-size: 1.1rem;
+  margin: 0 0 1rem;
+}
+.fb-puzzle-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 0.9rem;
+}
+.fb-puzzle-card {
+  border: 2px solid var(--ink);
+  padding: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  align-items: flex-start;
+}
+.fb-puzzle-label {
+  font-weight: bold;
+  font-size: 1.05rem;
+}
+.fb-puzzle-sub {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+}
+.fb-puzzle-card button { width: 100%; margin-top: 0.3rem; }
+
+/* ---------- Game ---------- */
+.fb-game {
+  padding: 1.5rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.fb-game-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.3rem;
+  flex-wrap: wrap;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+}
+.fb-mistake-counter { white-space: nowrap; }
+
+.fb-placed-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1.3rem;
+}
+.fb-word-card {
+  border: 2px solid var(--ink);
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.7rem 1rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.05rem;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+.fb-slot {
+  border: none;
+  background: none;
+  color: var(--muted);
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9rem;
+  position: relative;
+}
+.fb-slot::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  border-top: 1.5px dashed var(--ink);
+  opacity: 0.35;
+}
+.fb-slot:hover:not(:disabled) { color: var(--ink); background: var(--panel); }
+.fb-slot span, .fb-slot { z-index: 1; }
+.fb-slot.eliminated { color: var(--wrong); opacity: 0.6; cursor: default; }
+
+.fb-current-card {
+  border: 3px solid var(--ink);
+  padding: 1.3rem;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+.fb-current-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--muted);
+  margin-bottom: 0.6rem;
+}
+.fb-current-word {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 0.1em;
+}
+
+/* ---------- Result ---------- */
+.fb-result {
+  padding: 2rem 1.5rem;
+  max-width: 480px;
+  margin: 0 auto;
+  text-align: center;
+}
+.fb-result h2 { margin-top: 0; }
+.fb-result .nav-buttons { margin-top: 1.3rem; }
+
+@media (max-width: 640px) {
+  .fb-picker, .fb-game, .fb-result { padding: 1rem; }
+}

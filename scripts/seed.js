@@ -24,7 +24,7 @@ async function main() {
 
   console.log('Connecting to database...');
   await ensureSchema();
-  console.log('Schema ready: users, progress, sessions');
+  console.log('Schema ready: users, progress, sessions, flashback_attempts');
 
   const words = require('../data/words.json');
   console.log(`Word list loaded: ${words.length} entries (not stored in DB, served from data/words.json).`);

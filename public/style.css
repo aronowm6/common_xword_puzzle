@@ -270,6 +270,15 @@ footer {
 
 /* ---------- Leaderboard ---------- */
 .board-main { padding: 1.5rem; max-width: 900px; margin: 0 auto; }
+.board-main h2 {
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-bottom: 2px solid var(--ink);
+  padding-bottom: 0.4rem;
+  margin: 0 0 0.8rem;
+}
+.board-main h2.fb-lb-heading { margin-top: 2rem; }
 .board-table {
   width: 100%;
   border-collapse: collapse;

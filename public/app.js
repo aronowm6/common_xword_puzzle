@@ -1,12 +1,10 @@
 (function () {
   'use strict';
 
-  var TOKEN_KEY = 'cxp_token';
   var CHECK_DEBOUNCE_MS = 120;
 
   var state = {
     username: null,
-    token: null,
     words: [],                 // [{num, length, count}] ordered 1..N
     solvedAnswers: new Map(),  // num -> answer text
     lastChecked: '',            // avoid re-checking the same string twice in a row
@@ -91,10 +89,9 @@
 
     buildGrid();
 
-    var token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
-      var ok = await resumeSession(token);
-      if (!ok) showOverlay();
+    var resumed = await CXPAuth.tryResume();
+    if (resumed) {
+      applySession(resumed.username, resumed.solved);
     } else {
       showOverlay();
     }
@@ -128,26 +125,6 @@
     el.entryInput.focus();
   }
 
-  async function resumeSession(token) {
-    try {
-      var res = await fetch('/api/session', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token }),
-      });
-      var data = await res.json();
-      if (!res.ok) {
-        localStorage.removeItem(TOKEN_KEY);
-        return false;
-      }
-      state.token = token;
-      applySession(data.username, data.solved);
-      return true;
-    } catch (err) {
-      return false;
-    }
-  }
-
   async function loginUser(rawName, rawPassword) {
     var name = (rawName || '').trim();
     var password = rawPassword || '';
@@ -159,44 +136,24 @@
       showUsernameError('Password must be at least 4 characters.');
       return false;
     }
-    try {
-      var res = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username: name, password: password }),
-      });
-      var data = await res.json();
-      if (!res.ok) {
-        showUsernameError(data.error || 'Something went wrong.');
-        return false;
-      }
-
-      state.token = data.token;
-      localStorage.setItem(TOKEN_KEY, state.token);
-      el.passwordInput.value = '';
-      applySession(data.username, data.solved);
-
-      if (data.claimedLegacy) {
-        el.feedback.className = 'feedback';
-        el.feedback.textContent = 'This username didn’t have a password yet — it’s now set to what you just entered.';
-      }
-      return true;
-    } catch (err) {
-      showUsernameError('Network error -- try again.');
+    var result = await CXPAuth.login(name, password);
+    if (!result.ok) {
+      showUsernameError(result.error);
       return false;
     }
+
+    el.passwordInput.value = '';
+    applySession(result.username, result.solved);
+
+    if (result.claimedLegacy) {
+      el.feedback.className = 'feedback';
+      el.feedback.textContent = 'This username didn’t have a password yet — it’s now set to what you just entered.';
+    }
+    return true;
   }
 
   function logout() {
-    var token = state.token;
-    localStorage.removeItem(TOKEN_KEY);
-    if (token) {
-      fetch('/api/logout', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: token }),
-      }).catch(function () {});
-    }
+    CXPAuth.logout();
     window.location.reload();
   }
 
@@ -297,7 +254,8 @@
   }
 
   async function attemptMatch(guess) {
-    if (!state.token) return;
+    var token = CXPAuth.getToken();
+    if (!token) return;
     if (guess !== el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '')) return; // stale
     if (guess === state.lastChecked) return;
     state.lastChecked = guess;
@@ -306,14 +264,14 @@
       var res = await fetch('/api/guess', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ token: state.token, guess: guess }),
+        body: JSON.stringify({ token: token, guess: guess }),
       });
       var data = await res.json();
       if (!res.ok) {
         el.feedback.className = 'feedback error';
         el.feedback.textContent = data.error || 'Something went wrong.';
         if (res.status === 401) {
-          localStorage.removeItem(TOKEN_KEY);
+          CXPAuth.logout();
           setTimeout(function () { window.location.reload(); }, 1200);
         }
         return;

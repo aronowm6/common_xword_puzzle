@@ -49,11 +49,22 @@
 }
 .fb-mistake-counter { white-space: nowrap; }
 
+.fb-order-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.72rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  text-align: center;
+}
+.fb-order-label-top { margin-bottom: 0.4rem; }
+.fb-order-label-bottom { margin-top: -0.9rem; margin-bottom: 1.3rem; }
+
 .fb-placed-list {
   display: flex;
   flex-direction: column;
   gap: 0;
-  margin-bottom: 1.3rem;
 }
 .fb-word-card {
   border: 2px solid var(--ink);
@@ -65,32 +76,38 @@
   font-weight: bold;
   letter-spacing: 0.08em;
   text-align: center;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 0.6rem;
 }
+.fb-word-count {
+  font-size: 0.8rem;
+  font-weight: normal;
+  opacity: 0.75;
+  letter-spacing: 0.02em;
+}
+
+/* A full-width dashed-border button, not a bare "+" floating on a line --
+   the whole bar is the click target, and hovering inverts it just like
+   every other button on the site so "this is clickable" reads instantly. */
 .fb-slot {
-  border: none;
-  background: none;
-  color: var(--muted);
-  height: 26px;
+  border: 2px dashed var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+  width: 100%;
+  height: 40px;
+  margin: 6px 0;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.9rem;
-  position: relative;
+  font-size: 1.1rem;
+  font-weight: bold;
 }
-.fb-slot::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  border-top: 1.5px dashed var(--ink);
-  opacity: 0.35;
-}
-.fb-slot:hover:not(:disabled) { color: var(--ink); background: var(--panel); }
-.fb-slot span, .fb-slot { z-index: 1; }
-.fb-slot.eliminated { color: var(--wrong); opacity: 0.6; cursor: default; }
+.fb-slot:hover { background: var(--ink); color: var(--paper); border-style: solid; }
+.fb-slot:active { transform: translateY(1px); }
 
 .fb-current-card {
   border: 3px solid var(--ink);

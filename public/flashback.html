@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Flashback &mdash; The 501 Challenge</title>
+<title>Ordering Game &mdash; The 501 Challenge</title>
 <link rel="stylesheet" href="/style.css" />
 <link rel="stylesheet" href="/flashback.css" />
 </head>
@@ -13,8 +13,8 @@
     <div class="brand">
       <span class="brand-mark">&#9632;&#9633;</span>
       <div class="brand-text">
-        <h1>FLASHBACK</h1>
-        <p>Place 8 crossword entries in order, most common first</p>
+        <h1>ORDERING&nbsp;GAME</h1>
+        <p>Place 8 crossword entries in order by popularity</p>
       </div>
     </div>
     <nav class="topnav">
@@ -51,7 +51,9 @@
         <div class="fb-mistake-counter">Mistakes: <strong id="mistakeCount">0</strong></div>
       </div>
 
+      <div class="fb-order-label fb-order-label-top">&uarr; More Common</div>
       <div id="placedList" class="fb-placed-list"></div>
+      <div class="fb-order-label fb-order-label-bottom">&darr; Less Common</div>
 
       <div id="currentWordCard" class="fb-current-card hidden">
         <div class="fb-current-label">Where does this rank &mdash; most common first?</div>

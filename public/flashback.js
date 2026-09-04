@@ -7,10 +7,10 @@
     puzzles: [],           // [{id, theme, wordCount}]
     puzzleId: null,
     theme: null,
+    totalWords: 0,
     revealQueue: [],        // words not yet revealed, in reveal order
-    placed: [],              // words placed so far, correct order
-    currentWord: null,        // word awaiting placement
-    eliminated: null,          // Set of wrong slot indexes for currentWord
+    placed: [],              // [{word, count}] placed so far, correct order
+    currentWord: null,        // word awaiting a guess
     mistakes: 0,
   };
 
@@ -143,10 +143,10 @@
 
     state.puzzleId = data.id;
     state.theme = data.theme;
+    state.totalWords = data.revealOrder.length;
     state.revealQueue = data.revealOrder.slice();
     state.placed = [];
     state.currentWord = null;
-    state.eliminated = new Set();
     state.mistakes = 0;
 
     el.pickerSection.classList.add('hidden');
@@ -168,15 +168,13 @@
     var word = state.revealQueue.shift();
 
     if (state.placed.length === 0) {
-      // First word has nowhere else it could go -- auto-place, no guess needed.
-      state.placed.push(word);
-      renderPlaced();
-      revealNext();
+      // First word has nowhere else it could go -- confirm via the API
+      // (just to learn its count), no guess needed from the player.
+      placeWord(word, 0, true);
       return;
     }
 
     state.currentWord = word;
-    state.eliminated = new Set();
     el.currentWord.textContent = word;
     el.currentWordCard.classList.remove('hidden');
     el.feedback.className = 'feedback';
@@ -194,9 +192,18 @@
         el.placedList.appendChild(makeSlot(i));
       }
       if (i < n) {
+        var item = state.placed[i];
         var card = document.createElement('div');
         card.className = 'fb-word-card';
-        card.textContent = state.placed[i];
+
+        var wordSpan = document.createElement('span');
+        wordSpan.textContent = item.word;
+        var countSpan = document.createElement('span');
+        countSpan.className = 'fb-word-count';
+        countSpan.textContent = '(' + item.count + ')';
+
+        card.appendChild(wordSpan);
+        card.appendChild(countSpan);
         el.placedList.appendChild(card);
       }
     }
@@ -206,20 +213,17 @@
     var slot = document.createElement('button');
     slot.type = 'button';
     slot.className = 'fb-slot';
-    if (state.eliminated.has(index)) {
-      slot.classList.add('eliminated');
-      slot.disabled = true;
-      slot.textContent = '✕';
-    } else {
-      slot.textContent = '+';
-      slot.addEventListener('click', function () { attemptPlacement(index); });
-    }
+    slot.textContent = '+';
+    slot.addEventListener('click', function () { placeWord(state.currentWord, index, false); });
     return slot;
   }
 
-  async function attemptPlacement(position) {
-    var word = state.currentWord;
+  // One guess per word. A wrong guess auto-corrects into the word's real
+  // spot (revealed via `correctIndex`) rather than letting the player
+  // retry -- either way the word's count is revealed once it lands.
+  async function placeWord(word, guessedPosition, isFirst) {
     if (!word) return;
+    if (!isFirst) state.currentWord = null; // lock out further clicks immediately
 
     try {
       var res = await fetch('/api/flashback-check', {
@@ -227,9 +231,9 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           puzzleId: state.puzzleId,
-          placed: state.placed,
+          placed: state.placed.map(function (p) { return p.word; }),
           newWord: word,
-          position: position,
+          position: guessedPosition,
         }),
       });
       var data = await res.json();
@@ -239,22 +243,27 @@
         return;
       }
 
-      if (data.correct) {
-        state.placed.splice(position, 0, word);
-        state.currentWord = null;
-        el.currentWordCard.classList.add('hidden');
-        el.feedback.className = 'feedback correct';
-        el.feedback.textContent = 'Correct! ✓';
+      var finalPosition = data.correct ? guessedPosition : data.correctIndex;
+      state.placed.splice(finalPosition, 0, { word: word, count: data.count });
+      el.currentWordCard.classList.add('hidden');
+
+      if (isFirst) {
         renderPlaced();
-        setTimeout(revealNext, 450);
+        revealNext();
+        return;
+      }
+
+      if (data.correct) {
+        el.feedback.className = 'feedback correct';
+        el.feedback.textContent = 'Correct! ✓ Used ' + data.count + ' times.';
       } else {
         state.mistakes += 1;
-        state.eliminated.add(position);
         el.mistakeCount.textContent = String(state.mistakes);
         el.feedback.className = 'feedback wrong';
-        el.feedback.textContent = 'Not quite — try another slot.';
-        renderPlaced();
+        el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
       }
+      renderPlaced();
+      setTimeout(revealNext, data.correct ? 500 : 1100);
     } catch (err) {
       el.feedback.className = 'feedback error';
       el.feedback.textContent = 'Network error — try again.';
@@ -281,9 +290,10 @@
     el.gameSection.classList.add('hidden');
     el.resultSection.classList.remove('hidden');
 
+    var maxMistakes = Math.max(state.totalWords - 1, 0);
     var msg = state.mistakes === 0
       ? 'Perfect! Zero mistakes.'
-      : 'You solved it with ' + state.mistakes + (state.mistakes === 1 ? ' mistake.' : ' mistakes.');
+      : 'You solved it with ' + state.mistakes + ' out of ' + maxMistakes + ' possible mistakes.';
     if (best !== null && best < state.mistakes) {
       msg += ' Your best on this puzzle is still ' + best + '.';
     } else if (best !== null && best === state.mistakes && state.mistakes > 0) {

@@ -1,7 +1,7 @@
-// Flashback: place 8 crossword answers in order from most-to-least common
-// (borrowed from NYT's "Flashback," swapping chronology for popularity).
-// Pool + puzzle word lists are static data; counts are never sent to the
-// client directly, only pass/fail per placement attempt.
+// The Ordering Game: place 8 crossword answers in order from
+// most-to-least common (borrowed from NYT's "Flashback," swapping
+// chronology for popularity). One guess per word -- a wrong guess
+// auto-corrects into the true position and reveals that word's count.
 
 const puzzles = require('../../data/flashback_puzzles.json');
 const pool = require('../../data/flashback_pool.json');
@@ -15,6 +15,10 @@ function listPuzzles() {
 
 function getPuzzle(id) {
   return puzzleById.get(id);
+}
+
+function getCount(word) {
+  return countByWord.get(word) || 0;
 }
 
 // True order for a puzzle, most common first. Server-internal only.
@@ -43,6 +47,8 @@ function checkPlacement(puzzleId, placed, newWord, position) {
   return { valid: true, correct: correctIndex === position, correctIndex };
 }
 
-const MAX_MISTAKES = puzzles.length ? (puzzles[0].words.length - 1) * (puzzles[0].words.length) / 2 : 28;
+// One guess per word; the first word never needs a guess. So a puzzle of
+// N words has at most N-1 mistakes.
+const MAX_MISTAKES = puzzles.length ? puzzles[0].words.length - 1 : 7;
 
-module.exports = { listPuzzles, getPuzzle, getTrueOrder, checkPlacement, MAX_MISTAKES };
+module.exports = { listPuzzles, getPuzzle, getTrueOrder, checkPlacement, getCount, MAX_MISTAKES };

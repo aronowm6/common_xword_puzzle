@@ -91,6 +91,7 @@
     el.whoami.classList.remove('hidden');
     el.guestBanner.classList.add('hidden');
     el.app.classList.remove('hidden');
+    if (authUI) authUI.hide(); // no-op if already hidden -- needed for the silent-resume path, which bypasses the form-submit flow that normally hides it
     await Promise.all([loadPuzzleList(), loadPuzzleProgress()]);
     showPicker();
   }

@@ -43,6 +43,7 @@
 
     el.resultSection = document.getElementById('resultSection');
     el.resultSummary = document.getElementById('resultSummary');
+    el.resultOrdering = document.getElementById('resultOrdering');
     el.playAgainBtn = document.getElementById('playAgainBtn');
     el.otherPuzzleBtn = document.getElementById('otherPuzzleBtn');
   }
@@ -391,6 +392,22 @@
       msg += ' That matches your best so far.';
     }
     el.resultSummary.textContent = msg;
+
+    el.resultOrdering.innerHTML = '';
+    state.placed.forEach(function (item) {
+      var card = document.createElement('div');
+      card.className = 'fb-word-card';
+
+      var wordSpan = document.createElement('span');
+      wordSpan.textContent = item.word;
+      var countSpan = document.createElement('span');
+      countSpan.className = 'fb-word-count';
+      countSpan.textContent = '(' + item.count + ')';
+
+      card.appendChild(wordSpan);
+      card.appendChild(countSpan);
+      el.resultOrdering.appendChild(card);
+    });
   }
 
   init();

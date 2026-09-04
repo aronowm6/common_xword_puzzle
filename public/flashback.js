@@ -235,6 +235,9 @@
     return slot;
   }
 
+  var FLASH_DURATION_MS = 1600;
+  var REVEAL_DELAY_MS = 1800; // slightly longer than the flash so it fully fades first
+
   // Flashes the just-placed card green/red, and flashes a bigger
   // CORRECT/INCORRECT banner at the top of the game area.
   function flashResult(placedIndex, correct) {
@@ -246,7 +249,7 @@
     clearTimeout(state.flashTimer);
     state.flashTimer = setTimeout(function () {
       el.resultFlash.classList.remove('show');
-    }, 700);
+    }, FLASH_DURATION_MS);
   }
 
   // One guess per word. A wrong guess auto-corrects into the word's real
@@ -278,12 +281,16 @@
       state.placed.splice(finalPosition, 0, { word: word, count: data.count });
       el.currentWordCard.classList.add('hidden');
       renderPlaced();
-      flashResult(finalPosition, data.correct);
 
       if (isFirst) {
+        // The first word is auto-placed with no real guess involved --
+        // nothing to flash correct/incorrect about, so skip straight to
+        // revealing the next word.
         revealNext();
         return;
       }
+
+      flashResult(finalPosition, data.correct);
 
       if (data.correct) {
         el.feedback.className = 'feedback correct';
@@ -294,7 +301,7 @@
         el.feedback.className = 'feedback wrong';
         el.feedback.textContent = word + ' actually goes here — used ' + data.count + ' times.';
       }
-      setTimeout(revealNext, data.correct ? 500 : 1100);
+      setTimeout(revealNext, REVEAL_DELAY_MS);
     } catch (err) {
       el.feedback.className = 'feedback error';
       el.feedback.textContent = 'Network error — try again.';

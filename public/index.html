@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Top 500 &mdash; Common Crossword Entries</title>
+<link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="brand">
+      <span class="brand-mark">&#9632;&#9633;</span>
+      <div class="brand-text">
+        <h1>COMMON&nbsp;XWORD</h1>
+        <p>Top 500 NYT crossword entries &mdash; Modern Era</p>
+      </div>
+    </div>
+    <nav class="topnav">
+      <span id="whoami" class="whoami hidden">Playing as <strong id="whoamiName"></strong> &middot; <button id="switchUserBtn" class="link-btn">switch</button></span>
+      <a href="/leaderboard">Leaderboard</a>
+    </nav>
+  </header>
+
+  <div id="usernameOverlay" class="overlay">
+    <div class="overlay-card">
+      <h2>Enter a username to play</h2>
+      <p class="muted">No password needed &mdash; your progress saves under this name and shows up on the leaderboard.</p>
+      <form id="usernameForm">
+        <input id="usernameInput" type="text" maxlength="24" placeholder="e.g. wordsmith42" autocomplete="off" autocapitalize="off" spellcheck="false" />
+        <button type="submit">Start solving</button>
+      </form>
+      <p id="usernameError" class="error-text hidden"></p>
+    </div>
+  </div>
+
+  <main id="app" class="hidden">
+    <section class="stats-bar">
+      <div class="stats-text"><strong id="solvedCount">0</strong> / <span id="totalCount">500</span> solved</div>
+      <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+    </section>
+
+    <section class="game">
+      <div class="clue-card">
+        <div class="clue-head">
+          <div class="clue-number">#<span id="clueNum">1</span></div>
+          <div class="clue-sub">of the 500 most common entries</div>
+        </div>
+
+        <div id="tiles" class="tiles" aria-live="polite"></div>
+
+        <input id="guessInput" class="guess-input" type="text"
+               autocomplete="off" autocapitalize="off" autocorrect="off" spellcheck="false"
+               aria-label="Type your guess &mdash; checks automatically, no Enter needed" />
+
+        <div id="feedback" class="feedback" aria-live="polite">Just start typing &mdash; no need to press Enter.</div>
+
+        <div class="nav-buttons">
+          <button id="prevBtn" title="Previous entry">&lsaquo; Prev</button>
+          <button id="randomBtn" title="Jump to a random unsolved entry">Random</button>
+          <button id="nextBtn" title="Next entry">Next &rsaquo;</button>
+        </div>
+      </div>
+
+      <div class="grid-panel">
+        <div class="grid-panel-header">
+          <span>All 500 entries</span>
+          <form id="jumpForm" class="jump-form">
+            <input id="jumpInput" type="number" min="1" max="500" placeholder="#" />
+            <button type="submit">Go</button>
+          </form>
+        </div>
+        <div id="numberGrid" class="number-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Word list sourced from <a href="https://www.xwordinfo.com/Popular" target="_blank" rel="noopener">xwordinfo.com/Popular</a> (NYT Modern Era). Not affiliated with the New York Times or XWord Info.
+  </footer>
+
+  <script src="/app.js"></script>
+</body>
+</html>

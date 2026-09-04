@@ -1,0 +1,20 @@
+{
+  "name": "common_xword_puzzle",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Sporcle-style quiz: guess the 500 most common NYT crossword entries (Modern Era), sourced from xwordinfo.com/Popular.",
+  "scripts": {
+    "seed": "node scripts/seed.js",
+    "dev": "vercel dev"
+  },
+  "engines": {
+    "node": "20.x"
+  },
+  "dependencies": {
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5"
+  }
+}
+

@@ -1,4 +1,6 @@
-# Common Xword
+# The 501 Challenge
+
+(repo/project name: `common_xword_puzzle`, live at [the501challenge.vercel.app](https://the501challenge.vercel.app))
 
 A Sporcle-style quiz: type in as many of the **501 most common NYT crossword
 entries (Modern Era)** as you can. Entries are numbered 1&ndash;501 by

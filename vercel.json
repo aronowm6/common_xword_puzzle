@@ -1,4 +1,7 @@
 {
   "cleanUrls": true,
-  "trailingSlash": false
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/flashback", "destination": "/ordering_game", "permanent": true }
+  ]
 }

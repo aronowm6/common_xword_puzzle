@@ -1,5 +1,5 @@
 const { getPool, ensureSchema } = require('./_lib/db');
-const { findByAnswer } = require('./_lib/words');
+const { findByAnswer, findExtendedRank } = require('./_lib/words');
 const { normalizeGuess } = require('./_lib/validate');
 
 // POST { token, guess } -> freeform matching, authenticated by session
@@ -26,6 +26,14 @@ module.exports = async (req, res) => {
 
   const word = findByAnswer(guess);
   if (!word) {
+    // Not in the top 501, but might still be a real, known common answer
+    // (just ranked lower) -- worth telling the player that instead of
+    // staying silent, so they know their guess wasn't nonsense.
+    const extended = findExtendedRank(guess);
+    if (extended) {
+      res.status(200).json({ correct: false, outOfRange: true, rank: extended.rank, count: extended.count });
+      return;
+    }
     res.status(200).json({ correct: false });
     return;
   }

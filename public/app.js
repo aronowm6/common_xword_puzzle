@@ -1,19 +1,27 @@
 (function () {
   'use strict';
 
-  var CHECK_DEBOUNCE_MS = 120;
-
   var state = {
     username: null,
     isGuest: false,
     words: [],                 // [{num, length, count}] ordered 1..N
     solvedAnswers: new Map(),  // num -> answer text
-    lastChecked: '',            // avoid re-checking the same string twice in a row
   };
 
   var el = {};
-  var debounceTimer = null;
   var authUI = null;
+
+  // Every distinct value typed gets checked, in order, one at a time --
+  // not debounced. Debouncing was silently dropping intermediate states:
+  // if you typed fast enough that e.g. "REN" only existed for a moment on
+  // the way to "RENO", the debounce timer would get reset before it ever
+  // fired for "REN", so that match was never checked at all. Queuing
+  // every value (and awaiting each check before starting the next, so
+  // slow/out-of-order network responses can't reorder results) fixes
+  // that without needing to guess a "safe" debounce delay.
+  var checkQueue = [];
+  var queueRunning = false;
+  var lastQueued = '';
 
   function cacheEls() {
     el.app = document.getElementById('app');
@@ -103,8 +111,17 @@
       onGuest: applyGuestSession,
     });
 
-    var wordsRes = await fetch('/api/words');
-    var wordsData = await wordsRes.json();
+    // Run independently of each other so a slow session check doesn't
+    // delay the word list too, and vice versa -- keeps the window where
+    // the (hidden-by-default) overlay might flash into view as short as
+    // possible for the common case of resuming an existing session.
+    var results = await Promise.all([
+      fetch('/api/words').then(function (r) { return r.json(); }),
+      CXPAuth.tryResume(),
+    ]);
+    var wordsData = results[0];
+    var resumed = results[1];
+
     state.words = wordsData.words;
     el.totalCount.textContent = state.words.length;
     el.subtitle.textContent = 'Top ' + state.words.length + ' NYT crossword entries — Modern Era';
@@ -112,7 +129,6 @@
 
     buildGrid();
 
-    var resumed = await CXPAuth.tryResume();
     if (resumed) {
       applySession(resumed.username, resumed.solved);
     } else {
@@ -238,7 +254,8 @@
 
   function clearEntry() {
     el.entryInput.value = '';
-    state.lastChecked = '';
+    checkQueue.length = 0; // drop anything not yet started; an in-flight check still finishes
+    lastQueued = '';
     el.feedback.className = 'feedback';
     el.feedback.textContent = 'Guesses are checked live as you type.';
     el.entryInput.focus();
@@ -248,17 +265,28 @@
     var v = el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '');
     if (v !== el.entryInput.value) el.entryInput.value = v;
 
-    clearTimeout(debounceTimer);
-    if (!v) return;
-    debounceTimer = setTimeout(function () { attemptMatch(v); }, CHECK_DEBOUNCE_MS);
+    if (!v || v === lastQueued) return;
+    lastQueued = v;
+    checkQueue.push(v);
+    drainQueue();
+  }
+
+  // Processes the queue strictly one at a time -- awaiting each check
+  // before starting the next -- so a slow response for an earlier value
+  // can't land after (and clobber) a later one.
+  async function drainQueue() {
+    if (queueRunning) return;
+    queueRunning = true;
+    while (checkQueue.length > 0) {
+      var guess = checkQueue.shift();
+      await attemptMatch(guess);
+    }
+    queueRunning = false;
   }
 
   async function attemptMatch(guess) {
     var token = CXPAuth.getToken();
     if (!token && !state.isGuest) return;
-    if (guess !== el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '')) return; // stale
-    if (guess === state.lastChecked) return;
-    state.lastChecked = guess;
 
     try {
       var res = await fetch('/api/guess', {
@@ -267,6 +295,13 @@
         body: JSON.stringify({ token: token, guess: guess }),
       });
       var data = await res.json();
+
+      // Has the player already moved on to typing something else while
+      // this check was in flight? If so, a genuine new find still counts
+      // (below) but we leave their in-progress typing alone rather than
+      // clearing it out from under them.
+      var isCurrentValue = guess === el.entryInput.value.toUpperCase().replace(/[^A-Z]/g, '');
+
       if (!res.ok) {
         el.feedback.className = 'feedback error';
         el.feedback.textContent = data.error || 'Something went wrong.';
@@ -277,9 +312,21 @@
         return;
       }
       if (data.correct && data.alreadySolved) {
-        // Silent no-op: this guess is a word you already have. Don't touch
-        // the input -- it may just be a prefix of a longer word you're
-        // still typing toward (e.g. "ARE" on the way to "AREA").
+        // Already have this one -- say so (with its popularity), but
+        // don't touch the input. It may just be a prefix of a longer
+        // word you're still typing toward (e.g. "ARE" on the way to
+        // "AREA"), same reasoning as the auto-clear-on-new-solve below.
+        var already = state.words.find(function (w) { return w.num === data.num; });
+        el.feedback.className = 'feedback';
+        el.feedback.textContent = 'Already found — #' + data.num + ' ' + data.answer +
+          (already ? ' (used ' + already.count + '×)' : '') + '.';
+        return;
+      }
+      if (data.outOfRange) {
+        // A real, known common answer -- just not in the top 501. Doesn't
+        // touch the input either, for the same reason.
+        el.feedback.className = 'feedback';
+        el.feedback.textContent = 'Nope, that’s #' + data.rank + ' — just outside the top ' + state.words.length + '.';
         return;
       }
       if (data.correct) {
@@ -290,8 +337,11 @@
         el.feedback.className = 'feedback correct';
         el.feedback.textContent = 'Got it — #' + data.num + ' ' + data.answer +
           (word ? ' (used ' + word.count + '×) ' : ' ') + '✓';
-        el.entryInput.value = '';
-        state.lastChecked = '';
+
+        if (isCurrentValue) {
+          el.entryInput.value = '';
+          lastQueued = '';
+        }
 
         if (state.solvedAnswers.size === state.words.length) {
           el.feedback.textContent = 'All ' + state.words.length + ' solved! ☆';

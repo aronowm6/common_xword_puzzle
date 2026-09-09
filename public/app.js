@@ -6,6 +6,11 @@
     isGuest: false,
     words: [],                 // [{num, length, count}] ordered 1..N
     solvedAnswers: new Map(),  // num -> answer text
+    // What kind of message is currently in the feedback line: 'neutral',
+    // 'info' (already-found / out-of-range -- describes one specific typed
+    // guess, not a lasting event), 'correct' (a new find -- sticks around
+    // until the next real event), or 'error'.
+    feedbackKind: 'neutral',
   };
 
   var el = {};
@@ -258,6 +263,7 @@
     lastQueued = '';
     el.feedback.className = 'feedback';
     el.feedback.textContent = 'Guesses are checked live as you type.';
+    state.feedbackKind = 'neutral';
     el.entryInput.focus();
   }
 
@@ -305,6 +311,7 @@
       if (!res.ok) {
         el.feedback.className = 'feedback error';
         el.feedback.textContent = data.error || 'Something went wrong.';
+        state.feedbackKind = 'error';
         if (res.status === 401) {
           CXPAuth.logout();
           setTimeout(function () { window.location.reload(); }, 1200);
@@ -312,21 +319,30 @@
         return;
       }
       if (data.correct && data.alreadySolved) {
-        // Already have this one -- say so (with its popularity), but
-        // don't touch the input. It may just be a prefix of a longer
-        // word you're still typing toward (e.g. "ARE" on the way to
-        // "AREA"), same reasoning as the auto-clear-on-new-solve below.
-        var already = state.words.find(function (w) { return w.num === data.num; });
-        el.feedback.className = 'feedback';
-        el.feedback.textContent = 'Already found — #' + data.num + ' ' + data.answer +
-          (already ? ' (used ' + already.count + '×)' : '') + '.';
+        // Informational only -- describes this exact guess, not a lasting
+        // state change. Only worth showing while the box still reads this
+        // guess: if the player has since typed past it (e.g. WIN -> WINE)
+        // it would be describing text that's no longer on screen. Doesn't
+        // touch the input either way -- it may just be a prefix of a
+        // longer word you're still typing toward.
+        if (isCurrentValue) {
+          var already = state.words.find(function (w) { return w.num === data.num; });
+          el.feedback.className = 'feedback';
+          el.feedback.textContent = 'Already found — #' + data.num + ' ' + data.answer +
+            (already ? ' (used ' + already.count + '×)' : '') + '.';
+          state.feedbackKind = 'info';
+        }
         return;
       }
       if (data.outOfRange) {
-        // A real, known common answer -- just not in the top 501. Doesn't
-        // touch the input either, for the same reason.
-        el.feedback.className = 'feedback';
-        el.feedback.textContent = 'Nope, that’s #' + data.rank + ' — just outside the top ' + state.words.length + '.';
+        // Same reasoning: a real, known common answer, just not in the
+        // top 501 -- worth saying, but only while still describing the
+        // current box contents.
+        if (isCurrentValue) {
+          el.feedback.className = 'feedback';
+          el.feedback.textContent = 'Nope, that’s #' + data.rank + ' — just outside the top ' + state.words.length + '.';
+          state.feedbackKind = 'info';
+        }
         return;
       }
       if (data.correct) {
@@ -337,6 +353,11 @@
         el.feedback.className = 'feedback correct';
         el.feedback.textContent = 'Got it — #' + data.num + ' ' + data.answer +
           (word ? ' (used ' + word.count + '×) ' : ' ') + '✓';
+        // A real find -- earns its keep. Unlike 'info' messages this
+        // sticks around through later keystrokes, not just until the box
+        // changes; it only goes away on the next actual event (another
+        // find, or Clear/Escape).
+        state.feedbackKind = 'correct';
 
         if (isCurrentValue) {
           el.entryInput.value = '';
@@ -346,11 +367,25 @@
         if (state.solvedAnswers.size === state.words.length) {
           el.feedback.textContent = 'All ' + state.words.length + ' solved! ☆';
         }
+        return;
       }
-      // No match: stay silent, keep accumulating -- matches Sporcle-style entry.
+
+      // No match. If we're still showing an 'info' message (already-found
+      // / out-of-range) from an earlier, shorter guess -- e.g. WIN -- and
+      // the player has since typed past it into something that's also not
+      // a match (e.g. WINE), that message is now stale: it's describing
+      // text no longer in the box. Clear it back to neutral. A 'correct'
+      // message is left alone here -- it should persist until the next
+      // real find, not just the next keystroke.
+      if (isCurrentValue && state.feedbackKind === 'info') {
+        el.feedback.className = 'feedback';
+        el.feedback.textContent = 'Guesses are checked live as you type.';
+        state.feedbackKind = 'neutral';
+      }
     } catch (err) {
       el.feedback.className = 'feedback error';
       el.feedback.textContent = 'Network error — try again.';
+      state.feedbackKind = 'error';
     }
   }
 

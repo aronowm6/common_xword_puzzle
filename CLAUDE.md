@@ -25,6 +25,24 @@ stay under this limit. **Before adding a new file under `api/`, count what's
 already there** — prefer adding an `action` branch to an existing
 action-dispatched file over creating a new one.
 
+## Critical constraint: `data/words.json` row order is frozen
+
+Main-game progress is stored per row as `(user_id, word_num, answer)` where
+`word_num` is a word's **1-based position in `data/words.json`**. That
+position is the only key tying a saved solve to a word, so **reordering the
+file reassigns every player's solved words to the wrong slots** — even if
+the same 501 words stay in the list. This shipped once (commit `7077fa3`, a
+"rebuild from a verified crawl" that re-sorted tied entries): players got
+phantom duplicates and lost credit for real finds. Fix was to revert
+`words.json` to the original order and run a one-time reconciliation
+(`scripts/restore_word_order_migration.js`, keyed by answer text, not slot).
+The verified crawl still backs `data/flashback_pool.json` (502+), which has
+no such constraint. If `words.json` ever genuinely must be reordered, it
+needs a paired `progress` migration and a fresh
+`scripts/backup_progress.js` snapshot first. The real structural fix (not
+yet done) is to key `progress` by `answer` and derive `word_num` at read
+time.
+
 ## Architecture
 
 - `api/_lib/words.js` — word-list module: `publicWords()`, `getWord(num)`,
@@ -38,7 +56,8 @@ action-dispatched file over creating a new one.
   else. Guest requests (`token` omitted) are still checked, just never
   persisted.
 - `api/flashback.js` — all Ordering Game endpoints, `action`-dispatched.
-- `data/words.json` — top 501, `{num, answer, length, count}`.
+- `data/words.json` — top 501, `{num, answer, length, count}`. Row order is
+  frozen — see the Critical constraint above.
 - `data/flashback_pool.json` — everything else worth recognizing (see Data
   pipeline below), `{word, count}`, no overlap with the top 501 (so nothing
   spoils the main game).

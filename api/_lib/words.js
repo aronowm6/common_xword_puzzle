@@ -1,5 +1,15 @@
 // The 501 most common NYT crossword entries (Modern Era), sourced from
 // https://www.xwordinfo.com/Popular, ranked 1 (most common) to 501.
+//
+// IMPORTANT: the ROW ORDER of data/words.json is a stable contract. Player
+// progress is stored in the DB keyed by `word_num` (a row's 1-based
+// position here), so reordering rows -- even without changing which 501
+// words are in the list -- silently reassigns everyone's solved words to
+// the wrong slots. This happened once (commit 7077fa3, reverted): a data
+// rebuild re-sorted tied entries and required a DB reconciliation
+// migration to fix. Do not regenerate this file from a scrape without a
+// migration plan. The verified 33-year crawl still backs
+// data/flashback_pool.json (the 502+ pool), which has no such constraint.
 const words = require('../../data/words.json');
 
 // The Ordering Game's word pool: everything ranked just past 501,

@@ -6,3 +6,6 @@ node_modules/
 .DS_Store
 .env*
 data/scrape_workdir/
+
+# Player progress backups -- contain solved answers, must not go in the public repo
+scripts/backups/

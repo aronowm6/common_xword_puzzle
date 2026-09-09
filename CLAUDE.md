@@ -103,6 +103,16 @@ scripts below, not a one-off hand-edit.
 - **Never expose unsolved answers or counts to the client** beyond the
   public word list's `{num, length, count}` shape.
 
+## Keeping this file current
+
+When a session makes an architectural decision, discovers a non-obvious
+constraint/gotcha, establishes a convention that isn't evident from the code
+itself, or fixes a bug that cost real debugging time because context was
+missing — add it here proactively, before ending the task, rather than
+waiting to be asked. Don't turn this into a per-commit checklist item
+(routine work doesn't belong here); apply it only at those trigger moments.
+Prune stale entries too, not just append.
+
 ## Deploy workflow
 
 1. Syntax-check changed files (`node --check`) before committing.

@@ -239,14 +239,18 @@ button:disabled:hover { background: var(--paper); color: var(--ink); }
 }
 .grid-panel-header {
   display: flex;
-  align-items: center;
+  align-items: baseline;
   justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.4rem 1rem;
   font-family: 'Courier New', Courier, monospace;
   font-size: 0.85rem;
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin-bottom: 0.9rem;
 }
+.grid-panel-heading { display: flex; align-items: baseline; flex-wrap: wrap; gap: 0.5rem; }
+.grid-sort-toggle { font-size: 0.8rem; flex-shrink: 0; }
 
 .number-grid {
   display: grid;

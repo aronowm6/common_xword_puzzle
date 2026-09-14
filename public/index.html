@@ -75,8 +75,11 @@
 
     <section class="grid-panel">
       <div class="grid-panel-header">
-        <span id="gridTitle">All 501 entries</span>
-        <span class="muted">number = popularity rank &middot; &times;N = times used in NYT puzzles</span>
+        <div class="grid-panel-heading">
+          <span id="gridTitle">All 501 entries</span>
+          <span class="muted" id="gridSortHint">number = popularity rank &middot; &times;N = times used in NYT puzzles</span>
+        </div>
+        <button id="sortModeBtn" class="link-btn grid-sort-toggle" type="button" title="Re-sort the grid A&ndash;Z to help spot gaps in what you're missing">Sort: A&ndash;Z</button>
       </div>
       <div id="numberGrid" class="number-grid"></div>
     </section>

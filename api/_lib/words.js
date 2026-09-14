@@ -25,10 +25,23 @@ const extendedRankByAnswer = new Map(
   extendedPool.map((w, i) => [w.word, { rank: words.length + 1 + i, count: w.count }])
 );
 
-// Never expose `answer` to the client — rank number, letter count, and
-// popularity count (how many NYT puzzles used it) are all fair to show.
+// Alphabetical rank (1-based) of each entry among the top 501, purely to
+// power the main game's alphabetical sort-mode toggle: lining the grid up
+// A-Z lets a player see WHERE their gaps are (two found words with a blank
+// slot between them, alphabetically) without revealing what fills them.
+// Safe to expose for the same reason `num`/`count` already are -- it's a
+// position, not the answer text. Computed once at module load; independent
+// of `word_num`/progress, so this can never affect how guesses are stored.
+const alphaRankByNum = new Map(
+  [...words].sort((a, b) => (a.answer < b.answer ? -1 : a.answer > b.answer ? 1 : 0))
+    .map((w, i) => [w.num, i + 1])
+);
+
+// Never expose `answer` to the client — rank number, letter count,
+// popularity count (how many NYT puzzles used it), and alphabetical
+// position are all fair to show.
 function publicWords() {
-  return words.map(({ num, length, count }) => ({ num, length, count }));
+  return words.map(({ num, length, count }) => ({ num, length, count, alpha: alphaRankByNum.get(num) }));
 }
 
 function getWord(num) {

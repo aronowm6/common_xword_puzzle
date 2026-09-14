@@ -120,7 +120,16 @@ scripts below, not a one-off hand-edit.
   clear themselves once the player types past the guess they described —
   otherwise a stale message sits on screen describing text no longer in the box.
 - **Never expose unsolved answers or counts to the client** beyond the
-  public word list's `{num, length, count}` shape.
+  public word list's `{num, length, count, alpha}` shape (`alpha` is each
+  entry's 1-based alphabetical rank among the 501 -- added for the main
+  game's alphabetical sort-mode toggle, see below).
+- **Main game alphabetical sort mode**: default gameplay stays sorted by
+  `num` (popularity). A grid-header toggle re-sorts to `alpha` instead, so
+  a player stuck in the endgame can see where their gaps are (a blank cell
+  between two found neighbors, A-Z). Purely a display reorder — done via
+  per-cell CSS `order`, not by moving DOM nodes or changing `data-num` — so
+  it can't touch guess-checking or the DB, which are still keyed by exact
+  answer match / `word_num` regardless of what's on screen.
 
 ## Keeping this file current
 

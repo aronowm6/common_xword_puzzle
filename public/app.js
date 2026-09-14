@@ -4,13 +4,17 @@
   var state = {
     username: null,
     isGuest: false,
-    words: [],                 // [{num, length, count}] ordered 1..N
+    words: [],                 // [{num, length, count, alpha}] ordered 1..N (by num)
     solvedAnswers: new Map(),  // num -> answer text
     // What kind of message is currently in the feedback line: 'neutral',
     // 'info' (already-found / out-of-range -- describes one specific typed
     // guess, not a lasting event), 'correct' (a new find -- sticks around
     // until the next real event), or 'error'.
     feedbackKind: 'neutral',
+    // Grid display only -- never affects how guesses are checked or stored
+    // (that's always by exact answer match / DB word_num, untouched by
+    // this). 'popularity' is the only mode on first load, always.
+    sortMode: 'popularity',
   };
 
   var el = {};
@@ -47,6 +51,8 @@
     el.feedback = document.getElementById('feedback');
 
     el.numberGrid = document.getElementById('numberGrid');
+    el.sortModeBtn = document.getElementById('sortModeBtn');
+    el.gridSortHint = document.getElementById('gridSortHint');
   }
 
   function bindEvents() {
@@ -63,6 +69,11 @@
       if (e.key === 'Escape') clearEntry();
     });
     el.clearBtn.addEventListener('click', clearEntry);
+
+    el.sortModeBtn.addEventListener('click', function () {
+      state.sortMode = state.sortMode === 'alpha' ? 'popularity' : 'alpha';
+      applySortMode();
+    });
 
     // Let the player just start typing anywhere on the page -- no need to
     // click into the entry bar first, and no need to press Enter either.
@@ -133,6 +144,7 @@
     el.gridTitle.textContent = 'All ' + state.words.length + ' entries';
 
     buildGrid();
+    applySortMode();
 
     if (resumed) {
       applySession(resumed.username, resumed.solved);
@@ -222,6 +234,31 @@
       frag.appendChild(cell);
     });
     el.numberGrid.appendChild(frag);
+  }
+
+  // Display-only: re-sorts the grid, either back to popularity (the
+  // default, `num`) or alphabetically (`alpha`). Implemented as a CSS
+  // `order` per cell rather than moving DOM nodes, so the DOM stays in
+  // `state.words` order and every other function that indexes
+  // el.numberGrid.children[i] against state.words[i] (renderAllCells) or
+  // looks cells up by data-num (markCellSolved) keeps working unchanged.
+  // data-num always stays the real popularity num -- guesses are still
+  // checked/stored by exact answer match against that num, never by
+  // on-screen position, in either mode.
+  function applySortMode() {
+    var alpha = state.sortMode === 'alpha';
+    var cells = el.numberGrid.children;
+    for (var i = 0; i < cells.length; i++) {
+      var w = state.words[i];
+      var displayNum = alpha ? w.alpha : w.num;
+      cells[i].style.order = displayNum;
+      cells[i].querySelector('.cell-num').textContent = displayNum;
+    }
+
+    el.sortModeBtn.textContent = alpha ? 'Sort: popularity' : 'Sort: A–Z';
+    el.gridSortHint.textContent = alpha
+      ? 'number = alphabetical position (1–' + state.words.length + ') · look for gaps in the sequence · ×N = times used in NYT puzzles'
+      : 'number = popularity rank · ×N = times used in NYT puzzles';
   }
 
   function renderAllCells() {

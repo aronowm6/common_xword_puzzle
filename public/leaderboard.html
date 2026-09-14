@@ -44,14 +44,27 @@
     <h2 class="chart-heading">Progress over time</h2>
     <div id="chartStatus" class="muted">Loading&hellip;</div>
     <div id="chartSection" class="chart-section hidden">
-      <div class="chart-controls">
-        <div class="chart-quickpicks">
-          <button id="chartTop10Btn" class="link-btn" type="button">top 10</button>
-          <button id="chartAllBtn" class="link-btn" type="button">all</button>
-          <button id="chartNoneBtn" class="link-btn" type="button">none</button>
-        </div>
-        <div id="chartLegend" class="chart-legend"></div>
+      <div class="auth-tabs chart-mode-tabs">
+        <button id="chartModeCalendarBtn" class="auth-tab active" type="button">Calendar</button>
+        <button id="chartModeElapsedBtn" class="auth-tab" type="button">Since each player's first guess</button>
       </div>
+      <p id="chartModeNote" class="muted chart-mode-note">Everyone's x-axis is their own actual calendar time.</p>
+
+      <div class="chart-controls">
+        <div class="chart-search-wrap">
+          <label for="chartSearchInput" class="entry-label chart-search-label">Add a player</label>
+          <input id="chartSearchInput" type="text" class="chart-search" placeholder="Type a name&hellip;" autocomplete="off" />
+          <div id="chartSearchResults" class="chart-search-results hidden"></div>
+        </div>
+        <div class="chart-quickpicks">
+          <button id="chartTop10Btn" class="link-btn" type="button">Reset to top 10</button>
+          <button id="chartAllBtn" class="link-btn" type="button">Add everyone</button>
+          <button id="chartNoneBtn" class="link-btn" type="button">Clear</button>
+        </div>
+      </div>
+
+      <div id="chartLegend" class="chart-legend" aria-live="polite"></div>
+
       <div id="chartEmpty" class="muted chart-empty hidden">Select at least one player above.</div>
       <div id="chartWrap" class="chart-wrap">
         <svg id="chartSvg" class="chart-svg" viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet" tabindex="0" role="img" aria-label="Words solved over time, per player"></svg>

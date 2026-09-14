@@ -348,17 +348,60 @@ footer {
 .board-table tr:nth-child(even) td { background: var(--panel); }
 
 /* ---------- Progress-over-time chart ---------- */
-.chart-heading { margin-top: 2rem; }
+.chart-heading { margin-top: 3.5rem; }
 .chart-section { margin-bottom: 0.5rem; }
 .chart-empty { padding: 1rem 0; }
+
+.chart-mode-tabs { max-width: 480px; margin-bottom: 0.5rem; }
+.chart-mode-note { margin: 0 0 1rem; }
+
 .chart-controls {
   display: flex;
   flex-wrap: wrap;
-  align-items: flex-start;
+  align-items: flex-end;
   justify-content: space-between;
-  gap: 0.75rem;
-  margin-bottom: 0.8rem;
+  gap: 0.9rem 1.5rem;
+  margin-bottom: 0.7rem;
 }
+.chart-search-wrap { position: relative; flex: 1 1 220px; min-width: 180px; max-width: 320px; }
+.chart-search-label { margin-bottom: 0.3rem; }
+.chart-search {
+  width: 100%;
+  min-width: 0;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.85rem;
+  padding: 0.45rem 0.6rem;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+  color: var(--ink);
+}
+.chart-search:focus { outline: 3px solid var(--focus-ring); outline-offset: 1px; }
+.chart-search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 6;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  border-top: none;
+  max-height: 220px;
+  overflow-y: auto;
+}
+.chart-search-result {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.6rem;
+  padding: 0.4rem 0.6rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+.chart-search-result .muted { flex-shrink: 0; }
+.chart-search-result:hover, .chart-search-result.active { background: var(--ink); color: var(--paper); }
+.chart-search-result:hover .muted, .chart-search-result.active .muted { color: var(--paper); }
+.chart-search-empty { padding: 0.45rem 0.6rem; font-size: 0.8rem; color: var(--muted); }
+
 .chart-quickpicks {
   display: flex;
   gap: 0.9rem;
@@ -367,31 +410,50 @@ footer {
   text-transform: uppercase;
   letter-spacing: 0.04em;
   flex-shrink: 0;
+  padding-bottom: 0.5rem;
 }
+
+/* Selected players only -- this scales however many total players there
+   are, unlike a checkbox-per-player list would. */
 .chart-legend {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.15rem 0.9rem;
-  font-family: 'Courier New', Courier, monospace;
-  font-size: 0.78rem;
+  gap: 0.4rem;
+  margin-bottom: 0.9rem;
+  min-height: 1.6rem;
 }
-.chart-legend-item {
+.chart-chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  cursor: pointer;
-  padding: 0.15rem 0;
+  gap: 0.4rem;
+  border: 1.5px solid var(--ink);
+  background: var(--paper);
+  padding: 0.28rem 0.35rem 0.28rem 0.5rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
 }
-.chart-legend-item input { cursor: pointer; }
-.chart-legend-swatch {
+.chart-chip-swatch {
   display: inline-block;
-  width: 18px;
+  width: 16px;
   height: 0;
   border-top-width: 3px;
   border-top-style: solid;
+  flex-shrink: 0;
 }
-.chart-legend-swatch.dashed { border-top-style: dashed; }
-.chart-legend-count { color: var(--muted); }
+.chart-chip-swatch.dashed { border-top-style: dashed; }
+.chart-chip-count { color: var(--muted); }
+.chart-chip-remove {
+  border: none;
+  background: none;
+  padding: 0 0.15rem;
+  margin-left: 0.1rem;
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  color: var(--muted);
+}
+.chart-chip-remove:hover { color: var(--wrong); background: none; }
+
 .chart-wrap { position: relative; }
 .chart-svg {
   width: 100%;
@@ -403,8 +465,20 @@ footer {
 .chart-svg:focus { outline: 2px dashed var(--ink); outline-offset: 2px; }
 .chart-tick-label {
   font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  fill: var(--muted);
+}
+.chart-axis-title {
+  font-family: 'Courier New', Courier, monospace;
   font-size: 11px;
   fill: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.chart-direct-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 12px;
+  font-weight: bold;
 }
 .chart-axis-line { stroke: var(--ink); stroke-width: 1.5; }
 .chart-grid-line { stroke: var(--panel); stroke-width: 1; }
@@ -417,8 +491,8 @@ footer {
   border: 2px solid var(--ink);
   padding: 0.5rem 0.65rem;
   font-family: 'Courier New', Courier, monospace;
-  font-size: 0.75rem;
-  max-width: 220px;
+  font-size: 0.78rem;
+  max-width: 230px;
   z-index: 5;
 }
 .chart-tooltip-date {
@@ -427,7 +501,7 @@ footer {
   padding-bottom: 0.25rem;
   border-bottom: 1px solid var(--ink);
 }
-.chart-tooltip-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.15rem 0; white-space: nowrap; }
+.chart-tooltip-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.2rem 0; white-space: nowrap; }
 .chart-tooltip-key { display: inline-block; width: 14px; height: 0; border-top-width: 3px; border-top-style: solid; flex-shrink: 0; }
 .chart-tooltip-key.dashed { border-top-style: dashed; }
 .chart-tooltip-name { flex: 1; }

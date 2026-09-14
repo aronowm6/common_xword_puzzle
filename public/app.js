@@ -245,19 +245,24 @@
   // data-num always stays the real popularity num -- guesses are still
   // checked/stored by exact answer match against that num, never by
   // on-screen position, in either mode.
+  //
+  // The number shown on each cell is ALWAYS the real popularity rank
+  // (`num`, set once in buildGrid and never rewritten) -- only the layout
+  // order changes between modes. `alpha` is used purely to decide where a
+  // cell lands, never as a label; a player spots a gap by the alphabetical
+  // run of solved words itself (and the blank cells between them), not by
+  // the numbers being sequential.
   function applySortMode() {
     var alpha = state.sortMode === 'alpha';
     var cells = el.numberGrid.children;
     for (var i = 0; i < cells.length; i++) {
       var w = state.words[i];
-      var displayNum = alpha ? w.alpha : w.num;
-      cells[i].style.order = displayNum;
-      cells[i].querySelector('.cell-num').textContent = displayNum;
+      cells[i].style.order = alpha ? w.alpha : w.num;
     }
 
     el.sortModeBtn.textContent = alpha ? 'Sort: popularity' : 'Sort: A–Z';
     el.gridSortHint.textContent = alpha
-      ? 'number = alphabetical position (1–' + state.words.length + ') · look for gaps in the sequence · ×N = times used in NYT puzzles'
+      ? 'entries reordered A–Z · number is still popularity rank · look for gaps in the sequence · ×N = times used in NYT puzzles'
       : 'number = popularity rank · ×N = times used in NYT puzzles';
   }
 

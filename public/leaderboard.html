@@ -41,6 +41,24 @@
       <tbody id="boardBody"></tbody>
     </table>
 
+    <h2 class="chart-heading">Progress over time</h2>
+    <div id="chartStatus" class="muted">Loading&hellip;</div>
+    <div id="chartSection" class="chart-section hidden">
+      <div class="chart-controls">
+        <div class="chart-quickpicks">
+          <button id="chartTop10Btn" class="link-btn" type="button">top 10</button>
+          <button id="chartAllBtn" class="link-btn" type="button">all</button>
+          <button id="chartNoneBtn" class="link-btn" type="button">none</button>
+        </div>
+        <div id="chartLegend" class="chart-legend"></div>
+      </div>
+      <div id="chartEmpty" class="muted chart-empty hidden">Select at least one player above.</div>
+      <div id="chartWrap" class="chart-wrap">
+        <svg id="chartSvg" class="chart-svg" viewBox="0 0 900 380" preserveAspectRatio="xMidYMid meet" tabindex="0" role="img" aria-label="Words solved over time, per player"></svg>
+        <div id="chartTooltip" class="chart-tooltip hidden" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
     <h2 class="fb-lb-heading">Ordering Game</h2>
     <div id="fbBoardStatus" class="muted">Loading&hellip;</div>
     <div id="fbPuzzleBoards"></div>

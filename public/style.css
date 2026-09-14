@@ -347,6 +347,92 @@ footer {
 .col-count { width: 6rem; white-space: nowrap; }
 .board-table tr:nth-child(even) td { background: var(--panel); }
 
+/* ---------- Progress-over-time chart ---------- */
+.chart-heading { margin-top: 2rem; }
+.chart-section { margin-bottom: 0.5rem; }
+.chart-empty { padding: 1rem 0; }
+.chart-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin-bottom: 0.8rem;
+}
+.chart-quickpicks {
+  display: flex;
+  gap: 0.9rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  flex-shrink: 0;
+}
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.9rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.78rem;
+}
+.chart-legend-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  cursor: pointer;
+  padding: 0.15rem 0;
+}
+.chart-legend-item input { cursor: pointer; }
+.chart-legend-swatch {
+  display: inline-block;
+  width: 18px;
+  height: 0;
+  border-top-width: 3px;
+  border-top-style: solid;
+}
+.chart-legend-swatch.dashed { border-top-style: dashed; }
+.chart-legend-count { color: var(--muted); }
+.chart-wrap { position: relative; }
+.chart-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  border: 2px solid var(--ink);
+  background: var(--paper);
+}
+.chart-svg:focus { outline: 2px dashed var(--ink); outline-offset: 2px; }
+.chart-tick-label {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 11px;
+  fill: var(--muted);
+}
+.chart-axis-line { stroke: var(--ink); stroke-width: 1.5; }
+.chart-grid-line { stroke: var(--panel); stroke-width: 1; }
+.chart-crosshair { stroke: var(--ink); stroke-width: 1; stroke-dasharray: 3 3; pointer-events: none; }
+.chart-hover-dot { pointer-events: none; }
+.chart-tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: var(--paper);
+  border: 2px solid var(--ink);
+  padding: 0.5rem 0.65rem;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  max-width: 220px;
+  z-index: 5;
+}
+.chart-tooltip-date {
+  font-weight: bold;
+  margin-bottom: 0.35rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--ink);
+}
+.chart-tooltip-row { display: flex; align-items: center; gap: 0.4rem; margin: 0.15rem 0; white-space: nowrap; }
+.chart-tooltip-key { display: inline-block; width: 14px; height: 0; border-top-width: 3px; border-top-style: solid; flex-shrink: 0; }
+.chart-tooltip-key.dashed { border-top-style: dashed; }
+.chart-tooltip-name { flex: 1; }
+.chart-tooltip-value { font-weight: bold; }
+
 .word-chip-list { display: flex; flex-wrap: wrap; gap: 0.3rem; }
 .word-chip {
   border: 1px solid var(--ink);
